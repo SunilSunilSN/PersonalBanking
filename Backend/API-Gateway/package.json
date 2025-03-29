@@ -1,0 +1,12 @@
+{
+  "name": "API-Gateway",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "http-proxy-middleware": "^3.0.3",
+    "yamljs": "^0.3.0"
+  }
+}

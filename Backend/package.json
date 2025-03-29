@@ -1,0 +1,27 @@
+{
+  "name": "Backend",
+  "private": true,
+  "workspaces": [
+    "AccountManagment",
+    "API-Gateway",
+    "UserManagment"
+  ],
+  "scripts": {
+    "start:acct_microservice": "npm run start --workspace=AccountManagment",
+    "start:API_microservice": "npm run start --workspace=API-Gateway",
+    "start:user_microservice": "npm run start --workspace=UserManagment",
+    "start:all": "concurrently -n \"AccountManagment,API-Gateway,UserManagment\" -c \"blue,green,magenta\" \"npm run start:acct_microservice\" \"npm run start:API_microservice\" \"npm run start:user_microservice\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.0"
+  }
+}

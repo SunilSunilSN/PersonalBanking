@@ -1,0 +1,16 @@
+http:
+  port: 3000  # API Gateway port
+
+apiEndpoints:
+  users:
+    path: /user_microservice  # Request to /users will be forwarded to user service
+    target: 'http://localhost:3001'  # Target URL for the user service
+  accounts:
+    path: /accounts_microservice  # Request to /accounts will be forwarded to account service
+    target: 'http://localhost:3002'  # Target URL for the account service
+
+serviceEndpoints:
+  userService:
+    url: 'http://localhost:3001'  # URL for the user service
+  accountService:
+    url: 'http://localhost:3002'  # URL for the account service
