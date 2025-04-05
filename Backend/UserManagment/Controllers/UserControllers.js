@@ -1,13 +1,11 @@
 const UserModel = require("../Models/UserModel");
 const jwt = require("jsonwebtoken");
-
-const SECRET_KEY = "your_secret_key"; // Replace with a strong secret
-
+require("../../SharedServices/Environments/loadEnvironment")();
 const generateToken = (user) => {
   return jwt.sign(
     { id: user._id, username: user.UserName, role: user.UserRole },
-    SECRET_KEY,
-    { expiresIn: "1m" } // Token expires in 1 hour
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRATION }
   );
 };
 const userLogin = async (req, res) => {
@@ -51,7 +49,7 @@ const getAllUser = async (req, res) => {
 
 const getDashboard = async (req, res) => {
   try {
-    return res.success("User Fetched Successfully", res, 200);
+    return res.success("User Fetched Successfully", "Sunil", 200);
   } catch (error) {
     return res.error("User Fetched Successfully", 500);
   }

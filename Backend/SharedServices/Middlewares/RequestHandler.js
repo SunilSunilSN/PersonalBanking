@@ -1,5 +1,8 @@
 const PUBLIC_ROUTES = ["/user/getAllUser3", "/user/createUser", "/user/userLogin"];
+const ADMIN_ROUTES = ["/user/getAllUser"];
 const jwt = require("jsonwebtoken");
+require("../Environments/loadEnvironment")();
+const RolesHandler = require("./RolesHandlers");
 const RequestHandler = (req, res, next) => {
   try {
     if (PUBLIC_ROUTES.includes(req.path)) {
@@ -13,13 +16,15 @@ const RequestHandler = (req, res, next) => {
         message: "Session expired. Please log in again.",
       });
     }
+    if (token.startsWith("Bearer ")) {
+      token = token.split(" ")[1];
+    }
     if (!token) {
       return res
         .status(403)
         .json({ success: false, message: "Unauthorized: Token Missing" });
     }
-    const SECRET_KEY = "your_secret_key";
-    jwt.verify(token, SECRET_KEY, (err, decode) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
       if (err) {
         if (err.name === "TokenExpiredError") {
           return res
@@ -31,12 +36,16 @@ const RequestHandler = (req, res, next) => {
         }
         return res
           .status(403)
-          .json({ success: false, message: "Unathorized: Invalid Toke" });
+          .json({ success: false, message: "Unathorized: Invalid Token" });
       }
 
       req.user = decode;
       req.sessionData = session;
-      next();
+      if(ADMIN_ROUTES.includes(req.path)){
+        return RolesHandler("Admin")(req, res, next);
+      } else {
+        return RolesHandler("User")(req, res, next);
+      }
     });
   } catch (error) {
     console.log("Error:,", error);
