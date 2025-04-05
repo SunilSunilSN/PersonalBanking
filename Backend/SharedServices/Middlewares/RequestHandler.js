@@ -1,4 +1,4 @@
-const PUBLIC_ROUTES = ["/user/getAllUser3", "/user/register", "/user/userLogin"];
+const PUBLIC_ROUTES = ["/user/getAllUser3", "/user/createUser", "/user/userLogin"];
 const jwt = require("jsonwebtoken");
 const RequestHandler = (req, res, next) => {
   try {

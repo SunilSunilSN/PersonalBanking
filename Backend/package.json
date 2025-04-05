@@ -7,13 +7,14 @@
     "UserManagment"
   ],
   "scripts": {
-    "start:acct_microservice": "npm run start --workspace=AccountManagment",
-    "start:API_microservice": "npm run start --workspace=API-Gateway",
-    "start:user_microservice": "npm run start --workspace=UserManagment",
+    "start:acct_microservice": "cross-env NODE_ENV=dev npm run start --workspace=AccountManagment",
+    "start:API_microservice": "cross-env NODE_ENV=dev npm run start --workspace=API-Gateway",
+    "start:user_microservice": "cross-env NODE_ENV=dev npm run start --workspace=UserManagment",
     "start:all": "concurrently -n \"AccountManagment,API-Gateway,UserManagment\" -c \"blue,green,magenta\" \"npm run start:acct_microservice\" \"npm run start:API_microservice\" \"npm run start:user_microservice\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "nodemon": "^3.1.9"
   },
   "dependencies": {

@@ -7,7 +7,7 @@ const generateToken = (user) => {
   return jwt.sign(
     { id: user._id, username: user.UserName, role: user.UserRole },
     SECRET_KEY,
-    { expiresIn: "1h" } // Token expires in 1 hour
+    { expiresIn: "1m" } // Token expires in 1 hour
   );
 };
 const userLogin = async (req, res) => {
