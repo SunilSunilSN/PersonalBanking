@@ -1,7 +1,6 @@
-const PUBLIC_ROUTES = ["/user/getAllUser3", "/user/createUser", "/user/userLogin"];
-const ADMIN_ROUTES = ["/user/getAllUser"];
+const PUBLIC_ROUTES = ["/user/getAllUser", , "/user/userLogin"];
+const ADMIN_ROUTES = ["/user/createUser"];
 const jwt = require("jsonwebtoken");
-require("../Environments/loadEnvironment")();
 const RolesHandler = require("./RolesHandlers");
 const RequestHandler = (req, res, next) => {
   try {
@@ -19,6 +18,7 @@ const RequestHandler = (req, res, next) => {
     if (token.startsWith("Bearer ")) {
       token = token.split(" ")[1];
     }
+    
     if (!token) {
       return res
         .status(403)
@@ -44,7 +44,7 @@ const RequestHandler = (req, res, next) => {
       if(ADMIN_ROUTES.includes(req.path)){
         return RolesHandler("Admin")(req, res, next);
       } else {
-        return RolesHandler("User")(req, res, next);
+        return RolesHandler("USER")(req, res, next);
       }
     });
   } catch (error) {

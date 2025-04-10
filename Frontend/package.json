@@ -1,8 +1,10 @@
 {
-    "name": "Frontend",
-    "version": "1.0.0",
-    "scripts": {
-      "start": "react-scripts start"
-    }
-  }
-  
+  "name": "persona-banking-frontend",
+  "private": true,
+  "workspaces": [
+    "Applications/*"
+  ],
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}

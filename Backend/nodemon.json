@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "UserManagment/**",
+    "SharedServices/**"
+  ],
+  "ext": "js,json",
+  "ignore": ["node_modules"],
+  "verbose": true,
+  "signal": "SIGTERM",
+  "delay": "500ms"
+}

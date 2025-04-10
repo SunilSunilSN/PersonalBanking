@@ -7,6 +7,7 @@ const UserRoutes = require("./Routes/UserRoutes");
 const ResponseHandler = require("../SharedServices/Middlewares/ResponseHandler");
 const RequestHandler = require("../SharedServices/Middlewares/RequestHandler");
 const ErrorHandler = require("../SharedServices/Middlewares/ErrorHandler");
+console.log(`✅ Connected to MongoDB`);
 require("../SharedServices/Environments/loadEnvironment")();
 mongoose
   .connect(process.env.DB_URI, {})
