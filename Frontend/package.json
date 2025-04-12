@@ -1,10 +1,35 @@
 {
   "name": "persona-banking-frontend",
   "private": true,
-  "workspaces": [
-    "Applications/*"
-  ],
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": [
+    "Applications/base-application",
+    "Applications/MicroApplications/*"
+  ],
+  "scripts": {
+    "start:all": "concurrently --kill-others --prefix \"[{name}]\" --prefix-colors \"bgBlue.bold,bgRed.bold,bgGreen.bold\" -n \"BASE,LOGIN,PRELOGIN\" \"yarn workspace base-application start\" \"yarn workspace login-microapp start\" \"yarn workspace preLogin-microapp start\"",
+    "start:dev": "cross-env ENV_FILE=dev yarn start:all",
+    "start:sit": "cross-env ENV_FILE=sit yarn start:all",
+    "build:all": "yarn workspace base-application build && yarn workspace login-microapp build && yarn workspace preLogin-microapp build",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@craco/craco": "^7.1.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
+    "dotenv-cli": "^8.0.0",
+    "env-cmd": "^10.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.5.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  }
 }

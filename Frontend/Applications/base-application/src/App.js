@@ -1,18 +1,31 @@
-import React from "react";
-import { DynamicAppLoad } from "./Common/DynamicAppLoad"; // Adjust path as per your setup
+import React, { Suspense } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import config from "../src/Configuration/MicroAppConfig.json";
+import MicroFrontendWrapper from "../src/Common/MicroFrontendWrapper";
 
 function App() {
-  const loginConfig = {
-    url: "http://localhost:3000/remoteEntry.js",
-    scope: "login_app",
-    module: "./LoginPage",
-  };
-
   return (
-    <div>
-      <h1>Base Application</h1>
-      <DynamicAppLoad config={loginConfig} />
-    </div>
+    <Router>
+      <Routes>
+        {Object.entries(config).map(([key, { route, remoteUrl, scope, module }]) => (
+          <Route
+            key={key}
+            path={route}
+            element={
+              <Suspense fallback={<div>Loading {key}...</div>}>
+                <MicroFrontendWrapper
+                  remoteUrl={remoteUrl}
+                  scope={scope}
+                  module={module}
+                />
+              </Suspense>
+            }
+          />
+        ))}
+        <Route path="/prelogin" element={<Navigate to="/login" />} />
+        <Route path="*" element={<div>404 - Not Found</div>} />
+      </Routes>
+    </Router>
   );
 }
 

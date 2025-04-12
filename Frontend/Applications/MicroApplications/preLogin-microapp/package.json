@@ -1,9 +1,11 @@
+
 {
-  "name": "base-application",
+  "name": "preLogin-microapp",
   "version": "0.1.0",
   "private": true,
+  
   "scripts": {
-    "start": "cross-env APP=base node ../../SharedServices/Environments/EnvironmentLoader.js",
+    "start": "cross-env APP=preLogin node ../../../SharedServices/Environments/EnvironmentLoader.js",
     "build": "craco build",
     "test": "craco test"
   },

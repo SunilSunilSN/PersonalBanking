@@ -1,0 +1,3 @@
+/*! For license information please see 298.52ec8c5d.chunk.js.LICENSE.txt */
+"use strict";(self.webpackChunklogin_app=self.webpackChunklogin_app||[]).push([[298],{277:(e,r,n)=>{e.exports=n(357)},298:(e,r,n)=>{n.r(r),n.d(r,{default:()=>i});n(63);var o=n(277);const i=()=>(0,o.jsx)("div",{children:(0,o.jsx)("h2",{children:"Login Page  1212"})})},357:(e,r)=>{var n=Symbol.for("react.transitional.element");function o(e,r,o){var i=null;if(void 0!==o&&(i=""+o),void 0!==r.key&&(i=""+r.key),"key"in r)for(var l in o={},r)"key"!==l&&(o[l]=r[l]);else o=r;return r=o.ref,{$$typeof:n,type:e,key:i,ref:void 0!==r?r:null,props:o}}Symbol.for("react.fragment"),r.jsx=o}}]);
+//# sourceMappingURL=298.52ec8c5d.chunk.js.map

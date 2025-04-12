@@ -1,13 +1,14 @@
 {
-    "login_app": {
-      "url": "http://localhost:3000/remoteEntry.js",
-      "scope": "login_app",
-      "module": "./LoginPage"
-    },
-    "settings_app": {
-      "url": "http://localhost:3002/remoteEntry.js",
-      "scope": "settings_app",
-      "module": "./SettingsPage"
-    }
+  "login": {
+    "route": "/login",
+    "remoteUrl": "http://localhost:3000/login-app/remoteEntry.js",
+    "scope": "login_app",
+    "module": "./LoginPage"
+  },
+  "prelogin": {
+    "route": "/prelogin",
+    "remoteUrl": "http://localhost:3000/preLogin-app/remoteEntry.js",
+    "scope": "preLogin_app",
+    "module": "./PreLoginPage"
   }
-  
+}
