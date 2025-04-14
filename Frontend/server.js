@@ -10,7 +10,7 @@ app.use('/', express.static(path.join(__dirname, 'Applications/base-application/
 
 // Serve microapps under their paths
 app.use('/login-app', express.static(path.join(__dirname, 'Applications/MicroApplications/login-microapp/build')));
-app.use('/preLogin_app', express.static(path.join(__dirname, 'Applications/MicroApplications/preLogin-microapp/build')));
+app.use('/preLogin-app', express.static(path.join(__dirname, 'Applications/MicroApplications/preLogin-microapp/build')));
 
 // Fallback to base app for client-side routing
 app.get('*', (req, res) => {

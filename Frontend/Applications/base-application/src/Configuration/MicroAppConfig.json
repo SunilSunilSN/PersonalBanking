@@ -3,12 +3,6 @@
     "route": "/login",
     "remoteUrl": "http://localhost:3000/login-app/remoteEntry.js",
     "scope": "login_app",
-    "module": "./LoginPage"
-  },
-  "prelogin": {
-    "route": "/prelogin",
-    "remoteUrl": "http://localhost:3000/preLogin-app/remoteEntry.js",
-    "scope": "preLogin_app",
-    "module": "./PreLoginPage"
+    "module": "./MicroAppMapper"
   }
 }

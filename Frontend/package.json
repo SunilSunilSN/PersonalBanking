@@ -13,7 +13,8 @@
     "start:dev": "cross-env ENV_FILE=dev yarn start:all",
     "start:sit": "cross-env ENV_FILE=sit yarn start:all",
     "build:all": "yarn workspace base-application build && yarn workspace login-microapp build && yarn workspace preLogin-microapp build",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build:base": "yarn workspace base-application build"
   },
   "dependencies": {
     "@craco/craco": "^7.1.0",

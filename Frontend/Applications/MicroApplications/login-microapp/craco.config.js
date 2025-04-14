@@ -13,7 +13,9 @@ module.exports = {
           name: "login_app",
           filename: "remoteEntry.js",
           exposes: {
-            "./LoginPage": "./src/LoginPage", // adjust if needed
+            "./LoginPage": "./src/LoginPage",
+            "./RegistrationPage": "./src/RegistrationPage",
+            "./MicroAppMapper": "./src/Common/MicroAppMapper"
           },
           shared: {
             react: { singleton: true, eager: true },
