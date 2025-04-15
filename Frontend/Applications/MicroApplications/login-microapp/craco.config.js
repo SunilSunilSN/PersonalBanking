@@ -26,4 +26,12 @@ module.exports = {
       return config;
     },
   },
+  style: {
+    postcss: {
+      plugins: [
+        require('tailwindcss'),
+        require('autoprefixer'),
+      ],
+    },
+  },
 };

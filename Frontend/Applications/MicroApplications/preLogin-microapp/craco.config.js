@@ -13,7 +13,8 @@ module.exports = {
           name: "preLogin_app",
           filename: "remoteEntry.js",
           exposes: {
-            "./PreLoginPage": "./src/PreLoginPage", // adjust if needed
+            "./PreLoginPage": "./src/PreLoginPage",
+            "./MicroAppMapper": "./src/Common/MicroAppMapper"
           },
           shared: {
             react: { singleton: true, eager: true },
@@ -22,6 +23,14 @@ module.exports = {
         })
       );
       return config;
+    },
+  },
+  style: {
+    postcss: {
+      plugins: [
+        require('tailwindcss'),
+        require('autoprefixer'),
+      ],
     },
   },
 };

@@ -1,66 +1,38 @@
-import React, { Suspense } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import config from "./Configuration/MicroAppConfig.json";
-import MicroFrontendWrapper from "./Common/MicroFrontendWrapper";
-import { launchMicroApp } from "./Common/MicroAppLauncher";
+import React from "react";
+import BaseScreen from "./Screens/BaseScreen";
+import './Styles/index.css';
+// import {
+//   BrowserRouter as Router,
+//   Routes,
+//   Route,
+//   useLocation,
+// } from "react-router-dom";
+// import config from "./Configuration/MicroAppConfig.json";
+// import MicroFrontendWrapper from "./Common/MicroFrontendWrapper";
 
-const DynamicRoute = ({ appId }) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const screen = searchParams.get("screen") || "";
-  const { remoteUrl, scope, module } = config[appId];
+// const DynamicRoute = ({ appId }) => {
+//   const location = useLocation();
+//   const searchParams = new URLSearchParams(location.search);
+//   const screen = searchParams.get("screen") || "";
+//   const { remoteUrl, scope, module } = config[appId];
 
-  return (
-    <Suspense fallback={<div>Loading {appId}...</div>}>
-      <MicroFrontendWrapper
-        remoteUrl={remoteUrl}
-        scope={scope}
-        module={module}
-        screen={screen}
-      />
-    </Suspense>
-  );
-};
+//   return (
+//     <Suspense fallback={<div>Loading {appId}...</div>}>
+//       <MicroFrontendWrapper
+//         remoteUrl={remoteUrl}
+//         scope={scope}
+//         module={module}
+//         screen={screen}
+//       />
+//     </Suspense>
+//   );
+// };
 
 function App() {
   return (
     <div>
-      <h2>Micro App Launcher</h2>
-      <button
-        onClick={() =>
-          launchMicroApp("login", "LoginPage", "microAppRoot", {
-            userId: "123",
-            theme: "dark",
-          })
-        }
-      >
-        Launch Login Page
-      </button>
-      <button
-        onClick={() =>
-          launchMicroApp("login", "RegistrationPage", "microAppRoot2")
-        }
-      >
-        Launch Registration Page
-      </button>
-
-      <div
-        id="microAppRoot"
-        style={{ marginTop: "2rem", border: "1px solid #ccc", padding: "1rem" }}
-      >
-        {/* MicroApp will mount here */}
-      </div>
-      <div
-        id="microAppRoot2"
-        style={{ marginTop: "2rem", border: "1px solid #ccc", padding: "1rem" }}
-      >
-        {/* MicroApp will mount here */}
-      </div>
+      <h2>Base Application</h2>
+      <BaseScreen />
     </div>
   );
 }

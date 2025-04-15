@@ -1,8 +1,14 @@
 {
   "login": {
     "route": "/login",
-    "remoteUrl": "http://localhost:3000/login-app/remoteEntry.js",
+    "remoteUrl": "http://localhost:3001/remoteEntry.js",
     "scope": "login_app",
+    "module": "./MicroAppMapper"
+  },
+  "pre-login": {
+    "route": "/pre-login",
+    "remoteUrl": "http://localhost:3002/remoteEntry.js",
+    "scope": "preLogin_app",
     "module": "./MicroAppMapper"
   }
 }
