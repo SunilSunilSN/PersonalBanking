@@ -1,4 +1,4 @@
-const PUBLIC_ROUTES = ["/user/getAllUser", , "/user/userLogin"];
+const PUBLIC_ROUTES = ["/user/getAllUser", , "/user/userLogin", "/user/getCommonData"];
 const ADMIN_ROUTES = ["/user/createUser"];
 const jwt = require("jsonwebtoken");
 const RolesHandler = require("./RolesHandlers");
@@ -15,7 +15,7 @@ const RequestHandler = (req, res, next) => {
         message: "Session expired. Please log in again.",
       });
     }
-    if (token.startsWith("Bearer ")) {
+    if (token && token.startsWith("Bearer ")) {
       token = token.split(" ")[1];
     }
     

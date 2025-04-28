@@ -26,7 +26,7 @@ function BaseScreen() {
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
             onClick={() =>
-              launchMicroApp("login", "RegistrationPage", "microAppRoot2")
+              launchMicroApp("login", "RegistrationPage", "microAppRoot2", {userId:"1", therme: "sUNIL"})
             }
           >
             Go to Login
@@ -35,7 +35,7 @@ function BaseScreen() {
           <button
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
             onClick={() =>
-              launchMicroApp("login", "LoginPage", "microAppRoot2")
+              launchMicroApp("login", "LoginPage", "microAppRoot2", {userId:"1", theme: "sUNIL"})
             }
           >
             Go to Registration

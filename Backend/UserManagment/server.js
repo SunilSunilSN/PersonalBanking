@@ -7,13 +7,14 @@ const UserRoutes = require("./Routes/UserRoutes");
 const ResponseHandler = require("../SharedServices/Middlewares/ResponseHandler");
 const RequestHandler = require("../SharedServices/Middlewares/RequestHandler");
 const ErrorHandler = require("../SharedServices/Middlewares/ErrorHandler");
+const connectDB = require("../SharedServices/Middlewares/DataBaseConnection");
 console.log(`✅ Connected to MongoDB`);
 require("../SharedServices/Environments/loadEnvironment")();
-mongoose
-  .connect(process.env.DB_URI, {})
-  .then(() => console.log(`✅ Connected to MongoDB: ${process.env.DB_NAME}`))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
-
+// mongoose
+//   .connect(process.env.DB_URI, {})
+//   .then(() => console.log(`✅ Connected to MongoDB: ${process.env.DB_NAME}`))
+//   .catch((err) => console.error("❌ MongoDB connection error:", err));
+connectDB();
 app.use(express.json());
 app.use(cookieParser());
 const maxAge = new Date(Date.now() + 30 * 60 * 1000)
