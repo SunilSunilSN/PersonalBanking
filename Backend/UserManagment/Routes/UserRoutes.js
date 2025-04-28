@@ -8,5 +8,5 @@ router.get("/getAllUser", getAllUser);
 router.post("/userLogin", userLogin);
 router.get("/getDashboard", getDashboard);
 router.get("/logout", userLogout);
-router.get("/getCommonData", getCommonData);
+router.post("/getCommonData", getCommonData);
 module.exports = router;

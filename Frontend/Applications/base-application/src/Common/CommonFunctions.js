@@ -4,7 +4,12 @@ import MicroFrontendWrapper from "./MicroFrontendWrapper";
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-export const launchMicroApp = (appId, screenId, targetElementId, extraParams = {}) => {
+export const launchMicroApp = (
+  appId,
+  screenId,
+  targetElementId,
+  extraParams = {}
+) => {
   const app = config[appId];
   if (!app) {
     console.error(`❌ No microapp found with appId: ${appId}`);
@@ -30,4 +35,27 @@ export const launchMicroApp = (appId, screenId, targetElementId, extraParams = {
     </React.StrictMode>
   );
 };
+const getCommonData = async () => {
+  try {
+    const url = `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USERMANGMENT_MICROSERICE}/user/getCommonData`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Key: ["Sunil", "Sunil"],
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok" + response.statusText);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("❌ Error in getCommonData:", error);
+    throw error;
+  }
+};
 window.launchMicroApp = launchMicroApp;
+window.getCommonData = getCommonData;

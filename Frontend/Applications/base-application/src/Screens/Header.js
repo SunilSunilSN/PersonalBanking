@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Header = () => {
+  window.sunil = window.getCommonData();
   return (
     <header style={styles.header}>
       <h1 style={styles.title}>My Personal Banking Application</h1>

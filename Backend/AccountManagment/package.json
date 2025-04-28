@@ -2,7 +2,7 @@
     "name": "AccountManagment",
     "version": "1.0.0",
     "scripts": {
-        "start": "nodemon server.js"
+        "start": "nodemon --config ../nodemon.json server.js"
     },
     "dependencies": {
         "express": "^4.21.2"

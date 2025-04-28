@@ -1,7 +1,8 @@
 {
   "watch": [
     "UserManagment/**",
-    "SharedServices/**"
+    "SharedServices/**",
+    "AccountManagment/**"
   ],
   "ext": "js,json",
   "ignore": ["node_modules"],

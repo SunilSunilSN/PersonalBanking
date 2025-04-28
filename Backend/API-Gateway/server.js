@@ -2,6 +2,9 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 require("../SharedServices/Environments/loadEnvironment")();
+const cors = require('cors');
+
+app.use(cors());
 
 app.use(process.env.USER_MICROSERVICE_PATH, createProxyMiddleware({
   target: `http://${process.env.BASE_HOST}:${process.env.USER_MICROSERVICE_PORT}`,
