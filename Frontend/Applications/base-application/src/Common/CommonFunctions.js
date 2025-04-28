@@ -35,7 +35,7 @@ export const launchMicroApp = (
     </React.StrictMode>
   );
 };
-const getCommonData = async () => {
+const getCommonData = async (AllKeys) => {
   try {
     const url = `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USERMANGMENT_MICROSERICE}/user/getCommonData`;
     const response = await fetch(url, {
@@ -44,18 +44,29 @@ const getCommonData = async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        Key: ["Sunil", "Sunil"],
+        Key: AllKeys,
       }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok" + response.statusText);
     }
     const data = await response.json();
-    return data;
+    return data.data;
   } catch (error) {
     console.error("❌ Error in getCommonData:", error);
     throw error;
   }
 };
+const getDeviceType = () => {
+  const userAgent = navigator.userAgent.toLowerCase();
+  if (userAgent.includes("mobile")) {
+    return "Mobile";
+  } else if (userAgent.includes("tablet")) {
+    return "Tablet";
+  } else {
+    return "Web";
+  }
+};
 window.launchMicroApp = launchMicroApp;
 window.getCommonData = getCommonData;
+window.getDeviceType = getDeviceType;
