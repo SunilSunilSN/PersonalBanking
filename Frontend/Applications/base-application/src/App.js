@@ -32,6 +32,8 @@ function App() {
   return (
     <div>
       <h2>Base Application</h2>
+
+
       <BaseScreen />
     </div>
   );
