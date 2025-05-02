@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
 const LoginPage = ({ userId, theme }) => {
   const [formData, setFormData] = useState({
@@ -14,65 +14,60 @@ const LoginPage = ({ userId, theme }) => {
     // ✅ Add your login logic here (API call or validation)
   };
   return (
-<div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Sign In to Your Account
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              UserId
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 px-3 py-2"
-            />
+    <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+      <div class="relative py-3 sm:max-w-xl sm:mx-auto">
+        <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+        <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+          <div class="max-w-md mx-auto">
+            <div>
+              <h1 class="text-2xl font-semibold">Login</h1>
+            </div>
+            <div class="divide-y divide-gray-200">
+              <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                <div class="relative">
+                  <input
+                    autocomplete="off"
+                    id="email"
+                    name="email"
+                    type="text"
+                    class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                    placeholder="Email address"
+                  />
+                  <label
+                    for="email"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Email Address
+                  </label>
+                </div>
+                <div class="relative">
+                  <input
+                    autocomplete="off"
+                    id="password"
+                    name="password"
+                    type="password"
+                    class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                    placeholder="Password"
+                  />
+                  <label
+                    for="password"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Password
+                  </label>
+                </div>
+                <div class="relative">
+                  <button class="bg-cyan-500 text-white rounded-md px-2 py-1">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-
-          {/* Password */}
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              value={formData.password}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 px-3 py-2"
-            />
-          </div>
-
-          {/* Submit */}
-          <div>
-            <button
-              type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition"
-            >
-              Sign In
-            </button>
-          </div>
-        </form>
-
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Don’t have an account?{" "}
-          <a href="#" className="text-blue-500 hover:underline">
-            Sign up
-          </a>
-        </p>
+        </div>
       </div>
     </div>
-      );
+  );
 };
-
 
 export default LoginPage;

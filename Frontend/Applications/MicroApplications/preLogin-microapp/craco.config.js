@@ -24,13 +24,5 @@ module.exports = {
       );
       return config;
     },
-  },
-  style: {
-    postcssOptions: {
-      plugins: [
-        require('tailwindcss'),
-        require('autoprefixer'),
-      ],
-    },
-  },
+  }
 };
