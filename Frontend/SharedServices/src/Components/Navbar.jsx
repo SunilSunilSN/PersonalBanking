@@ -1,3 +1,4 @@
+import React from "react";
 export function Navbar({ children }) {
   return <nav className="flex items-center gap-4 bg-white p-5 shadow">{children}</nav>;
 }

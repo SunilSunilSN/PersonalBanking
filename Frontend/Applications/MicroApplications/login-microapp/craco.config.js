@@ -15,7 +15,7 @@ module.exports = {
           exposes: {
             "./LoginPage": "./src/LoginPage",
             "./RegistrationPage": "./src/RegistrationPage",
-            "./MicroAppMapper": "./src/Common/MicroAppMapper"
+            "./MicroAppMapper": "./src/Common/MicroAppMapper",
           },
           shared: {
             react: { singleton: true, eager: true },
@@ -23,9 +23,19 @@ module.exports = {
           },
         })
       );
+      config.module.rules.push({
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
+        },
+      });
       return config;
     },
-  }
+  },
   // style: {
   //   postcssOptions: {
   //     plugins: [

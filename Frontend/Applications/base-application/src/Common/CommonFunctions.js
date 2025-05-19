@@ -3,6 +3,7 @@ import config from "../Configuration/MicroAppConfig.json";
 import MicroFrontendWrapper from "./MicroFrontendWrapper";
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { ErrorMessageConfig } from "shared-services";
 
 export const launchMicroApp = (
   appId,
@@ -67,6 +68,42 @@ const getDeviceType = () => {
     return "Web";
   }
 };
+const errorDisplay = (setErrors, e, fieldName) => {
+  let error = false;
+  let value;
+  let type;
+  if (e?.current) {
+    value = e.current.value;
+    type = e.current.dataset.type;
+  } else {
+    value = e.currentTarget.value;
+    type = e.currentTarget.dataset.type;
+  }
+  const errorNode = ErrorMessageConfig[type];
+  if (!errorNode) return false;
+  const regex = new RegExp(errorNode.Regex);
+  const isEmpty = value.trim().length === 0;
+  const isValid = regex.test(value);
+  if (isEmpty) {
+    setErrors((prev) => ({
+      ...prev,
+      [fieldName]: errorNode.NullMessage || "This field is required",
+    }));
+    return true; 
+  }
+  if (!isValid) {
+    setErrors((prev) => ({
+      ...prev,
+      [fieldName]: errorNode.ErrorMessage,
+    }));
+    return true;
+  }
+  setErrors((prev) => ({
+    ...prev,
+    [fieldName]: "",
+  }));
+};
 window.launchMicroApp = launchMicroApp;
 window.getCommonData = getCommonData;
 window.getDeviceType = getDeviceType;
+window.errorDisplay = errorDisplay;
