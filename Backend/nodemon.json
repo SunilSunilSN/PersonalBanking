@@ -8,5 +8,5 @@
   "ignore": ["node_modules"],
   "verbose": true,
   "signal": "SIGTERM",
-  "delay": "500ms"
+  "delay": "1000ms"
 }

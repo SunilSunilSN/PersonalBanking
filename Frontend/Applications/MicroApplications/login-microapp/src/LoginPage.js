@@ -10,8 +10,11 @@ import {
 import { Field, Label, Input, ErrorMessage, Button } from "shared-services";
 import { PlusIcon } from "@heroicons/react/16/solid";
 const LoginPage = ({ userId, theme }) => {
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const Refs = {
+    emailRef: { ref: useRef(null), field: "email" },
+    passwordRef: { ref: useRef(null), field: "password" },
+  };
+
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     email: "",
@@ -19,10 +22,7 @@ const LoginPage = ({ userId, theme }) => {
   });
 
   const LoginSubmit = (e) => {
-    if (
-      !window.errorDisplay(setErrors, emailRef, "email") &&
-      !window.errorDisplay(setErrors, passwordRef, "password")
-    ) {
+    if (window.errorDisplayAll(Refs, setErrors)) {
       console.log("submit");
     }
   };
@@ -33,24 +33,26 @@ const LoginPage = ({ userId, theme }) => {
     <Field>
       <Label>Email</Label>
       <Input
-        ref={emailRef}
+        ref={Refs.emailRef.ref}
         id="LoginPage_email"
         type="email"
-        data-type="loginEmail"
+        data-type="email"
         placeholder="Please type here&hellip;"
         onChange={(e) => window.errorDisplay(setErrors, e, "email")}
+        onClick={(e) => window.errorOnClick(setErrors,e, "email")}
         name="email"
       />
       {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
       <Label>Password</Label>
       <Input
-        ref={passwordRef}
+        ref={Refs.passwordRef.ref}
         id="LoginPage_password"
         type="password"
         data-type="loginPassword"
         placeholder="Please type here&hellip;"
         name="password"
         onChange={(e) => window.errorDisplay(setErrors, e, "password")}
+        onClick={(e) => window.errorOnClick(setErrors,e, "password")}
       />
       {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
       <div className="flex gap-2 mt-[5%]">

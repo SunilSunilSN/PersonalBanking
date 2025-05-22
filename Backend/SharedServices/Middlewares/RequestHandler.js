@@ -1,5 +1,6 @@
-const PUBLIC_ROUTES = ["/user/getAllUser", , "/user/userLogin", "/user/getCommonData"];
-const ADMIN_ROUTES = ["/user/createUser"];
+const PUBLIC_ROUTES = ["/user/getAllUser", , "/user/userLogin", "/user/getCommonData", "/user/createUser"];
+//const ADMIN_ROUTES = ["/user/createUser"];
+const ADMIN_ROUTES = [];
 const jwt = require("jsonwebtoken");
 const RolesHandler = require("./RolesHandlers");
 const RequestHandler = (req, res, next) => {

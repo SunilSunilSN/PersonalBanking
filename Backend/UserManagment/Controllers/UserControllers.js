@@ -25,13 +25,13 @@ const userLogin = async (req, res) => {
 };
 const createUser = async (req, res) => {
   try {
-    //const { UserName, Password, UserRole } = req.body;
+    const { UserName, Password, UserRole } = req.body;
     if (!UserName || !Password || !UserRole) {
       return res.error("Missing required fields", 400);
     }
     const user = await UserModel.findOne({ UserName });
     if(user){
-      return res.error("User With UserName:" + {UserName} + "Already Exists!", 500)
+      return res.error(`User With UserName: ${UserName} Already Exists!`, 400)
     }
     const newUser = await UserModel.create({ UserName, Password, UserRole });
     return res.success("User Created Succesfully", newUser, 201);

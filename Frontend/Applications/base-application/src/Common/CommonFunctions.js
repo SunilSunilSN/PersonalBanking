@@ -4,13 +4,9 @@ import MicroFrontendWrapper from "./MicroFrontendWrapper";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { ErrorMessageConfig } from "shared-services";
+import { APIConfig } from "../Configuration/APIConfig";
 
-export const launchMicroApp = (
-  appId,
-  screenId,
-  targetElementId,
-  extraParams = {}
-) => {
+const launchMicroApp = (appId, screenId, targetElementId, extraParams = {}) => {
   const app = config[appId];
   if (!app) {
     console.error(`❌ No microapp found with appId: ${appId}`);
@@ -89,7 +85,7 @@ const errorDisplay = (setErrors, e, fieldName) => {
       ...prev,
       [fieldName]: errorNode.NullMessage || "This field is required",
     }));
-    return true; 
+    return true;
   }
   if (!isValid) {
     setErrors((prev) => ({
@@ -103,7 +99,75 @@ const errorDisplay = (setErrors, e, fieldName) => {
     [fieldName]: "",
   }));
 };
+const errorDisplayAll = (refsObj, setErrors) => {
+  let hasError = false;
+  Object.entries(refsObj).forEach(([key, ref]) => {
+    if (ref.ref.current) {
+      const type = ref.ref.current.dataset.type;
+      const value = ref.ref.current.value.trim();
+      const config = ErrorMessageConfig[type];
+      if (config) {
+        const regex = new RegExp(config.Regex);
+        if (!value) {
+          setErrors((prev) => ({
+            ...prev,
+            [ref.field]: config.NullMessage,
+          }));
+          hasError = true;
+        } else if (!regex.test(value)) {
+          setErrors((prev) => ({
+            ...prev,
+            [ref.field]: config.ErrorMessage,
+          }));
+          hasError = true;
+        } else {
+          setErrors((prev) => ({
+            ...prev,
+            [ref.field]: "",
+          }));
+        }
+      }
+    }
+  });
+  return hasError;
+};
+const errorOnClick = (setErrors, e, fieldName) => {
+  let value;
+  let type;
+  if (e?.current) {
+    value = e.current.value;
+    type = e.current.dataset.type;
+  } else {
+    value = e.currentTarget.value;
+    type = e.currentTarget.dataset.type;
+  }
+  setErrors((prev) => ({
+    ...prev,
+    [fieldName]: "",
+  }));
+};
+const ServerCall = async (ApiName, body) => {
+    const APIDetails = APIConfig[ApiName];
+    if (!APIDetails) throw new Error(`API config for ${ApiName} not found`);
+    const options = {
+      method: APIDetails.method,
+      headers: APIDetails.headers,
+    };
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+    
+    const baseUrl = process.env.REACT_APP_BACKEND_URL || "";
+    const service = process.env[APIDetails.service] || "";
+    const url = `${baseUrl}${service}${APIDetails.enpointurl}`;
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+};
 window.launchMicroApp = launchMicroApp;
 window.getCommonData = getCommonData;
 window.getDeviceType = getDeviceType;
 window.errorDisplay = errorDisplay;
+window.errorDisplayAll = errorDisplayAll;
+window.errorOnClick = errorOnClick;
+window.ServerCall = ServerCall;
