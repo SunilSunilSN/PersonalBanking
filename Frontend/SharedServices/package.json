@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.27.2",
-    "@babel/preset-react": "^7.27.1"
+    "@babel/preset-react": "^7.27.1",
+    "@headlessui/react": "^2.2.4"
   }
 }

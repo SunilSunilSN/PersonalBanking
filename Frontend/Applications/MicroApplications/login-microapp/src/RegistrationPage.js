@@ -1,19 +1,33 @@
 import React, { useRef, useState } from "react";
-import { Field, Label, Input, ErrorMessage, Button } from "shared-services";
-
+import {
+  Field,
+  Label,
+  Input,
+  ErrorMessage,
+  Button
+} from "shared-services";
+const AlertMsg = window.AlertMsg;
 const RegistrationPage = () => {
   const Refs = {
     userNameRefId: { ref: useRef(null), field: "userName" },
     EmailRefId: { ref: useRef(null), field: "email" },
     MobileRefId: { ref: useRef(null), field: "mobNo" },
   };
+  let [isOpen, setIsOpen] = useState(false);
+  const [errors, setErrors] = useState({});
   const RegisterUser = async (req) => {
     const data = await window.ServerCall("createUserAPI", req);
-    if(data.success){
-      
+    console.log(data);
+    if (data.success) {
+      setIsOpen(true);
     }
   };
-  const [errors, setErrors] = useState({});
+  const OnRegistraionConfirm = () => {
+    console.log("Success");
+  }
+  const OnRegistraionCancel = () => {
+    console.log("fail");
+  }
   const RegistrationCont = (e) => {
     if (!window.errorDisplayAll(Refs, setErrors)) {
       const req = {
@@ -25,7 +39,10 @@ const RegistrationPage = () => {
         Password: "Sunil@123",
         UserRole: "USER",
       };
-      RegisterUser(req)
+      //RegisterUser(req);
+      
+    } else {
+      setIsOpen(true);
     }
   };
   const RegistrationCancel = (e) => {
@@ -83,6 +100,14 @@ const RegistrationPage = () => {
         >
           Continue
         </Button>
+        <AlertMsg
+          BtnTitle="Refund payment"
+          AlertTitle="Are you sure you want to refund this payment?"
+          AlertDesc="The refund will be reflected in the customer’s bank account 2 to 3 business days after processing."
+          Btns={[{ Name: "Close", function: OnRegistraionCancel}, { Name: "Continue", function: OnRegistraionConfirm  }]}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
       </div>
     </Field>
   );
