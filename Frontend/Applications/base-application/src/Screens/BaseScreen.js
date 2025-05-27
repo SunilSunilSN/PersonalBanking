@@ -1,25 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback,useRef } from "react";
 import { launchMicroApp } from "../Common/CommonFunctions";
 import Header from "../Screens/Header";
-import Sidebar from "../Screens/Sidebar";
 import "../Styles/index.css";
+import SidebarComp from "../Screens/Sidebar";
+import { Popover } from "shared-services";
+const AlertMsg = window.AlertMsg;
+
 function BaseScreen() {
+  const [showHeader, setShowHeader] = useState(true);
+  const [showSideBar, setShowSideBar] = useState(false);
+  const btnRef = useRef();
+  const { PopoverUI, showPopover } = Popover();
+  const [alertData, setAlertData] = useState({
+    AlertType: "",
+    AlertDesc: "",
+    Btns: [],
+    isOpen: false,
+  });
+  const showAlert = useCallback(({ AlertType, AlertDesc, Btns }) => {
+    setAlertData({
+      AlertDesc,
+      AlertType,
+      Btns,
+      isOpen: true,
+    });
+  }, []);
   useEffect(() => {
+    window.showAlert = showAlert;
+    window.setShowHeader = setShowHeader;
+    window.setShowSideBar = setShowSideBar;
+    window.showPopover = showPopover;
     console.log("BaseScreen script loaded and function executed!");
-    window.launchMicroApp("login", "LoginPage", "LoginId");
+    window.launchMicroApp("login", "LoginPage", "BaseScreenID");
   }, []);
   return (
     <div>
       {/* Header stays up top */}
-      <div id="BaseHeaderElm">
-        <Header />
-      </div>
-      <div id="BaseScreenID ">
-        <div
-          id="LoginId"
-          className="flex justify-center border mr-[20%] mb-[0%] mt-[5%] ml-[60%] rounded-md shadow py-10"
-        ></div>
-      </div>
+      <div id="BaseHeaderElm">{showHeader === true && <Header />}</div>
+      <div id="SideBarEmlId">{showSideBar == true && <SidebarComp />}</div>
+      <div id="BaseScreenID"></div>
+      <AlertMsg
+        AlertType={alertData.AlertType}
+        AlertDesc={alertData.AlertDesc}
+        Btns={alertData.Btns}
+        isOpen={alertData.isOpen}
+        setIsOpen={(val) => setAlertData((prev) => ({ ...prev, isOpen: val }))}
+      />
+      <PopoverUI/>
     </div>
   );
 }

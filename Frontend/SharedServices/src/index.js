@@ -9,3 +9,4 @@ export * from './Components/Input';
 export * from './Components/Button';
 export * from './ConfigData/ErrorMessageConfig';
 export * from './Components/Alert';
+export * from './Components/Popover';

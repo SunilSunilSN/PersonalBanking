@@ -5,6 +5,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { ErrorMessageConfig } from "shared-services";
 import { APIConfig } from "../Configuration/APIConfig";
+import { AlertCircle, CheckCircle2, Info, TriangleAlert } from "lucide-react";
 import {
   Button,
   Alert,
@@ -152,7 +153,9 @@ const ServerCall = async (ApiName, body) => {
   if (body) {
     options.body = JSON.stringify(body);
   }
-
+  if(APIDetails.credentials){
+    options.credentials = "include"
+  }
   const baseUrl = process.env.REACT_APP_BACKEND_URL || "";
   const service = process.env[APIDetails.service] || "";
   const url = `${baseUrl}${service}${APIDetails.enpointurl}`;
@@ -160,29 +163,55 @@ const ServerCall = async (ApiName, body) => {
   const data = await response.json();
   return data;
 };
-const AlertMsg = ({ AlertTit, AlertDesc, Btns, isOpen, setIsOpen }) => {
+const AlertMsg = ({ AlertType, AlertDesc, Btns = [], isOpen, setIsOpen }) => {
+  const alertMap = {
+    E: {
+      AlertTitle: "Error!",
+      AlertClass: "text-red-500",
+      AlterIcon: AlertCircle,
+    },
+    S: {
+      AlertTitle: "Success!",
+      AlertClass: "text-green-500",
+      AlterIcon: AlertCircle,
+    },
+    W: {
+      AlertTitle: "Warning!",
+      AlertClass: "text-yellow-500",
+      AlterIcon: AlertCircle,
+    },
+    I: {
+      AlertTitle: "Info",
+      AlertClass: "text-blue-500",
+      AlterIcon: AlertCircle,
+    },
+  };
+  const alertDetails = alertMap[AlertType] || {
+    AlertTitle: "Alert",
+    AlertClass: "",
+    AlterIcon: "",
+  };
+  const Icon = alertDetails.AlterIcon;
   return (
     <>
-      <Alert open={isOpen} onClose={setIsOpen}>
-        <AlertTitle>{AlertTit}</AlertTitle>
+      <Alert open={isOpen} onClose={() => setIsOpen(false)}>
+        <AlertTitle className={alertDetails.AlertClass} Icon={Icon}>
+          {" "}
+          {alertDetails.AlertTitle}
+        </AlertTitle>
         <AlertDescription>{AlertDesc}</AlertDescription>
         <AlertActions>
-          <Button
-            onClick={() => {
-              setIsOpen(false);
-              Btns[0].function?.();
-            }}
-          >
-            {Btns[0].Name}
-          </Button>
-          <Button
-            onClick={() => {
-              setIsOpen(false);
-              Btns[1].function?.();
-            }}
-          >
-            {Btns[1].Name}
-          </Button>
+          {Btns.map((btn, idx) => (
+            <Button
+              key={idx}
+              onClick={() => {
+                setIsOpen(false);
+                btn.function?.();
+              }}
+            >
+              {btn.Name}
+            </Button>
+          ))}
         </AlertActions>
       </Alert>
     </>

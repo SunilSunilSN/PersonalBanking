@@ -1,17 +1,12 @@
 import React, { useRef, useState } from "react";
-import {
-  Field,
-  Label,
-  Input,
-  ErrorMessage,
-  Button
-} from "shared-services";
+import { Field, Label, Input, ErrorMessage, Button } from "shared-services";
 const AlertMsg = window.AlertMsg;
 const RegistrationPage = () => {
   const Refs = {
     userNameRefId: { ref: useRef(null), field: "userName" },
     EmailRefId: { ref: useRef(null), field: "email" },
     MobileRefId: { ref: useRef(null), field: "mobNo" },
+    PasswordRefId: { ref: useRef(null), field: "password" },
   };
   let [isOpen, setIsOpen] = useState(false);
   const [errors, setErrors] = useState({});
@@ -19,97 +14,107 @@ const RegistrationPage = () => {
     const data = await window.ServerCall("createUserAPI", req);
     console.log(data);
     if (data.success) {
-      setIsOpen(true);
+      window.launchMicroApp("login", "DashboardPage", "LoginId");
+    } else {
+      window.showAlert({
+        AlertType: "E",
+        AlertDesc: data.message,
+        Btns: [{ Name: "Ok", function: () => console.log("Canceled") }],
+      });
     }
   };
   const OnRegistraionConfirm = () => {
     console.log("Success");
-  }
+  };
   const OnRegistraionCancel = () => {
     console.log("fail");
-  }
+  };
   const RegistrationCont = (e) => {
     if (!window.errorDisplayAll(Refs, setErrors)) {
       const req = {
-        Name: "Sunil",
-        MobileNumber: "9742720598",
-        CIF: "1",
-        UserName: "suni",
-        EmailId: "SunilsnSunil28",
+        MobileNumber: Refs["MobileRefId"].ref.current.value,
+        UserName: Refs["userNameRefId"].ref.current.value,
+        EmailId: Refs["EmailRefId"].ref.current.value,
         Password: "Sunil@123",
         UserRole: "USER",
       };
-      //RegisterUser(req);
-      
-    } else {
-      setIsOpen(true);
+      RegisterUser(req);
     }
   };
   const RegistrationCancel = (e) => {
-    window.launchMicroApp("login", "LoginPage", "LoginId");
+    window.launchMicroApp("login", "LoginPage", "BaseScreenID");
   };
   return (
-    <Field>
-      <Label>User Name</Label>
-      <Input
-        ref={Refs.userNameRefId.ref}
-        id="RegPage_userName"
-        data-type="userName"
-        placeholder="Please type here&hellip;"
-        onChange={(e) => window.errorDisplay(setErrors, e, "userName")}
-        onClick={(e) => window.errorOnClick(setErrors, e, "userName")}
-        name="userName"
-      />
-      {errors.userName && <ErrorMessage>{errors.userName}</ErrorMessage>}
-      <Label>User Email Id</Label>
-      <Input
-        ref={Refs.EmailRefId.ref}
-        id="RegPage_emailId"
-        data-type="email"
-        placeholder="Please type here&hellip;"
-        onChange={(e) => window.errorDisplay(setErrors, e, "email")}
-        onClick={(e) => window.errorOnClick(setErrors, e, "email")}
-        name="email"
-      />
-      {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-      <Label>Mobile Number</Label>
-      <Input
-        ref={Refs.MobileRefId.ref}
-        id="RegPage_mobNo"
-        data-type="mobNo"
-        placeholder="Please type here&hellip;"
-        onChange={(e) => window.errorDisplay(setErrors, e, "mobNo")}
-        onClick={(e) => window.errorOnClick(setErrors, e, "mobNo")}
-        name="mobNo"
-      />
-      {errors.mobNo && <ErrorMessage>{errors.mobNo}</ErrorMessage>}
-      <div className="flex gap-2 mt-[5%]">
-        <Button
-          variant="secondary"
-          size="login"
-          className="gap-2"
-          onClick={RegistrationCancel}
-        >
-          Cancel
-        </Button>
-        <Button
-          variant="secondary"
-          size="login"
-          className="gap-2"
-          onClick={RegistrationCont}
-        >
-          Continue
-        </Button>
-        <AlertMsg
-          BtnTitle="Refund payment"
-          AlertTitle="Are you sure you want to refund this payment?"
-          AlertDesc="The refund will be reflected in the customer’s bank account 2 to 3 business days after processing."
-          Btns={[{ Name: "Close", function: OnRegistraionCancel}, { Name: "Continue", function: OnRegistraionConfirm  }]}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
+    <div
+      id="LoginId"
+      className="flex justify-center border mr-[20%] mb-[0%] mt-[5%] ml-[60%] rounded-md shadow py-10"
+    >
+      <Field>
+        <Label>User Name</Label>
+        <Input
+          ref={Refs.userNameRefId.ref}
+          id="RegPage_userName"
+          data-type="userName"
+          placeholder="Please type here&hellip;"
+          onChange={(e) => window.errorDisplay(setErrors, e, "userName")}
+          onClick={(e) => window.errorOnClick(setErrors, e, "userName")}
+          name="userName"
         />
-      </div>
-    </Field>
+        {errors.userName && <ErrorMessage>{errors.userName}</ErrorMessage>}
+        <Label>User Email Id</Label>
+        <Input
+          ref={Refs.EmailRefId.ref}
+          id="RegPage_emailId"
+          data-type="email"
+          placeholder="Please type here&hellip;"
+          onChange={(e) => window.errorDisplay(setErrors, e, "email")}
+          onClick={(e) => window.errorOnClick(setErrors, e, "email")}
+          name="email"
+        />
+        {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+        <Label>Mobile Number</Label>
+        <Input
+          ref={Refs.MobileRefId.ref}
+          id="RegPage_mobNo"
+          data-type="mobNo"
+          placeholder="Please type here&hellip;"
+          onChange={(e) => window.errorDisplay(setErrors, e, "mobNo")}
+          onClick={(e) => window.errorOnClick(setErrors, e, "mobNo")}
+          name="mobNo"
+        />
+        {errors.mobNo && <ErrorMessage>{errors.mobNo}</ErrorMessage>}
+        <Label>Password</Label>
+        <Input
+          ref={Refs.PasswordRefId.ref}
+          type="password"
+          id="RegPage_password"
+          data-type="password"
+          placeholder="Please type here&hellip;"
+          onChange={(e) => window.errorDisplay(setErrors, e, "password")}
+          onClick={(e) => window.errorOnClick(setErrors, e, "password")}
+          name="password"
+        />
+        {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+        <div className="flex gap-2 mt-[5%]">
+          <Button
+            variant="secondary"
+            size="login"
+            className="gap-2"
+            onClick={RegistrationCancel}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="secondary"
+            size="login"
+            className="gap-2"
+            onClick={RegistrationCont}
+          >
+            Continue
+          </Button>
+        </div>
+      </Field>
+    </div>
   );
 };
 

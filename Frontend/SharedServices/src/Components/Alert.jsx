@@ -17,12 +17,12 @@ export function Alert({ open, onClose, children }) {
           aria-modal="true"
           className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl transition-all dark:bg-zinc-900 relative"
         >
-          <button
+          {/* <button
             onClick={() => onClose(false)}
             className="text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
           >
             <X className="h-5 w-5" />
-          </button>
+          </button> */}
           {children}
         </div>
       </div>
@@ -30,17 +30,21 @@ export function Alert({ open, onClose, children }) {
   );
 }
 
-export function AlertTitle({ children, className }) {
+export function AlertTitle({ children, className, Icon }) {
   return (
+    <div className="flex items-center gap-2">
+    {Icon && <Icon className={cn("w-5 h-5",className)}/>}
     <h2
       id="dialog-title"
       className={cn(
-        "text-lg font-semibold text-zinc-900 dark:text-white",
+        "text-lg font-semibold   dark:text-white",
         className
       )}
     >
+
       {children}
     </h2>
+    </div>
   );
 }
 

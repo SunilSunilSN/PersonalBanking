@@ -11,12 +11,12 @@ const generateToken = (user) => {
 const userLogin = async (req, res) => {
   try {
     const { UserName, Password } = req.body;
-    const user = await UserModel.findOne({ UserName });
+    const user = await UserModel.findOne({ UserName, Password });
     if (!user) {
       return res.error("Invalid Credentials", 401);
     }
     const token = generateToken(user);
-    res.cookie("token", token, { httpOnly: true, secure: false });
+    res.cookie("token", token, { httpOnly: true, secure: false, sameSite: "lax" });
     res.success("User Logged In", user, 200);
   } catch (error) {
     res.error("User failed", 500);
@@ -72,7 +72,7 @@ const userLogout = async (req, res) => {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
         });
-        res.status(200).json({ message: "User logged out successfully" });
+        res.success("User logged out successfully", 200);
       }
     });
   } catch (error) {

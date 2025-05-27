@@ -1,7 +1,7 @@
 import React from "react";
 
 export function Sidebar({ children }) {
-  return <aside className="w-64 bg-gray-50 p-4 shadow-inner">{children}</aside>;
+  return <aside className="w-48 h-screen bg-gray-50 p-4 shadow-inner overflow-y-auto">{children}</aside>;
 }
 
 export function SidebarHeader({ children }) {
@@ -9,12 +9,12 @@ export function SidebarHeader({ children }) {
 }
 
 export function SidebarSection({ children }) {
-  return <div className="mt-4 space-y-2">{children}</div>;
+  return <div  className="mt-4 space-y-2">{children}</div>;
 }
 
-export function SidebarItem({ children }) {
+export function SidebarItem({ children, onClick }) {
   return (
-    <div className="cursor-pointer rounded px-2 py-1 hover:bg-gray-200 text-sm font-medium">
+    <div onClick={onClick} className="cursor-pointer flex rounded px-2 py-1 hover:bg-gray-200 hover:text-blue-600 text-sm font-medium">
       {children}
     </div>
   );
@@ -26,4 +26,16 @@ export function SidebarLabel({ children }) {
 
 export function SidebarBody({ children }) {
   return <div className="flex flex-col gap-2">{children}</div>;
+}
+
+export function SidebarFooter({ children }) {
+  return (
+    <div className="px-6 py-4 border-t border-gray-700">
+      {children}
+    </div>
+  );
+}
+
+export function SidebarSpacer() {
+  return <div className="my-4 border-t border-gray-700" />;
 }

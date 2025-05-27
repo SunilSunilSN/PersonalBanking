@@ -1,58 +1,133 @@
-import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Avatar } from "shared-services";
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownDivider,
+  DropdownItem,
+  DropdownLabel,
+  DropdownMenu,
+} from "shared-services";
+import {
+  Sidebar,
+  SidebarBody,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarItem,
+  SidebarLabel,
+  SidebarSection,
+  SidebarSpacer,
+} from "shared-services";
+import * as IconsMap from "@heroicons/react/20/solid";
+import ArrowLongLeftIcon from "@heroicons/react/20/solid";
+const Logout = IconsMap["ArrowLongLeftIcon"];
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const SidebarComp = () => {
+  const [sideBarItems, setSideBarItems] = useState([]);
+  const fetchSidebarData = async () => {
+    const data = await window.getCommonData(["Post-Login-SideBar"]);
+    const SideBarData = data.find((item) => item.Key === "Post-Login-SideBar");
+    if (SideBarData && SideBarData.Value) {
+      const sideBars = SideBarData.Value.filter(
+        (visib) =>
+          visib.Visible === window.getDeviceType() || visib.Visible === "Both"
+      );
+      if (sideBars) setSideBarItems(sideBars);
+    }
+  };
+  const callLogout = async () => {
+    const data = await window.ServerCall("logoutAPI", "");
+    if (data.success) {
+      window.launchMicroApp("login", "LoginPage", "BaseScreenID");
+    }
+  };
+  const SideParPopup = (PopoItems) => {
+    const PItems = PopoItems.filter(
+      (visible) =>
+        visible.Visible === window.getDeviceType() || visible.Visible === "Both"
+    );
+    if (PItems) {
+      return (
+        <div>
+          {PItems.map((item, index) => {
+            const IconComponent = IconsMap[item.Icon];
+            return (
+              <SidebarItem
+                key={index}
+                onClick={(e) => {
+                  window.launchMicroApp(
+                    item.Navigate.MicroApp,
+                    item.Navigate.Screen,
+                    "BaseScreenID"
+                  );
+                }}
+              >
+                <IconComponent className="w-5 h-5" />
+                <SidebarLabel>{item.PopName}</SidebarLabel>
+              </SidebarItem>
+            );
+          })}
+        </div>
+      );
+    }
+  };
+  const Clickfunc = (target, item, index) => {
+    if (item.Type === "Navigate") {
+      return window.launchMicroApp(
+        item.Navigate.MicroApp,
+        item.Navigate.Screen,
+        "BaseScreenID"
+      );
+    } else if (item.Type === "Popover") {
+      return window.showPopover(target, SideParPopup(item.PopItems));
+    }
+  };
+  useEffect(() => {
+    fetchSidebarData(); // ✅ call inside useEffect
+  }, []);
   return (
-    <>
-      {/* Toggle Button - Only visible on small screens */}
-      <div className="md:hidden p-4">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-white bg-gray-800 p-2 rounded"
-        >
-          {isOpen ? <X /> : <Menu />}
-        </button>
-      </div>
-
-      {/* Sidebar */}
-      <div
-        className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white p-4 z-40 transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out md:translate-x-0 md:relative md:block`}
-      >
-        <h2 className="text-xl font-bold mb-6">Menu</h2>
-        <ul className="space-y-4">
-          <li>
-          <button
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
+    <Sidebar>
+      <SidebarBody>
+        <SidebarSection>
+          {sideBarItems.map((item, index) => {
+            const IconComponent = IconsMap[item.Icon];
+            return (
+              <SidebarItem
+                key={index}
+                onClick={(e) => {
+                  Clickfunc(e, item, index);
+                  // window.showPopover(e, SideParPopup())
+                }}
+              >
+                <IconComponent className="w-5 h-5" />
+                <SidebarLabel>{item.Name}</SidebarLabel>
+              </SidebarItem>
+            );
+          })}
+        </SidebarSection>
+        <SidebarSpacer />
+        <SidebarSection>
+          <SidebarItem
             onClick={() =>
-              window.launchMicroApp("login", "RegistrationPage", "microAppRoot2", {userId:"1", therme: "sUNIL"})
+              window.showAlert({
+                AlertType: "W",
+                AlertDesc: "Are you Sure Want to Logout?",
+                Btns: [
+                  {
+                    Name: "Ok",
+                    function: () => callLogout(),
+                  },
+                ],
+              })
             }
           >
-            Go to Login
-          </button>
-          </li>
-          <li>
-            <a href="/about" className="hover:text-gray-300">
-              Registration
-            </a>
-          </li>
-          <li>
-            <a href="/services" className="hover:text-gray-300">
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="/contact" className="hover:text-gray-300">
-              Contact
-            </a>
-          </li>
-        </ul>
-      </div>
-    </>
+            <Logout className="w-5 h-5" />
+            <SidebarLabel>Logout</SidebarLabel>
+          </SidebarItem>
+        </SidebarSection>
+      </SidebarBody>
+    </Sidebar>
   );
 };
 
-export default Sidebar;
+export default SidebarComp;
