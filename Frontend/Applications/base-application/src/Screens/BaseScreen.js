@@ -10,7 +10,7 @@ function BaseScreen() {
   const [showHeader, setShowHeader] = useState(true);
   const [showSideBar, setShowSideBar] = useState(false);
   const btnRef = useRef();
-  const { PopoverUI, showPopover } = Popover();
+  const { PopoverUI, showPopover, hidePopover} = Popover();
   const [alertData, setAlertData] = useState({
     AlertType: "",
     AlertDesc: "",
@@ -30,6 +30,7 @@ function BaseScreen() {
     window.setShowHeader = setShowHeader;
     window.setShowSideBar = setShowSideBar;
     window.showPopover = showPopover;
+    window.hidePopover = hidePopover;
     console.log("BaseScreen script loaded and function executed!");
     window.launchMicroApp("login", "LoginPage", "BaseScreenID");
   }, []);
@@ -38,7 +39,7 @@ function BaseScreen() {
       {/* Header stays up top */}
       <div id="BaseHeaderElm">{showHeader === true && <Header />}</div>
       <div id="SideBarEmlId">{showSideBar == true && <SidebarComp />}</div>
-      <div id="BaseScreenID"></div>
+      <div id="BaseScreenID" ></div>
       <AlertMsg
         AlertType={alertData.AlertType}
         AlertDesc={alertData.AlertDesc}

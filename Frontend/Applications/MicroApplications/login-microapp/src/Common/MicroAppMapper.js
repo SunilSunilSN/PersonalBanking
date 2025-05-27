@@ -1,7 +1,7 @@
 import React from "react";
-import LoginPage from "../LoginPage";
-import RegistrationPage from "../RegistrationPage";
-import DashboardPage from "../DashboardPage";
+import LoginPage from "../Screens/LoginPage";
+import RegistrationPage from "../Screens/RegistrationPage";
+import DashboardPage from "../Screens/DashboardPage";
 
 const MicroAppMapper = ({ location }) => {
   const searchParams = new URLSearchParams(location?.search);

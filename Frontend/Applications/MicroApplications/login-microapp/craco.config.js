@@ -13,8 +13,8 @@ module.exports = {
           name: "login_app",
           filename: "remoteEntry.js",
           exposes: {
-            "./LoginPage": "./src/LoginPage",
-            "./RegistrationPage": "./src/RegistrationPage",
+            "./LoginPage": "./src/Screens/LoginPage",
+            "./RegistrationPage": "./src/Screens/RegistrationPage",
             "./MicroAppMapper": "./src/Common/MicroAppMapper",
           },
           shared: {
@@ -36,12 +36,9 @@ module.exports = {
       return config;
     },
   },
-  // style: {
-  //   postcssOptions: {
-  //     plugins: [
-  //       require('tailwindcss'),
-  //       require('autoprefixer'),
-  //     ],
-  //   },
-  // },
+  style: {
+    postcssOptions: {
+      plugins: [require("tailwindcss"), require("autoprefixer")],
+    },
+  },
 };

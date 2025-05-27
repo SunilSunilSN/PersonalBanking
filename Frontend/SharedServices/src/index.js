@@ -10,3 +10,4 @@ export * from './Components/Button';
 export * from './ConfigData/ErrorMessageConfig';
 export * from './Components/Alert';
 export * from './Components/Popover';
+export * from './ConfigData/APIConfig'; 

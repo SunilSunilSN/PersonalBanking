@@ -3,8 +3,7 @@ import config from "../Configuration/MicroAppConfig.json";
 import MicroFrontendWrapper from "./MicroFrontendWrapper";
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { ErrorMessageConfig } from "shared-services";
-import { APIConfig } from "../Configuration/APIConfig";
+import { ErrorMessageConfig, APIConfig } from "shared-services";
 import { AlertCircle, CheckCircle2, Info, TriangleAlert } from "lucide-react";
 import {
   Button,
@@ -14,6 +13,7 @@ import {
   AlertTitle,
 } from "shared-services";
 const launchMicroApp = (appId, screenId, targetElementId, extraParams = {}) => {
+  window.hidePopover();
   const app = config[appId];
   if (!app) {
     console.error(`❌ No microapp found with appId: ${appId}`);

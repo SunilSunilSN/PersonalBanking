@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Field, Label, Input, ErrorMessage, Button } from "shared-services";
-const AlertMsg = window.AlertMsg;
 const RegistrationPage = () => {
   const Refs = {
     userNameRefId: { ref: useRef(null), field: "userName" },
@@ -8,7 +7,7 @@ const RegistrationPage = () => {
     MobileRefId: { ref: useRef(null), field: "mobNo" },
     PasswordRefId: { ref: useRef(null), field: "password" },
   };
-  let [isOpen, setIsOpen] = useState(false);
+  window.setShowSideBar(false);
   const [errors, setErrors] = useState({});
   const RegisterUser = async (req) => {
     const data = await window.ServerCall("createUserAPI", req);
@@ -22,12 +21,6 @@ const RegistrationPage = () => {
         Btns: [{ Name: "Ok", function: () => console.log("Canceled") }],
       });
     }
-  };
-  const OnRegistraionConfirm = () => {
-    console.log("Success");
-  };
-  const OnRegistraionCancel = () => {
-    console.log("fail");
   };
   const RegistrationCont = (e) => {
     if (!window.errorDisplayAll(Refs, setErrors)) {

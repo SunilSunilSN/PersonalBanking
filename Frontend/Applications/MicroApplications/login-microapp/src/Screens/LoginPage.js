@@ -41,7 +41,7 @@ const LoginPage = () => {
   return (
     <div
       id="LoginId"
-      className="flex justify-center border mr-[20%] mb-[0%] mt-[5%] ml-[60%] rounded-md shadow py-10"
+      className="flex justify-center border mr-[20%] mb-[0%] mt-[5%] ml-[60%] rounded-md shadow py-10 px-10"
     >
       <Field>
         <Label>User Name</Label>
