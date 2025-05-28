@@ -4,7 +4,6 @@ module.exports = {
     "./**/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
     './src/**/*.{js,jsx,ts,tsx,html}',
-    '../../MicroApplications/**/*.{js,jsx,ts,tsx,html}',
     '../../SharedServices/**/*.{js,jsx,ts,tsx,html}',
   ],
   theme: {

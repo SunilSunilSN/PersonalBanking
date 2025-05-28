@@ -1,4 +1,5 @@
 const { ModuleFederationPlugin } = require("webpack").container;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const deps = require("./package.json").dependencies;
 const path = require("path");
 module.exports = {
@@ -13,8 +14,8 @@ module.exports = {
           name: "preLogin_app",
           filename: "remoteEntry.js",
           exposes: {
-            "./PreLoginPage": "./src/PreLoginPage",
-            "./MicroAppMapper": "./src/Common/MicroAppMapper"
+            "./PreLoginPage": "./src/Screens/PreLoginPage",
+            "./MicroAppMapper": "./src/Common/MicroAppMapper",
           },
           shared: {
             react: { singleton: true, eager: true },
@@ -22,7 +23,22 @@ module.exports = {
           },
         })
       );
+      config.module.rules.push({
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
+        },
+      });
       return config;
     },
-  }
+  },
+  style: {
+    postcssOptions: {
+      plugins: [require("tailwindcss"), require("autoprefixer")],
+    },
+  },
 };

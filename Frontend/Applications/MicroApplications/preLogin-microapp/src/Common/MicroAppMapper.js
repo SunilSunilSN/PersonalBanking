@@ -1,5 +1,5 @@
 import React from "react";
-import PreLoginPage from "../PreLoginPage";
+import PreLoginPage from "../Screens/PreLoginPage"
 
 const MicroAppMapper = ({ location }) => {
   const searchParams = new URLSearchParams(location?.search);

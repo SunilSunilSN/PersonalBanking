@@ -153,8 +153,8 @@ const ServerCall = async (ApiName, body) => {
   if (body) {
     options.body = JSON.stringify(body);
   }
-  if(APIDetails.credentials){
-    options.credentials = "include"
+  if (APIDetails.credentials) {
+    options.credentials = "include";
   }
   const baseUrl = process.env.REACT_APP_BACKEND_URL || "";
   const service = process.env[APIDetails.service] || "";
