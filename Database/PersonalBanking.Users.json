@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "67e2a594e002ccbaf373ef9e"
+  },
+  "UserName": "Sunil",
+  "Password": "Sunil@123",
+  "UserRole": "USER",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e2a594e002ccbaf373ef9f"
+  },
+  "UserName": "Admin",
+  "Password": "Admin@123",
+  "UserRole": "Admin",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682d982484b345235631fad8"
+  },
+  "UserName": "suni",
+  "Password": "Sunil@123",
+  "UserRole": "USER",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683044ab3f9a2ad20f91f1bc"
+  },
+  "UserName": "Sunil S N",
+  "Password": "Sunil@123",
+  "UserRole": "USER",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683045013f9a2ad20f91f1c1"
+  },
+  "UserName": "Sunil S",
+  "Password": "Sunil@123",
+  "UserRole": "USER",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683045243f9a2ad20f91f1c8"
+  },
+  "UserName": "Sunil2",
+  "Password": "Sunil@123",
+  "UserRole": "USER",
+  "__v": 0
+}]

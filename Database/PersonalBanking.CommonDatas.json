@@ -1,0 +1,191 @@
+[{
+  "_id": {
+    "$oid": "680f349e3dc452e3062e2cc3"
+  },
+  "Key": "Pre-Login-Header",
+  "Value": [
+    {
+      "Name": "Mobile",
+      "Visible": "Mobile",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "RegistrationPage"
+      }
+    },
+    {
+      "Name": "Web",
+      "Visible": "Web",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "RegistrationPage"
+      }
+    },
+    {
+      "Name": "Both",
+      "Visible": "Both",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "LoginPage"
+      }
+    },
+    {
+      "Name": "Calculator",
+      "Visible": "Both",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "Calculator"
+      }
+    },
+    {
+      "Name": "UseFull Links",
+      "Visible": "Both",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "UseFull Links"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "680f35a53dc452e3062e2cc7"
+  },
+  "Key": "Pre-Login-More",
+  "Value": [
+    {
+      "Name": "Mobile",
+      "Visible": "Web"
+    },
+    {
+      "Name": "Web",
+      "Visible": "Mobile"
+    },
+    {
+      "Name": "Both",
+      "Visible": "Both"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "683441d7f4ba8f3cb4d7c450"
+  },
+  "Key": "Post-Login-SideBar",
+  "Value": [
+    {
+      "Name": "Mobile",
+      "Visible": "Mobile",
+      "Icon": "HomeIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Web",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Cards",
+      "Visible": "Both",
+      "Icon": "TicketIcon",
+      "Type": "Popover",
+      "PopItems": [
+        {
+          "PopName": "Debit Card",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "RegistrationPage"
+          }
+        },
+        {
+          "PopName": "Credit Card",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "LoginPage"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Service Request",
+      "Visible": "Both",
+      "Icon": "MegaphoneIcon",
+      "Type": "Popover",
+      "PopItems": [
+        {
+          "PopName": "Chequebook",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "LoginPage"
+          }
+        },
+        {
+          "PopName": "E Locker",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "LoginPage"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "UseFull Links",
+      "Visible": "Both",
+      "Icon": "Cog6ToothIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "UseFull Links"
+      }
+    },
+    {
+      "Name": "UseFull Links",
+      "Visible": "Both",
+      "Icon": "Cog6ToothIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "UseFull Links"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "683823e7f4ba8f3cb4d7c452"
+  },
+  "Key": "Widgets",
+  "Value": [
+    {
+      "Name": "AccountsWidget",
+      "Visible": "Both",
+      "Sequence": "1"
+    },
+    {
+      "Name": "RecentTransaction",
+      "Visible": "Both",
+      "Sequence": "2"
+    },
+    {
+      "Name": "QucikLinks",
+      "Visible": "Both",
+      "Sequence": "3"
+    }
+  ]
+}]
