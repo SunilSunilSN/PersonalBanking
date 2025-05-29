@@ -1,6 +1,5 @@
 const { ModuleFederationPlugin } = require("webpack").container;
-const deps = require("./package.json").dependencies;
-const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   webpack: {
     configure: (config) => {
@@ -34,11 +33,6 @@ module.exports = {
         },
       });
       return config;
-    },
-  },
-  style: {
-    postcssOptions: {
-      plugins: [require("tailwindcss"), require("autoprefixer")],
     },
   },
 };

@@ -40,7 +40,7 @@ const RegistrationPage = () => {
   return (
     <div
       id="LoginId"
-      className="flex justify-center border mr-[20%] mb-[0%] mt-[5%] ml-[60%] rounded-md shadow py-10"
+      className="flex justify-center border mr-[25%] mb-[0%] mt-[5%] ml-[50%]  rounded-md shadow py-10"
     >
       <Field>
         <Label>User Name</Label>
@@ -81,7 +81,7 @@ const RegistrationPage = () => {
           ref={Refs.PasswordRefId.ref}
           type="password"
           id="RegPage_password"
-          data-type="password"
+          data-type="loginPassword"
           placeholder="Please type here&hellip;"
           onChange={(e) => window.errorDisplay(setErrors, e, "password")}
           onClick={(e) => window.errorOnClick(setErrors, e, "password")}

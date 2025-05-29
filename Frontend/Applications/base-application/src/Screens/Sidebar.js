@@ -79,7 +79,7 @@ const SidebarComp = () => {
         "BaseScreenID"
       );
     } else if (item.Type === "Popover") {
-      return window.showPopover(target, SideParPopup(item.PopItems));
+      return window.showPopover(target, SideParPopup(item.PopItems), "right");
     }
   };
   useEffect(() => {
@@ -96,7 +96,6 @@ const SidebarComp = () => {
                 key={index}
                 onClick={(e) => {
                   Clickfunc(e, item, index);
-                  // window.showPopover(e, SideParPopup())
                 }}
               >
                 <IconComponent className="w-5 h-5" />
