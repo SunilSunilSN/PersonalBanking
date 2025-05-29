@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback,useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { launchMicroApp } from "../Common/CommonFunctions";
 import Header from "../Screens/Header";
 import "../Styles/index.css";
@@ -10,7 +10,7 @@ function BaseScreen() {
   const [showHeader, setShowHeader] = useState(true);
   const [showSideBar, setShowSideBar] = useState(false);
   const btnRef = useRef();
-  const { PopoverUI, showPopover, hidePopover} = Popover();
+  const { PopoverUI, showPopover, hidePopover } = Popover();
   const [alertData, setAlertData] = useState({
     AlertType: "",
     AlertDesc: "",
@@ -35,11 +35,23 @@ function BaseScreen() {
     window.launchMicroApp("login", "LoginPage", "BaseScreenID");
   }, []);
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       {/* Header stays up top */}
-      <div id="BaseHeaderElm">{showHeader === true && <Header />}</div>
-      <div id="SideBarEmlId">{showSideBar == true && <SidebarComp />}</div>
-      <div id="BaseScreenID" ></div>
+      <div id="BaseHeaderElm" className="flex-none">
+        {showHeader === true && <Header />}
+      </div>
+      <div className="flex flex-1 overflow-hidden">
+        <div
+          id="SideBarEmlId"
+        >
+          {showSideBar == true && <SidebarComp />}
+        </div>
+
+        <div
+          id="BaseScreenID"
+          className="flex-1 overflow-auto bg-white p-4"
+        ></div>
+      </div>
       <AlertMsg
         AlertType={alertData.AlertType}
         AlertDesc={alertData.AlertDesc}
@@ -47,7 +59,7 @@ function BaseScreen() {
         isOpen={alertData.isOpen}
         setIsOpen={(val) => setAlertData((prev) => ({ ...prev, isOpen: val }))}
       />
-      <PopoverUI/>
+      <PopoverUI />
     </div>
   );
 }

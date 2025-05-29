@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Popover } from "shared-services";
+import WidgetsPage from "./WidgetsPage";
+import {Table} from "shared-services";
 const DashboardPage = () => {
   const [renderDash, setRenderDash] = useState(null);
   window.setShowSideBar(true);
@@ -29,8 +30,11 @@ const DashboardPage = () => {
   if (renderDash === null) {
     return <div>Loading...</div>;
   }
+
   return (
-    <div id="DashboElmId">
+    <div id="DashboElmId" >
+      <WidgetsPage />
+      
     </div>
   );
 };
