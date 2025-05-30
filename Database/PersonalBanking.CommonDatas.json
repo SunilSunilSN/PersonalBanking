@@ -303,7 +303,7 @@
       "Sequence": "2"
     },
     {
-      "Name": "QucikLinks",
+      "Name": "QuicklinksWidget",
       "Visible": "Both",
       "Sequence": "3"
     },
@@ -318,7 +318,7 @@
       "Sequence": "6"
     },
     {
-      "Name": "AccountsWidget",
+      "Name": "CardsWidget",
       "Visible": "Both",
       "Sequence": "7"
     },
@@ -326,6 +326,11 @@
       "Name": "RecentTransaction",
       "Visible": "Both",
       "Sequence": "8"
+    },
+    {
+      "Name": "QucikLinks",
+      "Visible": "Both",
+      "Sequence": "4"
     },
     {
       "Name": "QucikLinks",
@@ -437,6 +442,63 @@
       "Title": "Tile 3",
       "Description": "Desc 3",
       "Date": "Date 3"
+    },
+    {
+      "Name": "Car Loan",
+      "Sequence": "1",
+      "Visible": "Both",
+      "Title": "Tile 3",
+      "Description": "Desc 3",
+      "Date": "Date 3"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6839b0c15987e7eae2209bd0"
+  },
+  "Key": "Quciklinks",
+  "Value": [
+    {
+      "name": "Dashboard",
+      "type": "internal",
+      "Visible": "Both",
+      "microApp": "banking",
+      "screen": "DashboardPage"
+    },
+    {
+      "name": "Support",
+      "type": "external",
+      "Visible": "Both",
+      "url": "https://support.example.com"
+    },
+    {
+      "name": "Profile",
+      "type": "internal",
+      "Visible": "Both",
+      "microApp": "login",
+      "screen": "ProfilePage"
+    },
+    {
+      "name": "User profile",
+      "type": "internal",
+      "Visible": "Both",
+      "microApp": "login",
+      "screen": "ProfilePage"
+    },
+    {
+      "name": "User profile",
+      "type": "internal",
+      "Visible": "Both",
+      "microApp": "login",
+      "screen": "ProfilePage"
+    },
+    {
+      "name": "User profile",
+      "type": "internal",
+      "Visible": "Both",
+      "microApp": "login",
+      "screen": "ProfilePage"
     }
   ]
 }]
