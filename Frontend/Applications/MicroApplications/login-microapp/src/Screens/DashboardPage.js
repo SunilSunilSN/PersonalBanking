@@ -47,8 +47,8 @@ const DashboardPage = () => {
         setRenderDash(false);
       }
     };
-    DashboardCall();
-    //setRenderDash(true);
+    //DashboardCall();
+    setRenderDash(true);
   }, []);
 
   if (renderDash === null) {

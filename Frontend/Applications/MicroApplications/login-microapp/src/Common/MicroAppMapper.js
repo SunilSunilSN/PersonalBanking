@@ -2,6 +2,7 @@ import React from "react";
 import LoginPage from "../Screens/LoginPage";
 import RegistrationPage from "../Screens/RegistrationPage";
 import DashboardPage from "../Screens/DashboardPage";
+import ProfilePage from "../Screens/ProfilePage";
 
 const MicroAppMapper = ({ location }) => {
   const searchParams = new URLSearchParams(location?.search);
@@ -16,6 +17,8 @@ const MicroAppMapper = ({ location }) => {
       return <RegistrationPage {...props} />;
     case "DashboardPage":
       return <DashboardPage {...props} />;
+          case "ProfilePage":
+      return <ProfilePage {...props} />;
     default:
       return <div>Screen not found</div>;
   }

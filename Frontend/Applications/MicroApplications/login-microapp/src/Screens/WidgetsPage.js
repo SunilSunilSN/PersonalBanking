@@ -3,10 +3,12 @@ import { Widget } from "shared-services";
 import AccountsWidget from "../Screens/Widgets/AccountsWidget";
 import RecentTransaction from "../Screens/Widgets/RecentTransaction";
 import QuicklinksWidget from "./Widgets/QuicklinksWidget";
+import CardsWidget from "./Widgets/CardsWidget";
 const WidgetComponent = {
   AccountsWidget,
   RecentTransaction,
-  QuicklinksWidget
+  QuicklinksWidget,
+  CardsWidget
 };
 function WidgetsPage({start, end}) {
   const [widgets, setWidgets] = useState([]);
@@ -48,7 +50,7 @@ function WidgetsPage({start, end}) {
                 iconColor="text-blue-600"
                 description="Active this week"
                 key={index}
-                children={WidgetComp ? <WidgetComp /> : null}
+                children={WidgetComp ? <WidgetComp id = {WidgetComponent[widget.Name]} /> : null}
               />
             );
           })}

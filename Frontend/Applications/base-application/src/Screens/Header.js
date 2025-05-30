@@ -122,7 +122,7 @@ function Header() {
       </NavbarSection>
       <NavbarSpacer />
       {headerItems.IsLoggedIn && <NavbarSection>
-        <NavbarItem href="/search" aria-label="Search">
+        <NavbarItem onClick={() => window.launchMicroApp("login", "ProfilePage", "BaseScreenID")} aria-label="Search">
           <span className="flex min-w-0 items-center gap-3">
             <Avatar
               src={headerItems.userData["ProfilePic"]}

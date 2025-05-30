@@ -9,7 +9,8 @@ export function Widget({
   iconBg = "bg-blue-100",
   iconColor = "text-blue-600",
   children,
-  loading= false
+  loading= false,
+  id,
 }) {
     if(loading) {
         return (
@@ -49,7 +50,7 @@ export function Widget({
 
 
   return (
-    <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48">
+    <div id = {id} className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48">
       <div  className="p-4">
       <div className="flex items-center justify-between p-4">
         <div>

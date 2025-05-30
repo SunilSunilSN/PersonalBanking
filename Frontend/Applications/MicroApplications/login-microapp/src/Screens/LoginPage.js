@@ -30,14 +30,14 @@ const LoginPage = () => {
     }
   };
   const LoginSubmit = (e) => {
-    if (!window.errorDisplayAll(Refs, setErrors)) {
-      const LoginReq = {
-        UserName: Refs["userNameRefId"].ref.current.value,
-        Password: Refs["passwordRef"].ref.current.value,
-      };
-      LoginCall(LoginReq);
-    }
-    //window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
+    // if (!window.errorDisplayAll(Refs, setErrors)) {
+    //   const LoginReq = {
+    //     UserName: Refs["userNameRefId"].ref.current.value,
+    //     Password: Refs["passwordRef"].ref.current.value,
+    //   };
+    //   LoginCall(LoginReq);
+    // }
+    window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
   };
   return (
     <div

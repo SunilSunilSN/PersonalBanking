@@ -38,7 +38,7 @@ function AnnouncementPage() {
         }
       `}</style>
       <div
-        className={`marquee relative w-full bg-white overflow-hidden flex items-center h-48 ${
+        className={`marquee relative w-full overflow-hidden flex items-center h-48 ${
           paused ? "paused" : ""
         }`}
         onMouseEnter={() => setPaused(true)}
