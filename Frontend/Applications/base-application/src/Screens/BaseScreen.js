@@ -43,13 +43,14 @@ function BaseScreen() {
       <div className="flex flex-1 overflow-hidden">
         <div
           id="SideBarEmlId"
+          className="overflow-y-auto"
         >
           {showSideBar == true && <SidebarComp />}
         </div>
 
         <div
           id="BaseScreenID"
-          className="flex-1 overflow-auto bg-white p-4"
+          className="flex-1 overflow-x-hidden overflow-y-auto bg-white p-4"
         ></div>
       </div>
       <AlertMsg

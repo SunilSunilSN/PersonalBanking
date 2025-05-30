@@ -11,6 +11,7 @@ const LoginPage = () => {
   const btnRef = useRef(null);
   const LoginCall = async (req) => {
     const data = await window.ServerCall("loginUserAPI", req);
+    localStorage.setItem("userDetails", JSON.stringify(data));
     if (data.success) {
       
       window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
@@ -29,14 +30,14 @@ const LoginPage = () => {
     }
   };
   const LoginSubmit = (e) => {
-    // if (!window.errorDisplayAll(Refs, setErrors)) {
-    //   const LoginReq = {
-    //     UserName: Refs["userNameRefId"].ref.current.value,
-    //     Password: Refs["passwordRef"].ref.current.value,
-    //   };
-    //   LoginCall(LoginReq);
-    // }
-    window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
+    if (!window.errorDisplayAll(Refs, setErrors)) {
+      const LoginReq = {
+        UserName: Refs["userNameRefId"].ref.current.value,
+        Password: Refs["passwordRef"].ref.current.value,
+      };
+      LoginCall(LoginReq);
+    }
+    //window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
   };
   return (
     <div

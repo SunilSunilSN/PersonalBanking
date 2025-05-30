@@ -13,3 +13,4 @@ export * from './Components/Popover';
 export * from './ConfigData/APIConfig'; 
 export * from './Components/Widget';
 export * from './Components/Table';
+export * from './Components/Announcement';

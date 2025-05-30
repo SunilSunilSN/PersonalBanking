@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Field, Label, Input, ErrorMessage, Button } from "shared-services";
 const RegistrationPage = () => {
+  const [profilePic, setProfilePic] = useState(null);
   const Refs = {
     userNameRefId: { ref: useRef(null), field: "userName" },
     EmailRefId: { ref: useRef(null), field: "email" },
     MobileRefId: { ref: useRef(null), field: "mobNo" },
     PasswordRefId: { ref: useRef(null), field: "password" },
+    ProfilePicRefId: { ref: useRef(null), field: "profilePic" },
   };
   window.setShowSideBar(false);
   const [errors, setErrors] = useState({});
@@ -13,7 +15,11 @@ const RegistrationPage = () => {
     const data = await window.ServerCall("createUserAPI", req);
     console.log(data);
     if (data.success) {
-      window.launchMicroApp("login", "DashboardPage", "LoginId");
+        window.showAlert({
+        AlertType: "S",
+        AlertDesc: data.message,
+        Btns: [{ Name: "Ok", function: () => window.launchMicroApp("login", "LoginPage", "BaseScreenID") }],
+      });
     } else {
       window.showAlert({
         AlertType: "E",
@@ -30,6 +36,7 @@ const RegistrationPage = () => {
         EmailId: Refs["EmailRefId"].ref.current.value,
         Password: "Sunil@123",
         UserRole: "USER",
+        ProfilePic: profilePic,
       };
       RegisterUser(req);
     }
@@ -86,6 +93,29 @@ const RegistrationPage = () => {
           onChange={(e) => window.errorDisplay(setErrors, e, "password")}
           onClick={(e) => window.errorOnClick(setErrors, e, "password")}
           name="password"
+        />
+        {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+        <Label>Profile Pic</Label>
+        <Input
+          ref={Refs.ProfilePicRefId.ref}
+          type="file"
+          id="RegPage_profilePic"
+          data-type="profilePic"
+          accept="image/*"
+          placeholder="Please type here&hellip;"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                setProfilePic(reader.result); // ✅ base64 string
+              };
+              reader.readAsDataURL(file); // 🔁 converts to base64
+            }
+            window.errorDisplay(setErrors, e, "profilePic");
+          }}
+          onClick={(e) => window.errorOnClick(setErrors, e, "profilePic")}
+          name="profilePic"
         />
         {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
         <div className="flex gap-2 mt-[5%]">

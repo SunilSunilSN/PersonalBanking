@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from "react";
 import WidgetsPage from "./WidgetsPage";
-import {Table} from "shared-services";
+import AnnouncementPage from "./AnnouncementPage";
 const DashboardPage = () => {
   const [renderDash, setRenderDash] = useState(null);
   window.setShowSideBar(true);
-    const fetchHeaderData = async () => {
-    const data = await window.getCommonData([
-      "Post-Login-Header",
-    ]);
-    const PreLoginHeader = data.find((item) => item.Key === "Post-Login-Header");
+  const fetchHeaderData = async () => {
+    const data = await window.getCommonData(["Post-Login-Header"]);
+    const PreLoginHeader = data.find(
+      (item) => item.Key === "Post-Login-Header"
+    );
     if (PreLoginHeader && PreLoginHeader.Value) {
       const headers = PreLoginHeader.Value.filter(
         (visib) =>
           visib.Visible === window.getDeviceType() || visib.Visible === "Both"
       );
-      if (headers) window.setHeaderItems(headers);
+      const userDateils = JSON.parse(localStorage.getItem("userDetails")).data;
+      if (headers)
+        window.setHeaderItems({
+          List: headers,
+          IsLoggedIn: true,
+          userData: {
+            Name: userDateils.UserName,
+            LastLogin: userDateils.UserRole,
+            ProfilePic: userDateils.ProfilePic,
+          },
+        });
     }
   };
   useEffect(() => {
@@ -30,16 +40,15 @@ const DashboardPage = () => {
           Btns: [
             {
               Name: "Ok",
-              function: () =>
-                window.launchMicroApp("login", "LoginPage", "BaseScreenID"),
+              function: () => window.location.reload(),
             },
           ],
         });
         setRenderDash(false);
       }
     };
-    //DashboardCall();
-    setRenderDash(true);
+    DashboardCall();
+    //setRenderDash(true);
   }, []);
 
   if (renderDash === null) {
@@ -47,9 +56,10 @@ const DashboardPage = () => {
   }
 
   return (
-    <div id="DashboElmId" >
-      <WidgetsPage />
-      
+    <div id="DashboElmId">
+      <WidgetsPage start={0} end={4} />
+      <AnnouncementPage />
+      <WidgetsPage start={4} end={8} />
     </div>
   );
 };

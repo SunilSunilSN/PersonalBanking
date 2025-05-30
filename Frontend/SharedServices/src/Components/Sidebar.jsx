@@ -1,7 +1,7 @@
 import React from "react";
 
 export function Sidebar({ children }) {
-  return <aside className="w-48 h-screen bg-gray-50 p-4 shadow-inner overflow-y-auto">{children}</aside>;
+  return <aside className="w-52 h-screen bg-gray-50 p-4 shadow-inner">{children}</aside>;
 }
 
 export function SidebarHeader({ children }) {
@@ -14,7 +14,7 @@ export function SidebarSection({ children }) {
 
 export function SidebarItem({ children, onClick }) {
   return (
-    <div onClick={onClick} className="cursor-pointer flex rounded px-2 py-1 hover:bg-gray-200 hover:text-blue-600 text-sm font-medium">
+    <div onClick={onClick} className="cursor-pointer flex rounded px-2 py-1 hover:bg-gray-200 hover:text-blue-600 text-sm font-medium items-center">
       {children}
     </div>
   );

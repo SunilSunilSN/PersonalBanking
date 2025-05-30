@@ -5,26 +5,28 @@ import {
   NavbarLabel,
   NavbarSection,
   NavbarSpacer,
-    SidebarItem,
-    SidebarLabel
+  SidebarItem,
+  SidebarLabel,
+  Avatar
 } from "shared-services";
 import { InboxIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 function Header() {
-  const [headerItems, setHeaderItems] = useState([]);
+  const [headerItems, setHeaderItems] = useState({"List": [],"IsLoggedIn": false, "userData": {}});
   const fetchHeaderData = async () => {
     const data = await window.getCommonData([
       "Sunil",
       "Sunil1",
       "Pre-Login-Header",
     ]);
+
     const PreLoginHeader = data.find((item) => item.Key === "Pre-Login-Header");
     if (PreLoginHeader && PreLoginHeader.Value) {
       const headers = PreLoginHeader.Value.filter(
         (visib) =>
           visib.Visible === window.getDeviceType() || visib.Visible === "Both"
       );
-      if (headers) setHeaderItems(headers);
+      if (headers) setHeaderItems({ List: headers, IsLoggedIn: false, userData: {} });
     }
   };
   const HeaderPopup = (PopoItems) => {
@@ -70,7 +72,8 @@ function Header() {
   };
   useEffect(() => {
     fetchHeaderData();
-    window.setHeaderItems = setHeaderItems; // ✅ call inside useEffect
+    window.setHeaderItems = setHeaderItems;
+     // ✅ call inside useEffect
   }, []);
 
   return (
@@ -104,7 +107,7 @@ function Header() {
       </Dropdown> */}
       <NavbarDivider className="max-lg:hidden" />
       <NavbarSection className="max-lg:hidden">
-        {headerItems.map((item, index) => (
+        {headerItems.List.map((item, index) => (
           <NavbarItem
             key={index}
             id="HeaderId"
@@ -118,14 +121,26 @@ function Header() {
         ))}
       </NavbarSection>
       <NavbarSpacer />
-      <NavbarSection>
+      {headerItems.IsLoggedIn && <NavbarSection>
         <NavbarItem href="/search" aria-label="Search">
-          <MagnifyingGlassIcon className="w-5 h-5" />
+          <span className="flex min-w-0 items-center gap-3">
+            <Avatar
+              src={headerItems.userData["ProfilePic"]}
+              className="size-10"
+              square
+              alt=""
+            />
+            <span className="min-w-0">
+              <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
+                {headerItems.userData["Name"]}
+              </span>
+              <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
+                {headerItems.userData["LastLogin"]}
+              </span>
+            </span>
+          </span>
         </NavbarItem>
-        <NavbarItem href="/inbox" aria-label="Inbox">
-          <InboxIcon className="w-5 h-5" />
-        </NavbarItem>
-      </NavbarSection>
+      </NavbarSection>}
     </Navbar>
   );
 }

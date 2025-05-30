@@ -13,7 +13,7 @@ export function Widget({
 }) {
     if(loading) {
         return (
-      <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border flex justify-center items-center border-gray-200 p-12 hover:bg-gray-200 w-full">
+      <div className="bg-white overflow-y-auto rounded-2xl h-48 shadow-sm border flex justify-center items-center border-gray-200 p-12 hover:bg-gray-200 w-full">
         <svg
           className="animate-spin w-6 text-blue-600"
           xmlns="http://www.w3.org/2000/svg"

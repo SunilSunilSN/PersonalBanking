@@ -8,7 +8,7 @@ const WidgetComponent = {
   RecentTransaction,
   QuicklinksWidget
 };
-function WidgetsPage() {
+function WidgetsPage({start, end}) {
   const [widgets, setWidgets] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchwidgets = async () => {
@@ -22,7 +22,8 @@ function WidgetsPage() {
             visib.Visible === window.getDeviceType() || visib.Visible === "Both"
         );
         widgets.sort((a, b) => a.Sequence - b.Sequence);
-        if (widgets) setWidgets(widgets);
+        const VisibleWidgets = widgets.slice(start, end);
+        if (VisibleWidgets) setWidgets(VisibleWidgets);
       }
       setLoading(false);
     }, 2000);
@@ -33,7 +34,7 @@ function WidgetsPage() {
   return (
     <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {loading
-        ? Array(1)
+        ? Array(4)
             .fill(null)
             .map((_, i) => <Widget key={i} loading={true} />)
         : widgets.map((widget, index) => {

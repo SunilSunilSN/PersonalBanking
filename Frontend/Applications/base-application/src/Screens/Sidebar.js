@@ -38,7 +38,8 @@ const SidebarComp = () => {
   const callLogout = async () => {
     const data = await window.ServerCall("logoutAPI", "");
     if (data.success) {
-      window.launchMicroApp("login", "LoginPage", "BaseScreenID");
+      //window.launchMicroApp("login", "LoginPage", "BaseScreenID");
+      window.location.reload()
     }
   };
   const SideParPopup = (PopoItems) => {

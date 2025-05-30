@@ -13,15 +13,41 @@
       }
     },
     {
-      "Name": "Web",
+      "Name": "Contact Us",
       "Visible": "Web",
-      "Navigate": {
-        "MicroApp": "login",
-        "Screen": "RegistrationPage"
-      }
+      "Type": "Popover",
+      "PopItems": [
+        {
+          "PopName": "Get In Touch",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "RegistrationPage"
+          }
+        },
+        {
+          "PopName": "Locat Us",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "LoginPage"
+          }
+        },
+        {
+          "PopName": "Grievence",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "LoginPage"
+          }
+        }
+      ]
     },
     {
-      "Name": "Both",
+      "Name": "Calculator",
       "Visible": "Both",
       "Navigate": {
         "MicroApp": "login",
@@ -29,7 +55,7 @@
       }
     },
     {
-      "Name": "Calculator",
+      "Name": "Help",
       "Visible": "Both",
       "Navigate": {
         "MicroApp": "login",
@@ -37,7 +63,7 @@
       }
     },
     {
-      "Name": "UseFull Links",
+      "Name": "More",
       "Visible": "Both",
       "Navigate": {
         "MicroApp": "login",
@@ -83,7 +109,97 @@
       }
     },
     {
-      "Name": "Web",
+      "Name": "Dashboard",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Accounts",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Payments & Transfer",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Deposits",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Loans",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Investment",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Insurance",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "PFM",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "IPO",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Government Schemes",
       "Visible": "Web",
       "Icon": "Square2StackIcon",
       "Type": "Navigate",
@@ -119,49 +235,53 @@
       ]
     },
     {
-      "Name": "Service Request",
-      "Visible": "Both",
-      "Icon": "MegaphoneIcon",
-      "Type": "Popover",
-      "PopItems": [
-        {
-          "PopName": "Chequebook",
-          "Visible": "Both",
-          "Icon": "TicketIcon",
-          "Navigate": {
-            "MicroApp": "login",
-            "Screen": "LoginPage"
-          }
-        },
-        {
-          "PopName": "E Locker",
-          "Visible": "Both",
-          "Icon": "TicketIcon",
-          "Navigate": {
-            "MicroApp": "login",
-            "Screen": "LoginPage"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "UseFull Links",
-      "Visible": "Both",
-      "Icon": "Cog6ToothIcon",
+      "Name": "Serivces",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
       "Type": "Navigate",
       "Navigate": {
         "MicroApp": "login",
-        "Screen": "UseFull Links"
+        "Screen": "DashboardPage"
       }
     },
     {
-      "Name": "UseFull Links",
-      "Visible": "Both",
-      "Icon": "Cog6ToothIcon",
+      "Name": "Rewards",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
       "Type": "Navigate",
       "Navigate": {
         "MicroApp": "login",
-        "Screen": "UseFull Links"
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Settings",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "Help and Grievances",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
+      }
+    },
+    {
+      "Name": "De-Register",
+      "Visible": "Web",
+      "Icon": "Square2StackIcon",
+      "Type": "Navigate",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "DashboardPage"
       }
     }
   ]
@@ -186,6 +306,137 @@
       "Name": "QucikLinks",
       "Visible": "Both",
       "Sequence": "3"
+    },
+    {
+      "Name": "QucikLinks",
+      "Visible": "Both",
+      "Sequence": "5"
+    },
+    {
+      "Name": "AccountsWidget",
+      "Visible": "Both",
+      "Sequence": "6"
+    },
+    {
+      "Name": "AccountsWidget",
+      "Visible": "Both",
+      "Sequence": "7"
+    },
+    {
+      "Name": "RecentTransaction",
+      "Visible": "Both",
+      "Sequence": "8"
+    },
+    {
+      "Name": "QucikLinks",
+      "Visible": "Both",
+      "Sequence": "4"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "68394d7b5987e7eae2209bc6"
+  },
+  "Key": "Post-Login-Header",
+  "Value": [
+    {
+      "Name": "Mobile",
+      "Visible": "Mobile",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "RegistrationPage"
+      }
+    },
+    {
+      "Name": "Home",
+      "Visible": "Web",
+      "Type": "Popover",
+      "PopItems": [
+        {
+          "PopName": "Get In Touch",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "RegistrationPage"
+          }
+        },
+        {
+          "PopName": "Locat Us",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "LoginPage"
+          }
+        },
+        {
+          "PopName": "Grievence",
+          "Visible": "Both",
+          "Icon": "TicketIcon",
+          "Navigate": {
+            "MicroApp": "login",
+            "Screen": "LoginPage"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Calculator",
+      "Visible": "Both",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "LoginPage"
+      }
+    },
+    {
+      "Name": "Help",
+      "Visible": "Both",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "Calculator"
+      }
+    },
+    {
+      "Name": "More",
+      "Visible": "Both",
+      "Navigate": {
+        "MicroApp": "login",
+        "Screen": "UseFull Links"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6839512e5987e7eae2209bc8"
+  },
+  "Key": "Post-Login-Announcement",
+  "Value": [
+    {
+      "Name": "Gold Loan",
+      "Sequence": "1",
+      "Visible": "Both",
+      "Title": "Tile 1",
+      "Description": "Desc 1",
+      "Date": "Date 1"
+    },
+    {
+      "Name": "Bike Loan",
+      "Sequence": "1",
+      "Visible": "Both",
+      "Title": "Tile 2",
+      "Description": "Desc 2",
+      "Date": "Date 2"
+    },
+    {
+      "Name": "Car Loan",
+      "Sequence": "1",
+      "Visible": "Both",
+      "Title": "Tile 3",
+      "Description": "Desc 3",
+      "Date": "Date 3"
     }
   ]
 }]
