@@ -5,7 +5,7 @@ export function Table({ columns = [], data = [], loading = false }) {
   return (
     <div className="w-full overflow-x-auto overflow-y-auto rounded-2xl border border-gray-200 shadow-sm bg-white">
       <table className="min-w-full divide-y divide-gray-200 text-sm text-left">
-        <thead className="bg-gray-50">
+        <thead className="bg-gray-50 sticky top-0 z-10">
           <tr>
             {columns.map((col) => (
               <th key={col.key} className="px-4 py-3 font-semibold text-gray-600">

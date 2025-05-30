@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Widget } from "shared-services";
 import AccountsWidget from "../Screens/Widgets/AccountsWidget";
 import RecentTransaction from "../Screens/Widgets/RecentTransaction";
+import QuicklinksWidget from "./Widgets/QuicklinksWidget";
 const WidgetComponent = {
   AccountsWidget,
   RecentTransaction,
+  QuicklinksWidget
 };
 function WidgetsPage() {
   const [widgets, setWidgets] = useState([]);

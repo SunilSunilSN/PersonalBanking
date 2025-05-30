@@ -1,10 +1,10 @@
 import React from "react";
-function AccountsWidget() {
+function QuicklinksWidget() {
   return (
-    <div  className="p-12">
+    <div className="p-12">
       <div className="flex items-center justify-between  w-full">
         <div>
-          <p className="text-sm text-gray-500">Accounts</p>
+          <p className="text-sm text-gray-500">Quicklinks</p>
           <h3 className="text-2xl font-semibold text-gray-800">1,234</h3>
         </div>
         <div className="rounded-full p-2 bg-blue-100">
@@ -15,5 +15,4 @@ function AccountsWidget() {
     </div>
   );
 }
-
-export default AccountsWidget;
+export default QuicklinksWidget;

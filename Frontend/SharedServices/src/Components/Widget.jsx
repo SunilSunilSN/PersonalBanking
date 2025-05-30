@@ -13,7 +13,7 @@ export function Widget({
 }) {
     if(loading) {
         return (
-      <div className="bg-white rounded-2xl shadow-sm border flex justify-center items-center border-gray-200 p-12 hover:bg-gray-200 w-full">
+      <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border flex justify-center items-center border-gray-200 p-12 hover:bg-gray-200 w-full">
         <svg
           className="animate-spin w-6 text-blue-600"
           xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ export function Widget({
 
   if (children) {
     return (
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48">
+      <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48">
         {children}
       </div>
     );
@@ -49,8 +49,9 @@ export function Widget({
 
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200  w-full">
-      <div className="flex items-center justify-between">
+    <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48">
+      <div  className="p-4">
+      <div className="flex items-center justify-between p-4">
         <div>
           <p className="text-sm text-gray-500">{title}</p>
           <h3 className="text-2xl font-semibold text-gray-800">{value}</h3>
@@ -74,6 +75,7 @@ export function Widget({
           from last week
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -5,7 +5,9 @@ import {
   NavbarLabel,
   NavbarSection,
   NavbarSpacer,
-} from 'shared-services';
+    SidebarItem,
+    SidebarLabel
+} from "shared-services";
 import { InboxIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 function Header() {
@@ -25,8 +27,50 @@ function Header() {
       if (headers) setHeaderItems(headers);
     }
   };
+  const HeaderPopup = (PopoItems) => {
+    const PItems = PopoItems.filter(
+      (visible) =>
+        visible.Visible === window.getDeviceType() || visible.Visible === "Both"
+    );
+    if (PItems) {
+      return (
+        <div>
+          {PItems.map((item, index) => {
+            //const IconComponent = IconsMap[item.Icon];
+            return (
+              <SidebarItem
+                key={index}
+                onClick={(e) => {
+                  window.launchMicroApp(
+                    item.Navigate.MicroApp,
+                    item.Navigate.Screen,
+                    "BaseScreenID"
+                  );
+                }}
+              >
+                {/* <IconComponent className="w-5 h-5" /> */}
+                <SidebarLabel>{item.PopName}</SidebarLabel>
+              </SidebarItem>
+            );
+          })}
+        </div>
+      );
+    }
+  };
+  const Clickfunc = (target, item, index) => {
+    if (item.Type === "Navigate") {
+      return window.launchMicroApp(
+        item.Navigate.MicroApp,
+        item.Navigate.Screen,
+        "BaseScreenID"
+      );
+    } else if (item.Type === "Popover") {
+      return window.showPopover(target, HeaderPopup(item.PopItems), "bottom");
+    }
+  };
   useEffect(() => {
-    fetchHeaderData(); // ✅ call inside useEffect
+    fetchHeaderData();
+    window.setHeaderItems = setHeaderItems; // ✅ call inside useEffect
   }, []);
 
   return (
@@ -65,13 +109,9 @@ function Header() {
             key={index}
             id="HeaderId"
             // className="text-gray-600 hover:text-black cursor-pointer"
-            onClick={() =>
-              window.launchMicroApp(
-                item.Navigate.MicroApp,
-                item.Navigate.Screen,
-                "LoginId"
-              )
-            }
+            onClick={(e) => {
+              Clickfunc(e, item, index);
+            }}
           >
             {item.Name}
           </NavbarItem>

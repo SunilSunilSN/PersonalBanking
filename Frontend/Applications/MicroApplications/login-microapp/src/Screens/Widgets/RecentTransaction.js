@@ -23,9 +23,8 @@ function RecentTransaction() {
     { Date: "24-Jun", Amount: "123567.00", Remarks: "Payment Sent" },
   ];
   return (
-    <div>
+
       <Table columns={columns} data={data} loading={false} />
-    </div>
   );
 }
 
