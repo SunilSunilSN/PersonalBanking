@@ -1,4 +1,5 @@
 import React from "react";
+const cn = (...classes) => classes.filter(Boolean).join(' ');
 export function Navbar({ children }) {
   return <nav className="flex items-center gap-4 bg-white p-5 shadow">{children}</nav>;
 }
@@ -26,12 +27,12 @@ export function NavbarItem({ children, href, onClick, current }) {
   );
 }
 
-export function NavbarSection({ children }) {
+export function NavbarSection({ children,  }) {
   return <div className="flex items-center gap-4">{children}</div>;
 }
 
-export function NavbarLabel({ children }) {
-  return <span className="text-s text-gray-500 uppercase">{children}</span>;
+export function NavbarLabel({ children, className }) {
+  return <span className={cn("text-s text-gray-500 uppercase", className)}>{children}</span>;
 }
 
 export function NavbarDivider() {

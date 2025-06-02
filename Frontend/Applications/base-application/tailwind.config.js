@@ -10,7 +10,22 @@ module.exports = {
     "../MicroApplications/**/src/**/*.{js,jsx,ts,tsx,html}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        "slide-in-left": {
+          "0%": { opacity: "0", transform: "translateX(30px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+        "slide-in-right": {
+          "0%": { opacity: "0", transform: "translateX(-30px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        "slide-in-left": "slide-in-left 0.5s ease-out forwards",
+        "slide-in-right": "slide-in-right 0.5s ease-out forwards",
+      },
+    },
   },
   plugins: [],
   darkMode: "class",

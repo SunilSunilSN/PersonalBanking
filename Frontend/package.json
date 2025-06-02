@@ -40,6 +40,7 @@
     "dotenv-cli": "^8.0.0",
     "dropdown-menu": "^0.1.1",
     "env-cmd": "^10.1.0",
+    "framer-motion": "^12.15.0",
     "init": "^0.1.2",
     "lucide-react": "^0.511.0",
     "mini-css-extract-plugin": "^2.9.2",

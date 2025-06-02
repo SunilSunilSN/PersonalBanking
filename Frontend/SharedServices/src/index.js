@@ -15,3 +15,4 @@ export * from './Components/Widget';
 export * from './Components/Table';
 export * from './Components/Announcement';
 export * from './Components/Graph';
+export * from './Components/Tabs';
