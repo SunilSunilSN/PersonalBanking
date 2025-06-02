@@ -16,7 +16,6 @@ function WidgetsPage({start, end}) {
   const fetchwidgets = async () => {
     setLoading(true);
     const data = await window.getCommonData(["Widgets"]);
-    setTimeout(() => {
       const WidgetsList = data.find((item) => item.Key === "Widgets");
       if (WidgetsList && WidgetsList.Value) {
         const widgets = WidgetsList.Value.filter(
@@ -28,7 +27,6 @@ function WidgetsPage({start, end}) {
         if (VisibleWidgets) setWidgets(VisibleWidgets);
       }
       setLoading(false);
-    }, 2000);
   };
   useEffect(() => {
     fetchwidgets(); // ✅ call inside useEffect

@@ -7,12 +7,16 @@ import {
   NavbarSpacer,
   SidebarItem,
   SidebarLabel,
-  Avatar
+  Avatar,
 } from "shared-services";
-import { InboxIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { InboxIcon, MagnifyingGlassIcon, BellAlertIcon  } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 function Header() {
-  const [headerItems, setHeaderItems] = useState({"List": [],"IsLoggedIn": false, "userData": {}});
+  const [headerItems, setHeaderItems] = useState({
+    List: [],
+    IsLoggedIn: false,
+    userData: {},
+  });
   const fetchHeaderData = async () => {
     const data = await window.getCommonData([
       "Sunil",
@@ -26,7 +30,8 @@ function Header() {
         (visib) =>
           visib.Visible === window.getDeviceType() || visib.Visible === "Both"
       );
-      if (headers) setHeaderItems({ List: headers, IsLoggedIn: false, userData: {} });
+      if (headers)
+        setHeaderItems({ List: headers, IsLoggedIn: false, userData: {} });
     }
   };
   const HeaderPopup = (PopoItems) => {
@@ -73,7 +78,7 @@ function Header() {
   useEffect(() => {
     fetchHeaderData();
     window.setHeaderItems = setHeaderItems;
-     // ✅ call inside useEffect
+    // ✅ call inside useEffect
   }, []);
 
   return (
@@ -121,26 +126,39 @@ function Header() {
         ))}
       </NavbarSection>
       <NavbarSpacer />
-      {headerItems.IsLoggedIn && <NavbarSection>
-        <NavbarItem onClick={() => window.launchMicroApp("login", "ProfilePage", "BaseScreenID")} aria-label="Search">
-          <span className="flex min-w-0 items-center gap-3">
-            <Avatar
-              src={headerItems.userData["ProfilePic"]}
-              className="size-10"
-              square
-              alt=""
-            />
-            <span className="min-w-0">
-              <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
-                {headerItems.userData["Name"]}
-              </span>
-              <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                {headerItems.userData["LastLogin"]}
+      {headerItems.IsLoggedIn && (
+        <NavbarSection>
+          <NavbarItem href="/search" aria-label="Search">
+            <BellAlertIcon className="w-5 h-5" />
+          </NavbarItem>
+          <NavbarItem href="/inbox" aria-label="Inbox">
+            <InboxIcon className="w-5 h-5" />
+          </NavbarItem>
+          <NavbarItem
+            onClick={() =>
+              window.launchMicroApp("login", "ProfilePage", "BaseScreenID")
+            }
+            aria-label="Search"
+          >
+            <span className="flex min-w-0 items-center gap-3">
+              <Avatar
+                src={headerItems.userData["ProfilePic"]}
+                className="size-10"
+                square
+                alt=""
+              />
+              <span className="min-w-0">
+                <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
+                  {headerItems.userData["Name"]}
+                </span>
+                <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
+                  {headerItems.userData["LastLogin"]}
+                </span>
               </span>
             </span>
-          </span>
-        </NavbarItem>
-      </NavbarSection>}
+          </NavbarItem>
+        </NavbarSection>
+      )}
     </Navbar>
   );
 }

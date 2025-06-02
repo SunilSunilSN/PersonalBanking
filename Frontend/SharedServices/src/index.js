@@ -14,3 +14,4 @@ export * from './ConfigData/APIConfig';
 export * from './Components/Widget';
 export * from './Components/Table';
 export * from './Components/Announcement';
+export * from './Components/Graph';

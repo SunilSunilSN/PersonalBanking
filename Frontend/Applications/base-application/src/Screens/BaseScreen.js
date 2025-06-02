@@ -43,7 +43,7 @@ function BaseScreen() {
       <div className="flex flex-1 overflow-hidden">
         <div
           id="SideBarEmlId"
-          className="overflow-y-auto"
+          className="overflow-y-auto scrollbar-thin" 
         >
           {showSideBar == true && <SidebarComp />}
         </div>

@@ -14,7 +14,7 @@ export function Widget({
 }) {
     if(loading) {
         return (
-      <div className="bg-white overflow-y-auto rounded-2xl h-48 shadow-sm border flex justify-center items-center border-gray-200 p-12 hover:bg-gray-200 w-full">
+      <div className="bg-white overflow-y-auto rounded-2xl h-48 shadow-sm border flex justify-center items-center border-gray-200 p-12 hover:bg-gray-200 w-full transition-transform duration-500 ease-in-out transform hover:scale-[1.02]">
         <svg
           className="animate-spin w-6 text-blue-600"
           xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ export function Widget({
 
   if (children) {
     return (
-      <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48">
+      <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48 transition-transform duration-500 ease-in-out transform hover:scale-[1.02]">
         {children}
       </div>
     );
@@ -50,7 +50,7 @@ export function Widget({
 
 
   return (
-    <div id = {id} className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48">
+    <div id = {id} className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48 transition-transform duration-500 ease-in-out transform hover:scale-[1.02]">
       <div  className="p-4">
       <div className="flex items-center justify-between p-4">
         <div>

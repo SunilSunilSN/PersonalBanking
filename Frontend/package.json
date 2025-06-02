@@ -10,10 +10,10 @@
     "SharedServices"
   ],
   "scripts": {
-    "start:all": "concurrently --kill-others --prefix \"[{name}]\" --prefix-colors \"bgBlue.bold,bgRed.bold,bgGreen.bold\" -n \"BASE,LOGIN,PRELOGIN\" \"yarn workspace base-application start\" \"yarn workspace login-microapp start\" \"yarn workspace preLogin-microapp start\"",
+    "start:all": "concurrently --kill-others --prefix \"[{name}]\" --prefix-colors \"bgBlue.bold,bgRed.bold,bgGreen.bold,bgYellow.bold\" -n \"BASE,LOGIN,PRELOGIN,ACCOUNT\" \"yarn workspace base-application start\" \"yarn workspace login-microapp start\" \"yarn workspace preLogin-microapp start\" \"yarn workspace account-microapp start\"",
     "start:dev": "cross-env ENV_FILE=dev yarn start:all",
     "start:sit": "cross-env ENV_FILE=sit yarn start:all",
-    "build:all": "yarn workspace base-application build && yarn workspace login-microapp build && yarn workspace preLogin-microapp build",
+    "build:all": "yarn workspace base-application build && yarn workspace login-microapp build && yarn workspace preLogin-microapp build && yarn workspace account-microapp build",
     "start": "node server.js",
     "build:base": "yarn workspace base-application build",
     "build:login": "yarn workspace login-microapp build"
@@ -48,6 +48,7 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.5.0",
     "react-scripts": "^5.0.1",
+    "recharts": "^2.15.3",
     "shadcn-ui": "^0.9.5",
     "tailwind-merge": "^3.3.0",
     "tailwind-variants": "^1.0.0",

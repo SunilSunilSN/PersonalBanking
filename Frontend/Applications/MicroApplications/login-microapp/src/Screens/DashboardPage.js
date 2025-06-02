@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WidgetsPage from "./WidgetsPage";
 import AnnouncementPage from "./AnnouncementPage";
+import GraphPage from "./GraphPage";
 const DashboardPage = () => {
   const [renderDash, setRenderDash] = useState(null);
   window.setShowSideBar(true);
@@ -57,6 +58,7 @@ const DashboardPage = () => {
 
   return (
     <div id="DashboElmId">
+      <GraphPage></GraphPage>
       <WidgetsPage start={0} end={4} />
       <AnnouncementPage />
       <WidgetsPage start={4} end={8} />
