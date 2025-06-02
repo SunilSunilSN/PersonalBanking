@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Table, NavbarLabel, NavbarItem, Tabs } from "shared-services";
+import { Navbar, Table, NavbarLabel, NavbarItem, Tabs, Graph } from "shared-services";
 import {
   PencilIcon,
   TrashIcon,
@@ -7,14 +7,11 @@ import {
 } from "@heroicons/react/24/outline";
 const AccountsPage = () => {
   const columns = [
-    { key: "Acc", label: "Account Number" },
-    { key: "Type", label: "Type" },
-    { key: "Bal", label: "Balance/Amount" },
-    { key: "Branch", label: "Branch" },
-    {
-      key: "actions",
-      label: "Actions",
-      isAction: true,
+    { key: "Acc", label: "Account Number", onClick: AccountClick },
+    { key: "Type", label: "Type", onClick: AccountClick },
+    { key: "Bal", label: "Balance/Amount", onClick: AccountClick },
+    { key: "Branch", label: "Branch", onClick: AccountClick },
+    { key: "actions", label: "Actions",
       render: (row) => (
         <div className="flex gap-2">
           <PencilIcon
@@ -35,6 +32,10 @@ const AccountsPage = () => {
 
   function handleDelete(row) {
     console.log("Delete clicked", row);
+  }
+
+  function AccountClick(row) {
+    console.log("Accpuny", row);
   }
   const AllAccounts = [
     { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
@@ -72,7 +73,7 @@ const AccountsPage = () => {
               0
             ).toFixed(2)}
           ></AccountDetails>
-          <Table columns={columns} data={AllAccounts} loading={false} />
+          <Table columns={columns} data={AllAccounts} loading={false} rowsPerPage={5} />
         </div>
       ),
     },
@@ -89,6 +90,7 @@ const AccountsPage = () => {
             columns={columns}
             data={AllAccounts.filter((el) => el.Type === "Savings")}
             loading={false}
+            rowsPerPage={5} 
           />
         </div>
       ),
@@ -179,6 +181,50 @@ const AccountsPage = () => {
       ),
     },
   ];
+const Bardata = [
+  {
+    "name": "Page A",
+    "uv": 4000,
+    "pv": 2400,
+    "amt": 2400
+  },
+  {
+    "name": "Page B",
+    "uv": 3000,
+    "pv": 1398,
+    "amt": 2210
+  },
+  {
+    "name": "Page C",
+    "uv": 2000,
+    "pv": 9800,
+    "amt": 2290
+  },
+  {
+    "name": "Page D",
+    "uv": 2780,
+    "pv": 3908,
+    "amt": 2000
+  },
+  {
+    "name": "Page E",
+    "uv": 1890,
+    "pv": 4800,
+    "amt": 2181
+  },
+  {
+    "name": "Page F",
+    "uv": 2390,
+    "pv": 3800,
+    "amt": 2500
+  },
+  {
+    "name": "Page G",
+    "uv": 3490,
+    "pv": 4300,
+    "amt": 2100
+  }
+]
   function AccountDetails({ Balance }) {
     return (
       <div className="bg-white overflow-y-hidden h-full">
@@ -193,8 +239,9 @@ const AccountsPage = () => {
               {`Total Balance: ${Balance}`}
             </div>
             <div className="text-sm text-gray-400 mt-1">
-              {`Total Balance: ${Balance}`}
+              <Graph data={Bardata} title={"graphTitle"} type={"Bar"}></Graph>
             </div>
+            
           </div>
         </div>
       </div>

@@ -10,6 +10,9 @@ import {
   RadialBar,
   RadialBarChart,
   Legend,
+  ComposedChart,
+  Area,
+  Bar
 } from "recharts";
 
 export function Graph({
@@ -83,6 +86,17 @@ export function Graph({
           </div>
         </div>
       </div>
+    );
+  } else if (type === "Bar") {
+    return (
+      <ComposedChart width={730} height={250} data={data}>
+        <XAxis dataKey="name" />
+        <Tooltip />
+        <CartesianGrid stroke="#f5f5f5" />
+        <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" />
+        <Bar dataKey="pv" barSize={20} fill="#413ea0" />
+        <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+      </ComposedChart>
     );
   }
 }
