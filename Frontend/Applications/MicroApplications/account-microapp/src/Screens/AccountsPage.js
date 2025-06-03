@@ -223,7 +223,7 @@ const AccountsPage = () => {
       key: "actions",
       label: "Actions",
       render: (row) => (
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-center">
           <PencilIcon
             onClick={() => handleEdit(row)}
             className="w-5 h-5 text-blue-500 cursor-pointer hover:scale-110 transition"
@@ -245,7 +245,7 @@ const AccountsPage = () => {
   }
 
   function AccountClick(row) {
-    console.log("Accpuny", row);
+    window.launchMicroApp("account", "AccountDetails", "BaseScreenID", row);
   }
   const Bardatas = [
     {

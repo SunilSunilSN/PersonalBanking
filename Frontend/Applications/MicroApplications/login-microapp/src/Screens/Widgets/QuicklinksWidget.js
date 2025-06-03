@@ -17,12 +17,12 @@ const QuickLinksWidget = () => {
   };
   useEffect(() => {
     fetchQucikLinks();
-  });
+  }, []);
 
   if (!quicks.length) return null;
 
   return (
-    <div className="rounded-2xl p-4 w-full max-w-md mx-auto">
+    <div className="rounded-2xl p-4 w-full max-w-md mx-auto animate-fade-slide">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">Quick Links</h2>
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {quicks.map((item, idx) => (
