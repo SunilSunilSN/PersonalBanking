@@ -1,6 +1,6 @@
 // components/Table.jsx
 import React, { useState } from "react";
-
+import { BanknotesIcon } from "@heroicons/react/24/outline";
 export function Table({
   columns = [],
   data = [],
@@ -26,9 +26,9 @@ export function Table({
     <div className="w-full rounded-2xl border border-gray-200 shadow-sm bg-white">
       {/* Header */}
       <div className="overflow-x-auto rounded-[1rem_1rem_0rem_0rem] ">
-        <table className="min-w-full text-sm text-left">
-          <thead className="bg-gray-50 sticky top-0 z-10">
-            <tr>
+        <table className="min-w-full text-sm text-left ">
+          <thead className="bg-gray-50 sticky top-0 z-10 whitespace-nowrap">
+            <tr colSpan={columns.length}>
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -69,7 +69,7 @@ export function Table({
                 paginatedData.map((row, idx) => (
                   <tr
                     key={idx}
-                    className={`opacity-0 hover:bg-gray-200 ${
+                    className={`cursor-pointer opacity-0 hover:bg-gray-200 ${
                       idx % 2 === 0
                         ? "animate-slide-in-right"
                         : "animate-slide-in-right"
@@ -79,7 +79,9 @@ export function Table({
                     {columns.map((col) => (
                       <td
                         key={col.key}
-                        className="px-4 py-3 text-gray-700 "
+                        className={`px-4 py-3 text-gray-700 ${
+                          row.isPrimary && col.key === "Acc" ? "gap-4 flex" : ""
+                        }`}
                         onClick={
                           col.onClick ? () => col.onClick(row) : undefined
                         }
@@ -87,6 +89,9 @@ export function Table({
                         {typeof col.render === "function"
                           ? col.render(row)
                           : row[col.key]}
+                        {row.isPrimary === true && col.key === "Acc" && (
+                          <BanknotesIcon className="w-5 h-5 text-green-600" />
+                        )}
                       </td>
                     ))}
                   </tr>

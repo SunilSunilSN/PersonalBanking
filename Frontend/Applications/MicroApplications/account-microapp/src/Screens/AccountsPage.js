@@ -1,17 +1,227 @@
-import React from "react";
-import { Navbar, Table, NavbarLabel, NavbarItem, Tabs, Graph } from "shared-services";
+import React, { useEffect, useState } from "react";
+import {
+  Navbar,
+  Table,
+  NavbarLabel,
+  NavbarItem,
+  Tabs,
+  Graph,
+} from "shared-services";
 import {
   PencilIcon,
   TrashIcon,
   ArrowLongLeftIcon,
 } from "@heroicons/react/24/outline";
 const AccountsPage = () => {
+  const [AccountsData, setAccountsData] = useState([]);
+  const AllAccounts = [
+    {
+      AccCode: "SAV",
+      Acc: "456789",
+      Type: "Savings",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "CUR",
+      Acc: "12313123",
+      Type: "Current",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "DEP",
+      Acc: "12313123",
+      Type: "Deposits",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "LAN",
+      Acc: "12313123",
+      Type: "Loans",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "PPF",
+      Acc: "12313123",
+      Type: "PPF",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "OD",
+      Acc: "12313123",
+      Type: "OD",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "SAV",
+      Acc: "12313123",
+      Type: "Savings",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "DEP",
+      Acc: "12313123",
+      Type: "Deposits",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "SAV",
+      Acc: "12313123",
+      Type: "Savings",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "SAV",
+      Acc: "12313123",
+      Type: "Savings",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "CUR",
+      Acc: "12313123",
+      Type: "Current",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "OD",
+      Acc: "12313123",
+      Type: "OD",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "CUR",
+      Acc: "12313123",
+      Type: "Current",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "LAN",
+      Acc: "12313123",
+      Type: "Loans",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "DEP",
+      Acc: "12313123",
+      Type: "Deposits",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "SAV",
+      Acc: "12313123",
+      Type: "Savings",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "OD",
+      Acc: "12313123",
+      Type: "OD",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "SAV",
+      Acc: "12313123",
+      Type: "Savings",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "SAV",
+      Acc: "12313123",
+      Type: "Savings",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "LAN",
+      Acc: "12313123",
+      Type: "Loans",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "SAV",
+      Acc: "12313123",
+      Type: "Savings",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+    {
+      AccCode: "CUR",
+      Acc: "34534345",
+      Type: "Current",
+      Bal: "123.78",
+      Branch: "Bangalore",
+    },
+  ];
+  const grouped = {};
+  AllAccounts.forEach((account) => {
+    if (!grouped[account.Type]) {
+      grouped[account.Type] = [];
+    }
+    account.isPrimary = false;
+    if (account.Acc === "456789" || account.Acc === "34534345") {
+      account.isPrimary = true;
+    }
+    grouped[account.Type].push(account);
+  });
+  async function AccountMapper() {
+    const AccountMapperData = await window.getCommonData([
+      "AccountsData-Mapper",
+    ]);
+    const mapperValue = AccountMapperData[0]?.Value || [];
+
+    const groupedData = Object.entries(grouped).map(([type, accounts]) => {
+      const AccCode = accounts[0].AccCode;
+      const mapping = mapperValue.find((el) => el.AccountCode === AccCode);
+      const columns =
+        mapping?.Mappers.map((mapper) => ({
+          key: mapper.Key,
+          label: mapper.Label,
+          onClick: AccountClick,
+        })) || [];
+      const totalBalance =
+        accounts
+          .reduce((acc, curr) => acc + parseFloat(curr.Bal || 0), 0)
+          .toFixed(2) +
+        " " +
+        "INR";
+      return {
+        type,
+        columns,
+        data: accounts,
+        TotalBalance: totalBalance,
+      };
+    });
+    setAccountsData(groupedData);
+  }
+  useEffect(() => {
+    AccountMapper();
+  }, []);
   const columns = [
     { key: "Acc", label: "Account Number", onClick: AccountClick },
     { key: "Type", label: "Type", onClick: AccountClick },
     { key: "Bal", label: "Balance/Amount", onClick: AccountClick },
     { key: "Branch", label: "Branch", onClick: AccountClick },
-    { key: "actions", label: "Actions",
+    {
+      key: "actions",
+      label: "Actions",
       render: (row) => (
         <div className="flex gap-2">
           <PencilIcon
@@ -37,211 +247,66 @@ const AccountsPage = () => {
   function AccountClick(row) {
     console.log("Accpuny", row);
   }
-  const AllAccounts = [
-    { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Current", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Deposits", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Loans", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "PPF", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "OD", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Deposits", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Current", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "OD", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Current", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Loans", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Deposits", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "OD", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Loans", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Savings", Bal: "123.78", Branch: "Bangalore" },
-    { Acc: "12313123", Type: "Current", Bal: "123.78", Branch: "Bangalore" },
-  ];
-
-  const tabs = [
+  const Bardatas = [
     {
-      label: "All Accounts",
-      content: (
-        <div>
-          <AccountDetails
-            Balance={AllAccounts.reduce(
-              (acc, curr) => acc + parseFloat(curr.Bal),
-              0
-            ).toFixed(2)}
-          ></AccountDetails>
-          <Table columns={columns} data={AllAccounts} loading={false} rowsPerPage={5} />
-        </div>
-      ),
+      name: "Page A",
+      uv: 4000,
+      Balance: 2400,
+      TotalBalance: 2400,
     },
     {
-      label: "Saving Account",
-      content: (
-        <div>
-          <AccountDetails
-            Balance={AllAccounts.filter((el) => el.Type === "Savings")
-              .reduce((acc, curr) => acc + parseFloat(curr.Bal), 0)
-              .toFixed(2)}
-          ></AccountDetails>
-          <Table
-            columns={columns}
-            data={AllAccounts.filter((el) => el.Type === "Savings")}
-            loading={false}
-            rowsPerPage={5} 
-          />
-        </div>
-      ),
+      name: "Page B",
+      uv: 3000,
+      Balance: 1398,
+      TotalBalance: 2210,
     },
     {
-      label: "Current Account",
-      content: (
-        <div>
-          <AccountDetails
-            Balance={AllAccounts.filter((el) => el.Type === "Current")
-              .reduce((acc, curr) => acc + parseFloat(curr.Bal), 0)
-              .toFixed(2)}
-          ></AccountDetails>
-          <Table
-            columns={columns}
-            data={AllAccounts.filter((el) => el.Type === "Current")}
-            loading={false}
-          />
-        </div>
-      ),
+      name: "Page C",
+      uv: 2000,
+      Balance: 9800,
+      TotalBalance: 2290,
     },
     {
-      label: "Deposits",
-      content: (
-        <div>
-          <AccountDetails
-            Balance={AllAccounts.filter((el) => el.Type === "Deposits")
-              .reduce((acc, curr) => acc + parseFloat(curr.Bal), 0)
-              .toFixed(2)}
-          ></AccountDetails>
-          <Table
-            columns={columns}
-            data={AllAccounts.filter((el) => el.Type === "Deposits")}
-            loading={false}
-          />
-        </div>
-      ),
+      name: "Page D",
+      uv: 2780,
+      Balance: 3908,
+      TotalBalance: 2000,
     },
     {
-      label: "Loans",
-      content: (
-        <div>
-          <AccountDetails
-            Balance={AllAccounts.filter((el) => el.Type === "Loans")
-              .reduce((acc, curr) => acc + parseFloat(curr.Bal), 0)
-              .toFixed(2)}
-          ></AccountDetails>
-          <Table
-            columns={columns}
-            data={AllAccounts.filter((el) => el.Type === "Loans")}
-            loading={false}
-          />
-        </div>
-      ),
+      name: "Page E",
+      uv: 1890,
+      Balance: 4800,
+      TotalBalance: 2181,
     },
     {
-      label: "PPF",
-      content: (
-        <div>
-          <AccountDetails
-            Balance={AllAccounts.filter((el) => el.Type === "PPF")
-              .reduce((acc, curr) => acc + parseFloat(curr.Bal), 0)
-              .toFixed(2)}
-          ></AccountDetails>
-          <Table
-            columns={columns}
-            data={AllAccounts.filter((el) => el.Type === "PPF")}
-            loading={false}
-          />
-        </div>
-      ),
+      name: "Page F",
+      uv: 2390,
+      Balance: 3800,
+      TotalBalance: 2500,
     },
     {
-      label: "Over Draft",
-      content: (
-        <div>
-          <AccountDetails
-            Balance={AllAccounts.filter((el) => el.Type === "OD")
-              .reduce((acc, curr) => acc + parseFloat(curr.Bal), 0)
-              .toFixed(2)}
-          ></AccountDetails>
-          <Table
-            columns={columns}
-            data={AllAccounts.filter((el) => el.Type === "OD")}
-            loading={false}
-          />
-        </div>
-      ),
+      name: "Page G",
+      uv: 3490,
+      Balance: 4300,
+      TotalBalance: 2100,
     },
   ];
-const Bardata = [
-  {
-    "name": "Page A",
-    "uv": 4000,
-    "pv": 2400,
-    "amt": 2400
-  },
-  {
-    "name": "Page B",
-    "uv": 3000,
-    "pv": 1398,
-    "amt": 2210
-  },
-  {
-    "name": "Page C",
-    "uv": 2000,
-    "pv": 9800,
-    "amt": 2290
-  },
-  {
-    "name": "Page D",
-    "uv": 2780,
-    "pv": 3908,
-    "amt": 2000
-  },
-  {
-    "name": "Page E",
-    "uv": 1890,
-    "pv": 4800,
-    "amt": 2181
-  },
-  {
-    "name": "Page F",
-    "uv": 2390,
-    "pv": 3800,
-    "amt": 2500
-  },
-  {
-    "name": "Page G",
-    "uv": 3490,
-    "pv": 4300,
-    "amt": 2100
-  }
-]
-  function AccountDetails({ Balance }) {
+  function AccountDetails({ Type, Balance, BarData }) {
     return (
       <div className="bg-white overflow-y-hidden h-full">
         <div className="flex gap-[30px] pb-4 h-44">
           <div className="min-w-[100%] bg-gray-200  p-4 rounded-2xl  shadow hover:shadow-lg transition duration-300 ">
             <div className="flex items-center justify-between mb-2">
-              <div className="text-sm font-medium text-gray-500">
-                {"Accounts"}
-              </div>
+              <div className="text-sm font-medium text-gray-500">{Type}</div>
             </div>
             <div className="text-2xl font-semibold text-gray-900">
               {`Total Balance: ${Balance}`}
             </div>
             <div className="text-sm text-gray-400 mt-1">
-              <Graph data={Bardata} title={"graphTitle"} type={"Bar"}></Graph>
+              {BarData && (
+                <Graph data={BarData} title={"graphTitle"} type={"Bar"}></Graph>
+              )}
             </div>
-            
           </div>
         </div>
       </div>
@@ -249,7 +314,73 @@ const Bardata = [
   }
   return (
     <div>
-      <Tabs tabs={tabs}></Tabs>
+      {/* <Tabs tabs={tabs}></Tabs> */}
+      <Tabs
+        tabs={
+          AccountsData.length > 0
+            ? [
+                {
+                  label: "All Accounts",
+                  content: (
+                    <div>
+                      <AccountDetails
+                        Type={"All Accounts"}
+                        Balance={
+                          AllAccounts.reduce(
+                            (acc, curr) => acc + parseFloat(curr.Bal || 0),
+                            0
+                          ).toFixed(2) +
+                          " " +
+                          "INR"
+                        }
+                        BarData={Bardatas}
+                      />
+                      <Table
+                        columns={columns}
+                        data={AllAccounts}
+                        loading={false}
+                        rowsPerPage={5}
+                        onClick={AccountClick}
+                      />
+                    </div>
+                  ),
+                },
+                ...AccountsData.map((entry) => ({
+                  label: entry.type,
+                  content: (
+                    <div>
+                      <AccountDetails
+                        Type={entry.type}
+                        Balance={entry.TotalBalance}
+                      />
+                      <Table
+                        columns={entry.columns}
+                        data={entry.data}
+                        loading={false}
+                        rowsPerPage={5}
+                        onClick={entry.onClick}
+                      />
+                    </div>
+                  ),
+                })),
+              ]
+            : [
+                {
+                  label: "Loading...",
+                  content: (
+                    <div>
+                      <Table
+                        columns={[]}
+                        data={[]}
+                        loading={true}
+                        rowsPerPage={5}
+                      />
+                    </div>
+                  ),
+                },
+              ]
+        }
+      />
     </div>
   );
 };
