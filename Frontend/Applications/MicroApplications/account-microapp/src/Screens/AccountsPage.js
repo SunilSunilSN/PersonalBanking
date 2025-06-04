@@ -12,162 +12,6 @@ const AccountsPage = () => {
   const hasFetched = useRef(false);
   const [AccountsData, setAccountsData] = useState([]);
   const [AllAccounts, setAllAcconuts] = useState([]);
-  // const AllAccounts = [
-  //   {
-  //     AccCode: "SAV",
-  //     Acc: "456789",
-  //     Type: "Savings",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "CUR",
-  //     Acc: "12313123",
-  //     Type: "Current",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "DEP",
-  //     Acc: "12313123",
-  //     Type: "Deposits",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "LAN",
-  //     Acc: "12313123",
-  //     Type: "Loans",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "PPF",
-  //     Acc: "12313123",
-  //     Type: "PPF",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "OD",
-  //     Acc: "12313123",
-  //     Type: "OD",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "SAV",
-  //     Acc: "12313123",
-  //     Type: "Savings",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "DEP",
-  //     Acc: "12313123",
-  //     Type: "Deposits",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "SAV",
-  //     Acc: "12313123",
-  //     Type: "Savings",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "SAV",
-  //     Acc: "12313123",
-  //     Type: "Savings",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "CUR",
-  //     Acc: "12313123",
-  //     Type: "Current",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "OD",
-  //     Acc: "12313123",
-  //     Type: "OD",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "CUR",
-  //     Acc: "12313123",
-  //     Type: "Current",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "LAN",
-  //     Acc: "12313123",
-  //     Type: "Loans",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "DEP",
-  //     Acc: "12313123",
-  //     Type: "Deposits",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "SAV",
-  //     Acc: "12313123",
-  //     Type: "Savings",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "OD",
-  //     Acc: "12313123",
-  //     Type: "OD",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "SAV",
-  //     Acc: "12313123",
-  //     Type: "Savings",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "SAV",
-  //     Acc: "12313123",
-  //     Type: "Savings",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "LAN",
-  //     Acc: "12313123",
-  //     Type: "Loans",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "SAV",
-  //     Acc: "12313123",
-  //     Type: "Savings",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  //   {
-  //     AccCode: "CUR",
-  //     Acc: "34534345",
-  //     Type: "Current",
-  //     Bal: "123.78",
-  //     Branch: "Bangalore",
-  //   },
-  // ];
     const columns = [
     { key: "AccountNumber", label: "Account Number", onClick: AccountClick },
     { key: "Type", label: "Type", onClick: AccountClick },
@@ -189,9 +33,8 @@ const AccountsPage = () => {
         </div>
       ),
     },
-  ];
+];
   const grouped = {};
-
   async function fetchAllAccounts() {
     const userDateils = JSON.parse(localStorage.getItem("userDetails")).data;
     const data = await window.ServerCall("AllAccountsAPI", {
@@ -353,7 +196,7 @@ const AccountsPage = () => {
                   label: "All Accounts",
                   content: (
                     <div>
-                      <AccountDetails
+                      {/* <AccountDetails
                         Type={"All Accounts"}
                         Balance={
                           AllAccounts.reduce(
@@ -365,7 +208,7 @@ const AccountsPage = () => {
                           "INR"
                         }
                         BarData={Bardatas}
-                      />
+                      /> */}
                       <Table
                         columns={columns}
                         data={AllAccounts}
@@ -380,10 +223,10 @@ const AccountsPage = () => {
                   label: entry.type,
                   content: (
                     <div>
-                      <AccountDetails
+                      {/* <AccountDetails
                         Type={entry.type}
                         Balance={entry.TotalBalance}
-                      />
+                      /> */}
                       <Table
                         columns={entry.columns}
                         data={entry.data}

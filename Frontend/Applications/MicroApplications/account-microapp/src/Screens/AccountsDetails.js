@@ -5,10 +5,10 @@ function AccountDetails(AccountDtls) {
     console.log(row);
   }
   const columns = [
-    { key: "Acc", label: "Account Number", onClick: AccountClick },
+    { key: "AccountNumber", label: "Account Number", onClick: AccountClick },
     { key: "Type", label: "Type", onClick: AccountClick },
-    { key: "Bal", label: "Balance/Amount", onClick: AccountClick },
-    { key: "Branch", label: "Branch", onClick: AccountClick },
+    { key: "AvailableBalance", label: "Balance/Amount", onClick: AccountClick },
+    { key: "HomeBranch", label: "Branch", onClick: AccountClick },
     { key: "actions",label: "Actions",
     },
   ];
@@ -23,10 +23,13 @@ function AccountDetails(AccountDtls) {
               </div>
             </div>
             <div className="text-2xl font-semibold text-gray-900">
-              {`Total Balance: ${AccountDtls.Bal}`}
+              {`Hi, ${AccountDtls.FullName}`}
             </div>
             <div className="text-2xl font-semibold text-gray-900">
-              {`Account Number: ${AccountDtls.Acc}`}
+              {`Total Balance: ${AccountDtls.AvailableBalance}`}
+            </div>
+            <div className="text-2xl font-semibold text-gray-900">
+              {`Account Number: ${AccountDtls.AccountNumber}`}
             </div>
             <div className="text-sm text-gray-400 mt-1"></div>
           </div>

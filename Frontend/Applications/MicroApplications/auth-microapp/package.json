@@ -1,0 +1,37 @@
+{
+  "name": "auth-microapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "shared-services": "1.0.0"
+  },
+  "scripts": {
+    "start": "cross-env APP=account node ../../../SharedServices/Environments/EnvironmentLoader.js",
+    "build": "craco build",
+    "test": "craco test",
+    "build:css": "tailwindcss -i ./src/Styles/index.css -o ./src/tailwind.output.css --minify"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.7"
+  }
+}

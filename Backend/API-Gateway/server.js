@@ -31,6 +31,14 @@ app.use(process.env.ACCOUNT_MICROSERVICE_PATH, createProxyMiddleware({
   },
 }));
 
+app.use(process.env.TRANSACTION_MICROSERVICE_PATH, createProxyMiddleware({
+  target: `http://${process.env.BASE_HOST}:${process.env.TRANSACTION_MICROSERVICE_PORT}`,
+  changeOrigin: true,
+  pathRewrite: {
+    [`^${process.env.TRANSACTION_MICROSERVICE_PATH}`]: '',
+  },
+}));
+
 app.listen(process.env.API_GATEWAY_PORT, () => {
   console.log(`API Gateway running on http://localhost:${process.env.API_GATEWAY_PORT}`);
 });

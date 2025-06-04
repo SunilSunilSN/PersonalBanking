@@ -1,0 +1,10 @@
+{
+    "name": "TransactionManagment",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "nodemon --config ../nodemon.json server.js"
+    },
+    "dependencies": {
+        "express": "^4.21.2"
+    }
+}
