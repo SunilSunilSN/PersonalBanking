@@ -1,224 +1,178 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
-  Navbar,
   Table,
-  NavbarLabel,
-  NavbarItem,
   Tabs,
   Graph,
 } from "shared-services";
 import {
   PencilIcon,
   TrashIcon,
-  ArrowLongLeftIcon,
 } from "@heroicons/react/24/outline";
 const AccountsPage = () => {
+  const hasFetched = useRef(false);
   const [AccountsData, setAccountsData] = useState([]);
-  const AllAccounts = [
-    {
-      AccCode: "SAV",
-      Acc: "456789",
-      Type: "Savings",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "CUR",
-      Acc: "12313123",
-      Type: "Current",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "DEP",
-      Acc: "12313123",
-      Type: "Deposits",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "LAN",
-      Acc: "12313123",
-      Type: "Loans",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "PPF",
-      Acc: "12313123",
-      Type: "PPF",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "OD",
-      Acc: "12313123",
-      Type: "OD",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "SAV",
-      Acc: "12313123",
-      Type: "Savings",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "DEP",
-      Acc: "12313123",
-      Type: "Deposits",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "SAV",
-      Acc: "12313123",
-      Type: "Savings",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "SAV",
-      Acc: "12313123",
-      Type: "Savings",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "CUR",
-      Acc: "12313123",
-      Type: "Current",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "OD",
-      Acc: "12313123",
-      Type: "OD",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "CUR",
-      Acc: "12313123",
-      Type: "Current",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "LAN",
-      Acc: "12313123",
-      Type: "Loans",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "DEP",
-      Acc: "12313123",
-      Type: "Deposits",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "SAV",
-      Acc: "12313123",
-      Type: "Savings",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "OD",
-      Acc: "12313123",
-      Type: "OD",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "SAV",
-      Acc: "12313123",
-      Type: "Savings",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "SAV",
-      Acc: "12313123",
-      Type: "Savings",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "LAN",
-      Acc: "12313123",
-      Type: "Loans",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "SAV",
-      Acc: "12313123",
-      Type: "Savings",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-    {
-      AccCode: "CUR",
-      Acc: "34534345",
-      Type: "Current",
-      Bal: "123.78",
-      Branch: "Bangalore",
-    },
-  ];
-  const grouped = {};
-  AllAccounts.forEach((account) => {
-    if (!grouped[account.Type]) {
-      grouped[account.Type] = [];
-    }
-    account.isPrimary = false;
-    if (account.Acc === "456789" || account.Acc === "34534345") {
-      account.isPrimary = true;
-    }
-    grouped[account.Type].push(account);
-  });
-  async function AccountMapper() {
-    const AccountMapperData = await window.getCommonData([
-      "AccountsData-Mapper",
-    ]);
-    const mapperValue = AccountMapperData[0]?.Value || [];
-
-    const groupedData = Object.entries(grouped).map(([type, accounts]) => {
-      const AccCode = accounts[0].AccCode;
-      const mapping = mapperValue.find((el) => el.AccountCode === AccCode);
-      const columns =
-        mapping?.Mappers.map((mapper) => ({
-          key: mapper.Key,
-          label: mapper.Label,
-          onClick: AccountClick,
-        })) || [];
-      const totalBalance =
-        accounts
-          .reduce((acc, curr) => acc + parseFloat(curr.Bal || 0), 0)
-          .toFixed(2) +
-        " " +
-        "INR";
-      return {
-        type,
-        columns,
-        data: accounts,
-        TotalBalance: totalBalance,
-      };
-    });
-    setAccountsData(groupedData);
-  }
-  useEffect(() => {
-    AccountMapper();
-  }, []);
-  const columns = [
-    { key: "Acc", label: "Account Number", onClick: AccountClick },
+  const [AllAccounts, setAllAcconuts] = useState([]);
+  // const AllAccounts = [
+  //   {
+  //     AccCode: "SAV",
+  //     Acc: "456789",
+  //     Type: "Savings",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "CUR",
+  //     Acc: "12313123",
+  //     Type: "Current",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "DEP",
+  //     Acc: "12313123",
+  //     Type: "Deposits",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "LAN",
+  //     Acc: "12313123",
+  //     Type: "Loans",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "PPF",
+  //     Acc: "12313123",
+  //     Type: "PPF",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "OD",
+  //     Acc: "12313123",
+  //     Type: "OD",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "SAV",
+  //     Acc: "12313123",
+  //     Type: "Savings",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "DEP",
+  //     Acc: "12313123",
+  //     Type: "Deposits",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "SAV",
+  //     Acc: "12313123",
+  //     Type: "Savings",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "SAV",
+  //     Acc: "12313123",
+  //     Type: "Savings",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "CUR",
+  //     Acc: "12313123",
+  //     Type: "Current",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "OD",
+  //     Acc: "12313123",
+  //     Type: "OD",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "CUR",
+  //     Acc: "12313123",
+  //     Type: "Current",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "LAN",
+  //     Acc: "12313123",
+  //     Type: "Loans",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "DEP",
+  //     Acc: "12313123",
+  //     Type: "Deposits",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "SAV",
+  //     Acc: "12313123",
+  //     Type: "Savings",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "OD",
+  //     Acc: "12313123",
+  //     Type: "OD",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "SAV",
+  //     Acc: "12313123",
+  //     Type: "Savings",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "SAV",
+  //     Acc: "12313123",
+  //     Type: "Savings",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "LAN",
+  //     Acc: "12313123",
+  //     Type: "Loans",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "SAV",
+  //     Acc: "12313123",
+  //     Type: "Savings",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  //   {
+  //     AccCode: "CUR",
+  //     Acc: "34534345",
+  //     Type: "Current",
+  //     Bal: "123.78",
+  //     Branch: "Bangalore",
+  //   },
+  // ];
+    const columns = [
+    { key: "AccountNumber", label: "Account Number", onClick: AccountClick },
     { key: "Type", label: "Type", onClick: AccountClick },
-    { key: "Bal", label: "Balance/Amount", onClick: AccountClick },
-    { key: "Branch", label: "Branch", onClick: AccountClick },
+    { key: "AvailableBalance", label: "Balance/Amount", onClick: AccountClick },
+    { key: "HomeBranch", label: "Branch", onClick: AccountClick },
     {
       key: "actions",
       label: "Actions",
@@ -236,6 +190,82 @@ const AccountsPage = () => {
       ),
     },
   ];
+  const grouped = {};
+
+  async function fetchAllAccounts() {
+    const userDateils = JSON.parse(localStorage.getItem("userDetails")).data;
+    const data = await window.ServerCall("AllAccountsAPI", {
+      CIF: userDateils.CIF,
+    });
+    if (data.success) {
+      console.log(data);
+      let AllAcc = [];
+      AllAcc = data.data;
+      AllAcc.forEach((account) => {
+        if (!grouped[account.Type]) {
+          grouped[account.Type] = [];
+        }
+        account.isPrimary = false;
+        if (account.Acc === "456789" || account.Acc === "34534345") {
+          account.isPrimary = true;
+        }
+        grouped[account.Type].push(account);
+      });
+      setAllAcconuts(AllAcc);
+      AccountMapper();
+    } else {
+      window.showAlert({
+        AlertType: "E",
+        AlertDesc: data.message,
+        Btns: [
+          {
+            Name: "Ok",
+            function: () => "",
+          },
+        ],
+      });
+    }
+  }
+  async function AccountMapper() {
+    const AccountMapperData = await window.getCommonData([
+      "AccountsData-Mapper",
+    ]);
+    const mapperValue = AccountMapperData[0]?.Value || [];
+
+    const groupedData = Object.entries(grouped).map(([type, accounts]) => {
+      const AccCode = accounts[0].AccountCode;
+      const mapping = mapperValue.find((el) => el.AccountCode === AccCode);
+      const columns =
+        mapping?.Mappers.map((mapper) => ({
+          key: mapper.Key,
+          label: mapper.Label,
+          onClick: AccountClick,
+        })) || [];
+      const totalBalance =
+        accounts
+          .reduce(
+            (acc, curr) => acc + parseFloat(curr.AvailableBalance || 0),
+            0
+          )
+          .toFixed(2) +
+        " " +
+        "INR";
+      return {
+        type,
+        columns,
+        data: accounts,
+        TotalBalance: totalBalance,
+      };
+    });
+    setAccountsData(groupedData);
+  }
+  useEffect(() => {
+    if (!hasFetched.current) {
+      fetchAllAccounts();
+      hasFetched.current = true;
+    }
+  }, []);
+
   function handleEdit(row) {
     console.log("Edit clicked", row);
   }
@@ -327,7 +357,8 @@ const AccountsPage = () => {
                         Type={"All Accounts"}
                         Balance={
                           AllAccounts.reduce(
-                            (acc, curr) => acc + parseFloat(curr.Bal || 0),
+                            (acc, curr) =>
+                              acc + parseFloat(curr.AvailableBalance || 0),
                             0
                           ).toFixed(2) +
                           " " +

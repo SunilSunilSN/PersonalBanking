@@ -1,0 +1,180 @@
+[{
+  "_id": {
+    "$oid": "683ffed675876cf1dbbe519a"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "Type": "Savings",
+  "HomeBranch": "Madiwala, Bangalore",
+  "FullName": "Sunil S N",
+  "NickName": "Sunil",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "1000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000001",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "683ffed675876cf1dbbe519b"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456781",
+  "AccountCode": "DEP",
+  "Type": "Deposits",
+  "HomeBranch": "Kormangala, Bangalore",
+  "FullName": "Sunil S N",
+  "NickName": "Sunil",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "2000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000002",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "683ffed675876cf1dbbe519c"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456782",
+  "AccountCode": "LAN",
+  "Type": "Loans",
+  "HomeBranch": "BTM Layout, Bangalore",
+  "FullName": "Sunil S N",
+  "NickName": "Sunil",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "5000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000003",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "683ffed675876cf1dbbe519d"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456783",
+  "AccountCode": "CUR",
+  "Type": "Current",
+  "HomeBranch": "HSR Layout, Bangalore",
+  "FullName": "Sunil S N",
+  "NickName": "Sunil",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "9000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000004",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "683ffed675876cf1dbbe519e"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456784",
+  "AccountCode": "OD",
+  "Type": "Over Draft",
+  "HomeBranch": "Bommanahalli, Bangalore",
+  "FullName": "Sunil S N",
+  "NickName": "Sunil",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "10000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000005",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "683ffed675876cf1dbbe519f"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456785",
+  "AccountCode": "PPF",
+  "Type": "PPF",
+  "HomeBranch": "Bommanahalli, Bangalore",
+  "FullName": "Sunil S N",
+  "NickName": "Sunil",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "50000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000006",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "684005e375876cf1dbbe51a4"
+  },
+  "CIF": "1000000002",
+  "AccountNumber": "123456791",
+  "AccountCode": "PPF",
+  "Type": "PPF",
+  "HomeBranch": "Bommanahalli, Bangalore",
+  "FullName": "Ranjitha R K",
+  "NickName": "Ranju",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "56000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000006",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "6840060575876cf1dbbe51a5"
+  },
+  "CIF": "1000000002",
+  "AccountNumber": "123456792",
+  "AccountCode": "SAV",
+  "Type": "Savings",
+  "HomeBranch": "Madiwala, Bangalore",
+  "FullName": "Ranjitha R K",
+  "NickName": "Ranju",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "56000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000001",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "6840062975876cf1dbbe51a6"
+  },
+  "CIF": "1000000003",
+  "AccountNumber": "123456771",
+  "AccountCode": "SAV",
+  "Type": "Savings",
+  "HomeBranch": "Madiwala, Bangalore",
+  "FullName": "Soumya S N",
+  "NickName": "Soumya",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "122000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000001",
+  "TransactionRights": "FULL"
+},
+{
+  "_id": {
+    "$oid": "6840063475876cf1dbbe51a7"
+  },
+  "CIF": "1000000004",
+  "AccountNumber": "123456761",
+  "AccountCode": "SAV",
+  "Type": "Savings",
+  "HomeBranch": "Kormangala, Bangalore",
+  "FullName": "Prateek Devaramani",
+  "NickName": "Prateek",
+  "Status": "Open",
+  "Group": "GENERAL",
+  "AvailableBalance": "672000.00",
+  "CreatedDate": "04062025",
+  "HomeBranchCode": "PB000002",
+  "TransactionRights": "FULL"
+}]

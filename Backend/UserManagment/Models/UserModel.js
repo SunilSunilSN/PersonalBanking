@@ -4,7 +4,8 @@ const UserSchema = new Schema({
   UserName: { type: String, required: true },
   Password: { type: String, required: true },
   UserRole: { type: String, required: true },
-  ProfilePic: {type: String}
+  ProfilePic: {type: String},
+  CIF: {type: String, required: true}
 });
 const UserData = mongoose.model("User", UserSchema, "Users");
 module.exports = UserData;

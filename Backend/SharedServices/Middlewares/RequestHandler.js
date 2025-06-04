@@ -1,4 +1,4 @@
-const PUBLIC_ROUTES = ["/user/getAllUser", , "/user/userLogin", "/user/getCommonData", "/user/createUser", "/user/logout"];
+const PUBLIC_ROUTES = ["/user/getAllUser", , "/user/userLogin", "/user/getCommonData", "/user/createUser", "/user/logout", "/accounts/getAllAccounts"];
 //const ADMIN_ROUTES = ["/user/createUser"];
 const ADMIN_ROUTES = [];
 const jwt = require("jsonwebtoken");

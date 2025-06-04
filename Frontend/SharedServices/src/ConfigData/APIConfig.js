@@ -34,4 +34,13 @@ export const APIConfig = {
     enpointurl: "/user/getDashboard",
     credentials: "include"
   },
+  AllAccountsAPI:{
+    method: "POST",
+    service: "REACT_APP_ACCOUNT_MICROSERVICE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    enpointurl: "/accounts/getAllAccounts",
+    credentials: "include"
+  }
 };

@@ -124,8 +124,8 @@
       "Icon": "Square2StackIcon",
       "Type": "Navigate",
       "Navigate": {
-        "MicroApp": "login",
-        "Screen": "DashboardPage"
+        "MicroApp": "account",
+        "Screen": "AccountsPage"
       }
     },
     {
@@ -499,6 +499,140 @@
       "Visible": "Both",
       "microApp": "login",
       "screen": "ProfilePage"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "683ea52175876cf1dbbe5188"
+  },
+  "Key": "AccountsData-Mapper",
+  "Value": [
+    {
+      "AccountCode": "SAV",
+      "Mappers": [
+        {
+          "Label": "Account Number",
+          "Key": "AccountNumber"
+        },
+        {
+          "Label": "Type",
+          "Key": "Type"
+        },
+        {
+          "Label": "Balance",
+          "Key": "AvailableBalance"
+        },
+        {
+          "Label": "Branch",
+          "Key": "HomeBranch"
+        }
+      ]
+    },
+    {
+      "AccountCode": "CUR",
+      "Mappers": [
+        {
+          "Label": "Account Number",
+          "Key": "AccountNumber"
+        },
+        {
+          "Label": "Type",
+          "Key": "Type"
+        },
+        {
+          "Label": "Balance",
+          "Key": "AvailableBalance"
+        },
+        {
+          "Label": "Branch",
+          "Key": "HomeBranch"
+        }
+      ]
+    },
+    {
+      "AccountCode": "DEP",
+      "Mappers": [
+        {
+          "Label": "Account Number",
+          "Key": "AccountNumber"
+        },
+        {
+          "Label": "Type",
+          "Key": "Type"
+        },
+        {
+          "Label": "Balance",
+          "Key": "AvailableBalance"
+        },
+        {
+          "Label": "Branch",
+          "Key": "HomeBranch"
+        }
+      ]
+    },
+    {
+      "AccountCode": "LAN",
+      "Mappers": [
+        {
+          "Label": "Account Number",
+          "Key": "AccountNumber"
+        },
+        {
+          "Label": "Type",
+          "Key": "Type"
+        },
+        {
+          "Label": "Balance",
+          "Key": "AvailableBalance"
+        },
+        {
+          "Label": "Branch",
+          "Key": "HomeBranch"
+        }
+      ]
+    },
+    {
+      "AccountCode": "PPF",
+      "Mappers": [
+        {
+          "Label": "Account Number",
+          "Key": "AccountNumber"
+        },
+        {
+          "Label": "Type",
+          "Key": "Type"
+        },
+        {
+          "Label": "Balance",
+          "Key": "AvailableBalance"
+        },
+        {
+          "Label": "Branch",
+          "Key": "HomeBranch"
+        }
+      ]
+    },
+    {
+      "AccountCode": "OD",
+      "Mappers": [
+        {
+          "Label": "Account Number",
+          "Key": "AccountNumber"
+        },
+        {
+          "Label": "Type",
+          "Key": "Type"
+        },
+        {
+          "Label": "Balance",
+          "Key": "AvailableBalance"
+        },
+        {
+          "Label": "Branch",
+          "Key": "HomeBranch"
+        }
+      ]
     }
   ]
 }]
