@@ -635,4 +635,17 @@
       ]
     }
   ]
+},
+{
+  "_id": {
+    "$oid": "6841665e75876cf1dbbe51b9"
+  },
+  "Key": "SecurityParameters",
+  "Value": [
+    {
+      "OTPLength": 4,
+      "OTPRegencount": 3,
+      "OTPTimer": 300
+    }
+  ]
 }]
