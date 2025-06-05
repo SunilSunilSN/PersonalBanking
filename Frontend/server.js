@@ -12,6 +12,7 @@ app.use('/', express.static(path.join(__dirname, 'Applications/base-application/
 app.use('/login-app', express.static(path.join(__dirname, 'Applications/MicroApplications/login-microapp/build')));
 app.use('/preLogin-app', express.static(path.join(__dirname, 'Applications/MicroApplications/preLogin-microapp/build')));
 app.use('/account-app', express.static(path.join(__dirname, 'Applications/MicroApplications/account-microapp/build')));
+app.use('/auth-app', express.static(path.join(__dirname, 'Applications/MicroApplications/auth-microapp/build')));
 
 // Fallback to base app for client-side routing
 app.get('*', (req, res) => {

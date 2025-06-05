@@ -6,7 +6,7 @@
     "shared-services": "1.0.0"
   },
   "scripts": {
-    "start": "cross-env APP=account node ../../../SharedServices/Environments/EnvironmentLoader.js",
+    "start": "cross-env APP=auth node ../../../SharedServices/Environments/EnvironmentLoader.js",
     "build": "craco build",
     "test": "craco test",
     "build:css": "tailwindcss -i ./src/Styles/index.css -o ./src/tailwind.output.css --minify"

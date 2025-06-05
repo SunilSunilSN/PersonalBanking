@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "665cdd3f4f1a256f9a9f1001"
+  },
+  "CIF": "1000000005",
+  "AccountNumber": "123456785",
+  "AccountCode": "SAV",
+  "FullName": "Alice Johnson",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 1500.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": "2024-12-01T10:30:00.000Z",
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "SUCCESS"
+},
+{
+  "_id": {
+    "$oid": "665cdd3f4f1a256f9a9f1002"
+  },
+  "CIF": "1000000005",
+  "AccountNumber": "123456785",
+  "AccountCode": "SAV",
+  "FullName": "Alice Johnson",
+  "ToAccountNumber": "9988776655",
+  "ToBankAccount": "9988776655",
+  "ToBankIFSC": "ICIC0005678",
+  "TransactionAmount": 300,
+  "TransactionType": "WITHDRAWAL",
+  "TransactionDate": "2024-12-05T14:00:00.000Z",
+  "TransactionID": "TXN002",
+  "TransactionRefNo": "REF002",
+  "TransactionDesc": "ATM Withdrawal",
+  "TransactionCharges": 0,
+  "TransactionStatus": "SUCCESS"
+},
+{
+  "_id": {
+    "$oid": "665cdd3f4f1a256f9a9f1003"
+  },
+  "CIF": "1000000005",
+  "AccountNumber": "123456785",
+  "AccountCode": "CUR",
+  "FullName": "Bob Smith",
+  "ToAccountNumber": "5566778899",
+  "ToBankAccount": "5566778899",
+  "ToBankIFSC": "SBI0001111",
+  "TransactionAmount": 5000,
+  "TransactionType": "DEPOSIT",
+  "TransactionDate": "2025-01-15T09:00:00.000Z",
+  "TransactionID": "TXN003",
+  "TransactionRefNo": "REF003",
+  "TransactionDesc": "Business Deposit",
+  "TransactionCharges": 15,
+  "TransactionStatus": "PENDING"
+}]
