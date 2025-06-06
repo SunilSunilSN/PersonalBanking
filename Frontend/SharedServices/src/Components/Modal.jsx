@@ -5,7 +5,7 @@ export function Modal({ isOpen, title, children, Btns, closeBtn }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* Header */}
         
           {title && (

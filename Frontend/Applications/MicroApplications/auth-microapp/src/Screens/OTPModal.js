@@ -32,8 +32,10 @@ useEffect(() => {
           Btns: [
             {
               Name: "Ok",
-              function: () =>
-                window.launchMicroApp("login", "LoginPage", "BaseScreenID"),
+              function: () => {
+                window.launchMicroApp("login", "LoginPage", "BaseScreenID");
+                window.setModalData((prev) => ({ ...prev, isOpen: false }))
+              }
             },
           ],
         });
@@ -125,8 +127,9 @@ useEffect(() => {
           Resend OTP
         </div>
       ) : (
-        <div className=" animate-breathe text-center text-gray-500 font-medium hover:text-blue-600">
-          Time remaining: {formatTime(seconds)}
+        <div className={`flex justify-center gap-1  text-center text-gray-500 font-medium hover:text-blue-600 ${seconds < 5 ? "animate-breathe-fast" : "animate-breathe"}`}>
+          Time remaining: 
+          <div className={`${seconds < 5 ? "text-red-500" : "text-blue-600"}`}>{formatTime(seconds)}</div>
         </div>
       )}
     </div>
