@@ -1,0 +1,84 @@
+[{
+  "_id": {
+    "$oid": "6842963ce580393660ae2b66"
+  },
+  "APIConfigurations": {
+    "createUserAPI": {
+      "method": "POST",
+      "service": "REACT_APP_USERMANGMENT_MICROSERICE",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "enpointurl": "/user/createUser"
+    },
+    "loginUserAPI": {
+      "method": "POST",
+      "service": "REACT_APP_USERMANGMENT_MICROSERICE",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "enpointurl": "/user/userLogin",
+      "credentials": "include"
+    },
+    "logoutAPI": {
+      "method": "GET",
+      "service": "REACT_APP_USERMANGMENT_MICROSERICE",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "enpointurl": "/user/logout",
+      "credentials": "include"
+    },
+    "dashboardAPI": {
+      "method": "GET",
+      "service": "REACT_APP_USERMANGMENT_MICROSERICE",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "enpointurl": "/user/getDashboard",
+      "credentials": "include"
+    },
+    "AllAccountsAPI": {
+      "method": "POST",
+      "service": "REACT_APP_ACCOUNT_MICROSERVICE",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "enpointurl": "/accounts/getAllAccounts",
+      "credentials": "include"
+    },
+    "resendOTPAPI": {
+      "method": "POST",
+      "service": "REACT_APP_USERMANGMENT_MICROSERICE",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "enpointurl": "/user/resendOTP",
+      "credentials": "include"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "684297d4e580393660ae2b67"
+  },
+  "WorkFlowConfiguration": {
+    "OTPAUTHANDLOGIN": {
+      "WorkFlowSteps": 4,
+      "WorkFlows": [
+        {
+          "Step": "VERFIUSER",
+          "ServiceType": "CUSTOM"
+        },
+        {
+          "Step": "GENERATEOTP",
+          "ServiceType": "CUSTOM"
+        },
+        {
+          "Step": "VALIDATEOTP",
+          "ServiceType": "CUSTOM"
+        }
+      ]
+    }
+  }
+}]

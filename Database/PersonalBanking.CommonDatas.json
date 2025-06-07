@@ -645,7 +645,7 @@
     {
       "OTPLength": 4,
       "OTPRegencount": 3,
-      "OTPTimer": 300
+      "OTPTimer": 30
     }
   ]
 }]
