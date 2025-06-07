@@ -1,29 +1,29 @@
 import React, { useEffect, useState, useRef } from "react";
 
-function OTPModal({
-  Request,
-  onSuccess,
-  onCancel,
-  onFailure,
-  onRegenOTP,
-  SecurityParams,
-}) {
+function OTPModal({ Request, SecurityParams }) {
   const OTPData = SecurityParams[0];
   const [otp, setOtp] = useState(Array(OTPData.OTPLength).fill(""));
   const [resendOTP, setResendOTP] = useState(false);
   const [regenCount, setRegenCount] = useState(0);
   const [seconds, setSeconds] = useState(OTPData.OTPTimer);
+  const [dummyOTP, setDummyOTP] = useState("");
+  const { onSuccess, onCancel, onFailure } = window.AuthFunctions({
+    action: "GET",
+  });
   const inputsRef = useRef([]);
   useEffect(() => {
     setTimeout(() => {
       inputsRef.current[0]?.focus();
     }, 100);
   }, []);
-useEffect(() => {
-  if (seconds <= 0) {
-    setRegenCount((prev) => {
-      const next = prev + 1;
-      if (next >= OTPData.OTPRegencount) {
+  useEffect(() => {
+    setDummyOTP(Request.otp); // Set once on mount
+  }, []);
+  useEffect(() => {
+    if (seconds <= 0) {
+      // setRegenCount((prev) => {
+      //   const next = prev + 1;
+      if (regenCount >= OTPData.OTPRegencount) {
         window.showAlert(false);
         window.showAlert({
           AlertType: "E",
@@ -34,24 +34,24 @@ useEffect(() => {
               Name: "Ok",
               function: () => {
                 window.launchMicroApp("login", "LoginPage", "BaseScreenID");
-                window.setModalData((prev) => ({ ...prev, isOpen: false }))
-              }
+                window.setModalData((prev) => ({ ...prev, isOpen: false }));
+              },
             },
           ],
         });
       } else {
         setResendOTP(true);
       }
-      return next;
-    });
-    return;
-  }
-  const interval = setInterval(() => {
-    setSeconds((prev) => prev - 1);
-  }, 1000);
+      //   return next;
+      // });
+      return;
+    }
+    const interval = setInterval(() => {
+      setSeconds((prev) => prev - 1);
+    }, 1000);
 
-  return () => clearInterval(interval);
-}, [seconds, OTPData.OTPRegencount]);
+    return () => clearInterval(interval);
+  }, [seconds, OTPData.OTPRegencount]);
 
   const handleChange = (e, index) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -70,12 +70,38 @@ useEffect(() => {
       newOtp[OTPData.OTPLength - 1] !== "" &&
       index == OTPData.OTPLength - 1
     ) {
-      handleSubmit(newOtp);
+      ValidateOTP(newOtp);
     }
   };
 
-  const handleSubmit = (newOtp) => {
+  const ValidateOTP = (newOtp) => {
+    const Req = { ...Request, NewOTP: newOtp.join("") };
+    window.WorkFlowCall("OTPAUTHANDLOGIN", "VALIDATEOTP", Req, ValidateOTPCB);
     console.log(newOtp);
+  };
+
+  const CancelOTP = () => {
+    window.showAlert({
+      AlertType: "I",
+      AlertDesc: "Are You Sure Want to Cancel!",
+      Btns: [
+        {
+          Name: "Yes",
+          function: () => {
+            window.setModalData((prev) => ({ ...prev, isOpen: false }));
+            onCancel();
+          },
+        },
+      ],
+    });
+  };
+
+  const ValidateOTPCB = (res) => {
+    if (res.success) {
+      onSuccess(res);
+    } else {
+      onFailure(res);
+    }
   };
 
   const handleKeyDown = (e, index) => {
@@ -95,10 +121,32 @@ useEffect(() => {
     return `${m}:${s}`;
   };
 
-  const ResendOTP = () => {
-     if (regenCount >= OTPData.OTPRegencount) return;
-    setSeconds(OTPData.OTPTimer);
-    setResendOTP(false);
+  const ResendOTP = async () => {
+    setRegenCount((prev) => {
+      return prev + 1;
+    });
+    if (regenCount >= OTPData.OTPRegencount) return;
+    //const Req = { ...Request, NewOTP: otp.join("") };
+    const data = await window.ServerCall("resendOTPAPI", Request);
+    if (data.success) {
+      setDummyOTP(data.data.otp);
+      setSeconds(OTPData.OTPTimer);
+      setResendOTP(false);
+      setOtp(Array(OTPData.OTPLength).fill(""));
+      inputsRef.current[0]?.focus();
+    } else {
+      window.showAlert({
+        AlertType: "E",
+        AlertDesc: data.message,
+        Btns: [
+          {
+            Name: "Ok",
+            function: () =>
+              window.launchMicroApp("login", "LoginPage", "BaseScreenID"),
+          },
+        ],
+      });
+    }
   };
 
   return (
@@ -127,11 +175,30 @@ useEffect(() => {
           Resend OTP
         </div>
       ) : (
-        <div className={`flex justify-center gap-1  text-center text-gray-500 font-medium hover:text-blue-600 ${seconds < 5 ? "animate-breathe-fast" : "animate-breathe"}`}>
-          Time remaining: 
-          <div className={`${seconds < 5 ? "text-red-500" : "text-blue-600"}`}>{formatTime(seconds)}</div>
+        <div
+          className={`flex justify-center gap-1  text-center text-gray-500 font-medium hover:text-blue-600 ${
+            seconds < 5 ? "animate-breathe-fast" : "animate-breathe"
+          }`}
+        >
+          Time remaining:
+          <div className={`${seconds < 5 ? "text-red-500" : "text-blue-600"}`}>
+            {formatTime(seconds)}
+          </div>
         </div>
       )}
+      {dummyOTP && (
+        <div
+          className={`flex justify-center gap-1 text-center text-gray-500 font-medium hover:text-blue-600`}
+        >
+          {dummyOTP}
+        </div>
+      )}
+      <div
+        className={`flex justify-center gap-1 text-center text-gray-500 font-medium hover:text-blue-600`}
+        onClick={() => CancelOTP()}
+      >
+        Cancel
+      </div>
     </div>
   );
 }

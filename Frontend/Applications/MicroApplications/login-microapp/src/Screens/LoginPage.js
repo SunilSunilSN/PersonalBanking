@@ -10,11 +10,55 @@ const LoginPage = () => {
   const [errors, setErrors] = useState({});
   const btnRef = useRef(null);
   const LoginCall = async (req) => {
-    const data = await window.ServerCall("loginUserAPI", req);
-    localStorage.setItem("userDetails", JSON.stringify(data));
-    if (data.success) {
-      
-      window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
+    await window.WorkFlowCall(
+      "OTPAUTHANDLOGIN",
+      "VERFIUSER",
+      req,
+      workFlowCallBack
+    );
+  };
+  const workFlowCallBack = (params) => {
+    console.log(params);
+    const data = params;
+    if (params.success) {
+      if (params.Step === "VERFIUSER") {
+        window.WorkFlowCall(
+          "OTPAUTHANDLOGIN",
+          "GENERATEOTP",
+          data.data,
+          workFlowCallBack
+        );
+      } else if (params.Step === "GENERATEOTP") {
+        window.AuthFunctions({
+          onSuccessFn: onLoginAuthSuccess,
+          onCancelFn: onLoginAuthCancel,
+          onFailureFn: onLoginAuthFailure,
+          action: "SET",
+        });
+        window.launchMicroApp("auth", "OTPAuthPage", "AuthModalId", data.data);
+      }
+    } else {
+      window.showAlert({
+        AlertType: "E",
+        AlertDesc: data.message,
+        Btns: [
+          {
+            Name: "Ok",
+            function: () => {
+              window.setModalData((prev) => ({ ...prev, isOpen: false }));
+              window.launchMicroApp("login", "LoginPage", "BaseScreenID")}
+          },
+        ],
+      });
+    }
+  };
+  const onLoginAuthSuccess = async (params) => {
+    console.log(params);
+    const data = await window.ServerCall("loginUserAPI", params.data);
+    if(data.success) {
+        localStorage.setItem("userDetails", JSON.stringify(data));
+        window.setModalData((prev) => ({ ...prev, isOpen: false }));
+        window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
     } else {
       window.showAlert({
         AlertType: "E",
@@ -29,15 +73,33 @@ const LoginPage = () => {
       });
     }
   };
+  const onLoginAuthCancel = (params) => {
+    window.launchMicroApp("login", "LoginPage", "BaseScreenID");
+  };
+  const onLoginAuthFailure = (params) => {
+    if(!params.success) {
+      window.showAlert({
+        AlertType: "E",
+        AlertDesc: params.message,
+        Btns: [
+          {
+            Name: "Ok",
+            function: () =>
+              window.launchMicroApp("login", "LoginPage", "BaseScreenID"),
+          },
+        ],
+      });
+  }
+};
   const LoginSubmit = (e) => {
-    // if (!window.errorDisplayAll(Refs, setErrors)) {
-    //   const LoginReq = {
-    //     UserName: Refs["userNameRefId"].ref.current.value,
-    //     Password: Refs["passwordRef"].ref.current.value,
-    //   };
-    //   LoginCall(LoginReq);
-    // }
-    window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
+    if (!window.errorDisplayAll(Refs, setErrors)) {
+      const LoginReq = {
+        UserName: Refs["userNameRefId"].ref.current.value,
+        Password: Refs["passwordRef"].ref.current.value,
+      };
+      LoginCall(LoginReq);
+    }
+    //window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
   };
   return (
     <div

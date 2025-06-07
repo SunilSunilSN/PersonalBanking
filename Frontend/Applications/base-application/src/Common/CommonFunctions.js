@@ -1,7 +1,7 @@
 // src/Common/common.js
 import config from "../Configuration/MicroAppConfig.json";
 import MicroFrontendWrapper from "./MicroFrontendWrapper";
-import React from "react";
+import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import { ErrorMessageConfig, APIConfig } from "shared-services";
 import { AlertCircle, CheckCircle2, Info, TriangleAlert } from "lucide-react";
@@ -58,6 +58,25 @@ const getCommonData = async (AllKeys) => {
     return data.data;
   } catch (error) {
     console.error("❌ Error in getCommonData:", error);
+    throw error;
+  }
+};
+const getAPIConfig = async () => {
+  try {
+    const url = `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USERMANGMENT_MICROSERICE}/user/getAPIConfig`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok" + response.statusText);
+    }
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("❌ Error in getAPI Configs:", error);
     throw error;
   }
 };
@@ -144,7 +163,9 @@ const errorOnClick = (setErrors, e, fieldName) => {
   }));
 };
 const ServerCall = async (ApiName, body) => {
-  const APIDetails = APIConfig[ApiName];
+  const APIConfig = await getAPIConfig();
+  const APIDetails = APIConfig.find((el) => el["APIConfigurations"])
+    .APIConfigurations[ApiName];
   if (!APIDetails) throw new Error(`API config for ${ApiName} not found`);
   const options = {
     method: APIDetails.method,
@@ -162,6 +183,29 @@ const ServerCall = async (ApiName, body) => {
   const response = await fetch(url, options);
   const data = await response.json();
   return data;
+};
+const WorkFlowCall = async (WorkFlowName, Step, body, callBack) => {
+  const WorkFlowConfig = await getAPIConfig();
+  const WorkFlowDetails = WorkFlowConfig.find(
+    (el) => el["WorkFlowConfiguration"]
+  ).WorkFlowConfiguration[WorkFlowName];
+  if (!WorkFlowDetails)
+    throw new Error(`Workflow config for ${WorkFlowName} not found`);
+
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+  };
+  body.WorkFlowId = WorkFlowName;
+  body.Step = Step;
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+
+  const url = `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USERMANGMENT_MICROSERICE}/user/WorkFlowCall`;
+  const response = await fetch(url, options);
+  const data = await response.json();
+  callBack(data);
 };
 const AlertMsg = ({ AlertType, AlertDesc, Btns = [], isOpen, setIsOpen }) => {
   const alertMap = {
@@ -217,6 +261,24 @@ const AlertMsg = ({ AlertType, AlertDesc, Btns = [], isOpen, setIsOpen }) => {
     </>
   );
 };
+const AuthFunctions = ({ onSuccessFn, onCancelFn, onFailureFn, action }) => {
+  if (!window.AuthFuncsStore) {
+    window.AuthFuncsStore = {
+      onSuccess: () => {},
+      onCancel: () => {},
+      onFailure: () => {},
+    };
+  }
+  if (action === "SET") {
+    window.AuthFuncsStore = {
+      onSuccess: onSuccessFn || (() => {}),
+      onCancel: onCancelFn || (() => {}),
+      onFailure: onFailureFn || (() => {}),
+    };
+  } else if (action === "GET") {
+    return window.AuthFuncsStore;
+  }
+};
 window.launchMicroApp = launchMicroApp;
 window.getCommonData = getCommonData;
 window.getDeviceType = getDeviceType;
@@ -225,3 +287,5 @@ window.errorDisplayAll = errorDisplayAll;
 window.errorOnClick = errorOnClick;
 window.ServerCall = ServerCall;
 window.AlertMsg = AlertMsg;
+window.WorkFlowCall = WorkFlowCall;
+window.AuthFunctions = AuthFunctions;

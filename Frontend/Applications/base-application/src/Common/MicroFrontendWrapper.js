@@ -35,7 +35,7 @@ const MicroFrontendWrapper = ({ remoteUrl, scope, module, screen, extraParams = 
 
   if (!Component) return <div>Loading MicroApp...</div>;
 
-  const searchParams = new URLSearchParams({ screen, ...extraParams }).toString();
+  const searchParams = new URLSearchParams({ screen, ...extraParams });
   const LocationWithParams = () => <Component location={{ search: `?${searchParams}` }} />;
 
   return <LocationWithParams />;
