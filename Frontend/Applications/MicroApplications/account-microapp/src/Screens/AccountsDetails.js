@@ -1,15 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Tabs } from "shared-services";
 function AccountDetails(AccountDtls) {
+  const [RecentTran, setRecentTran] = useState([]);
   function AccountClick(row) {
     console.log(row);
   }
+  const getRecentTran = async (req) => {
+    const data = await window.ServerCall("recentTransAPI", req);
+    if (data.success) {
+      const RecentData = data.data;
+      setRecentTran(RecentData);
+    } else {
+        window.showAlert({
+        AlertType: "E",
+        AlertDesc: data.message,
+        Btns: [
+          {
+            Name: "Ok",
+            function: () => {
+              window.launchMicroApp("account", "AccountsPage", "BaseScreenID")}
+          },
+        ],
+      });
+    }
+  };
+  useEffect(() => {
+    getRecentTran({
+      CIF: AccountDtls.CIF,
+      AccountNumber: AccountDtls.AccountNumber,
+    });
+    console.log(AccountDtls);
+  }, [RecentTran]);
   const columns = [
-    { key: "AccountNumber", label: "Account Number", onClick: AccountClick },
-    { key: "Type", label: "Type", onClick: AccountClick },
-    { key: "AvailableBalance", label: "Balance/Amount", onClick: AccountClick },
-    { key: "HomeBranch", label: "Branch", onClick: AccountClick },
-    { key: "actions",label: "Actions",
+    { key: "FullName", label: "Full Number", onClick: AccountClick },
+    {
+      key: "TransactionDate",
+      label: "Date",
+      render: (row) =>
+        new Date(row.TransactionDate).toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        }),
+      onClick: AccountClick,
+    },
+    { key: "TransactionID", label: "Trnasction ID", onClick: AccountClick },
+    { key: "TransactionAmount", label: "Amount", onClick: AccountClick },
+    {
+      key: "TransactionStatus",
+      label: "Status",
+      render: (row) => {
+        const stat = row.TransactionStatus;
+        if (stat === "SUCCESS")
+          return <div className="text-green-500"> {row.TransactionStatus}</div>;
+        if (stat === "PENDING")
+          return (
+            <div className="text-orange-500"> {row.TransactionStatus}</div>
+          );
+        if (stat === "FAILURE")
+          return <div className="text-red-500"> {row.TransactionStatus}</div>;
+      },
+      onClick: AccountClick,
     },
   ];
   return (
@@ -40,7 +94,7 @@ function AccountDetails(AccountDtls) {
         <div className="w-[50%]">
           <Table
             columns={columns}
-            data={[AccountDtls]}
+            data={RecentTran}
             loading={false}
             rowsPerPage={5}
             onClick={AccountClick}

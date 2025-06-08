@@ -55,9 +55,9 @@ const LoginPage = () => {
   const onLoginAuthSuccess = async (params) => {
     console.log(params);
     const data = await window.ServerCall("loginUserAPI", params.data);
+    window.setModalData((prev) => ({ ...prev, isOpen: false }));
     if(data.success) {
         localStorage.setItem("userDetails", JSON.stringify(data));
-        window.setModalData((prev) => ({ ...prev, isOpen: false }));
         window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
     } else {
       window.showAlert({
