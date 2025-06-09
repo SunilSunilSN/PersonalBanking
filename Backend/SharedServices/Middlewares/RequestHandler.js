@@ -16,6 +16,9 @@ const RolesHandler = require("./RolesHandlers");
 const RequestHandler = (req, res, next) => {
   try {
     if (PUBLIC_ROUTES.includes(req.path)) {
+    if (req.session || req.cookies?.["connect.sid"]) {
+      req.session.touch();
+    }
       return next(); // Skip authentication for public routes
     }
     if (!req.session || !req.cookies?.["connect.sid"]) {

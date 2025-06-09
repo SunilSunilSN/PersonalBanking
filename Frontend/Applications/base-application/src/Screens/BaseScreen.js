@@ -9,7 +9,9 @@ const AlertMsg = window.AlertMsg;
 function BaseScreen() {
   const [showHeader, setShowHeader] = useState(true);
   const [showSideBar, setShowSideBar] = useState(false);
-  const btnRef = useRef();
+  const timeout = 6000; // 1 minute
+  const lastActivityTime = useRef(Date.now());
+  const intervalRef = useRef(null);
   const { PopoverUI, showPopover, hidePopover } = Popover();
   const [alertData, setAlertData] = useState({
     AlertType: "",
@@ -30,7 +32,7 @@ function BaseScreen() {
     ModalChildren: "",
     Btns: [],
     isOpen: false,
-    closeBtn: false
+    closeBtn: false,
   });
   useEffect(() => {
     window.showAlert = showAlert;
@@ -42,6 +44,48 @@ function BaseScreen() {
     console.log("BaseScreen script loaded and function executed!");
     window.launchMicroApp("login", "LoginPage", "BaseScreenID");
   }, []);
+
+  // useEffect(() => {
+  //   const updateActivity = () => {
+  //     lastActivityTime.current = Date.now();
+  //   };
+  //   const checkInactivity = () => {
+  //     if (Date.now() - lastActivityTime.current > timeout) {
+  //       window.showAlert({
+  //         AlertType: "E",
+  //         AlertDesc: "Session expired due to inactivity.",
+  //         Btns: [
+  //           {
+  //             Name: "Ok",
+  //             function: () => "",
+  //             // window.location.href = "/login"
+  //           },
+  //         ],
+  //       });
+  //       //localStorage.clear();
+  //       document.cookie = "token=; Max-Age=0";
+  //     }
+  //   };
+  //   const events = [
+  //     "mousemove",
+  //     "keydown",
+  //     "mousedown",
+  //     "scroll",
+  //     "touchstart",
+  //   ];
+  //   events.forEach((event) => {
+  //     //window.addEventListener(event, updateActivity);
+  //     document.addEventListener(event, updateActivity);
+  //   });
+  //   intervalRef.current = setInterval(checkInactivity, 5000); // Check every 5 sec
+  //   return () => {
+  //     events.forEach((event) => {
+  //       //window.removeEventListener(event, updateActivity);
+  //       document.removeEventListener(event, updateActivity);
+  //     });
+  //     clearInterval(intervalRef.current);
+  //   };
+  // }, []);
   return (
     <div className="flex flex-col h-screen">
       {/* Header stays up top */}

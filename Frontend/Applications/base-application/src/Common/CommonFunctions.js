@@ -47,9 +47,10 @@ const getCommonData = async (AllKeys) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         Key: AllKeys,
-      }),
+      })
     });
     if (!response.ok) {
       throw new Error("Network response was not ok" + response.statusText);
@@ -69,6 +70,7 @@ const getAPIConfig = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include"
     });
     if (!response.ok) {
       throw new Error("Network response was not ok" + response.statusText);
