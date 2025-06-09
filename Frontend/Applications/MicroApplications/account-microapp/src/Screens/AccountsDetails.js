@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tabs } from "shared-services";
+import { Table, Graph } from "shared-services";
 function AccountDetails(AccountDtls) {
+  const sampleData = [
+    { name: "Mon", value: 30 },
+    { name: "Tue", value: 45 },
+    { name: "Wed", value: 28 },
+    { name: "Thu", value: 60 },
+    { name: "Fri", value: 50 },
+    { name: "Sat", value: 70 },
+    { name: "Sun", value: 55 },
+  ];
+  const graphTitle = "Recent Transaction Statistics";
   const [RecentTran, setRecentTran] = useState([]);
   function AccountClick(row) {
     console.log(row);
@@ -11,26 +21,29 @@ function AccountDetails(AccountDtls) {
       const RecentData = data.data;
       setRecentTran(RecentData);
     } else {
-        window.showAlert({
+      window.showAlert({
         AlertType: "E",
         AlertDesc: data.message,
         Btns: [
           {
             Name: "Ok",
             function: () => {
-              window.launchMicroApp("account", "AccountsPage", "BaseScreenID")}
+              ""; //window.launchMicroApp("account", "AccountsPage", "BaseScreenID");
+            },
           },
         ],
       });
     }
   };
   useEffect(() => {
-    getRecentTran({
-      CIF: AccountDtls.CIF,
-      AccountNumber: AccountDtls.AccountNumber,
-    });
+    if (AccountDtls?.AccountNumber && AccountDtls?.CIF) {
+      getRecentTran({
+        CIF: AccountDtls.CIF,
+        AccountNumber: AccountDtls.AccountNumber,
+      });
+    }
     console.log(AccountDtls);
-  }, [RecentTran]);
+  }, [AccountDtls.AccountNumber]);
   const columns = [
     { key: "FullName", label: "Full Number", onClick: AccountClick },
     {
@@ -67,10 +80,10 @@ function AccountDetails(AccountDtls) {
     },
   ];
   return (
-    <div className="relative overflow-hidden h-full bg-white p-4 rounded-xl shadow">
-      <div className="bg-white overflow-y-hidden h-full">
-        <div className="flex gap-[30px] pb-4 h-44">
-          <div className="min-w-[50%] bg-gray-200  p-4 rounded-2xl  shadow hover:shadow-lg transition duration-300 ">
+    <div className="relative flex space-x-4 h-full bg-white p-4 rounded-xl shadow">
+      <div className="bg-white h-full">
+        <div className="flex-1 gap-[30px] pb-4 h-44">
+          <div className="bg-gray-200  p-4 rounded-2xl  shadow hover:shadow-lg transition duration-300 ">
             <div className="flex items-center justify-between mb-2">
               <div className="text-sm font-medium text-gray-500">
                 {AccountDtls.Type}
@@ -91,15 +104,16 @@ function AccountDetails(AccountDtls) {
         <div className="text-sm font-medium text-gray-500 mt-4 mb-2">
           {"Recent Transactions"}
         </div>
-        <div className="w-[50%]">
-          <Table
-            columns={columns}
-            data={RecentTran}
-            loading={false}
-            rowsPerPage={5}
-            onClick={AccountClick}
-          />
-        </div>
+        <Graph data={sampleData} title={graphTitle} type={"Line"}></Graph>
+      </div>
+      <div className="flex-1">
+        <Table
+          columns={columns}
+          data={RecentTran}
+          loading={false}
+          rowsPerPage={5}
+          onClick={AccountClick}
+        />
       </div>
     </div>
   );

@@ -10,12 +10,14 @@ const LoginPage = () => {
   const [errors, setErrors] = useState({});
   const btnRef = useRef(null);
   const LoginCall = async (req) => {
-    await window.WorkFlowCall(
-      "OTPAUTHANDLOGIN",
-      "VERFIUSER",
-      req,
-      workFlowCallBack
-    );
+    // await window.WorkFlowCall(
+    //   "OTPAUTHANDLOGIN",
+    //   "VERFIUSER",
+    //   req,
+    //   workFlowCallBack
+    // );
+        //localStorage.setItem("userDetails", JSON.stringify(data));
+        window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
   };
   const workFlowCallBack = (params) => {
     console.log(params);

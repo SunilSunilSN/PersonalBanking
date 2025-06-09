@@ -7,7 +7,8 @@ const PUBLIC_ROUTES = [
   "/accounts/getAllAccounts",
   "/user/getAPIConfig",
   "/user/WorkFlowCall",
-  "/user/resendOTP"
+  "/user/resendOTP",
+  "/transaction/getRecentTransaction"
 ];
 //const ADMIN_ROUTES = ["/user/createUser"];
 const ADMIN_ROUTES = [];

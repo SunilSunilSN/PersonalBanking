@@ -24,17 +24,6 @@ app.use(cors({
   origin: "http://localhost:3005", // your frontend URL
   credentials: true,              // allow cookies and Authorization headers
 }));
-const maxAge = new Date(Date.now() + 30 * 60 * 1000)
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: {
-//       maxAge: 1 * 60 * 1000, // **Session timeout (30 min)**
-//       secure: false,
-//       httpOnly: true
-//   }
-// }));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
