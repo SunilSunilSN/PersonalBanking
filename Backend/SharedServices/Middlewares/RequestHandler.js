@@ -18,18 +18,18 @@ const RequestHandler = (req, res, next) => {
     if (PUBLIC_ROUTES.includes(req.path)) {
       return next(); // Skip authentication for public routes
     }
-    const session = req.session;
-    const token = req.cookies?.token || req.headers["authorization"];
-    if (!session) {
+    if (!req.session || !req.cookies?.["connect.sid"]) {
       return res.status(440).json({
         success: false,
         message: "Session expired. Please log in again.",
       });
+    } else {
+      req.session.touch();
     }
+    const token = req.cookies?.token || req.headers["authorization"];
     if (token && token.startsWith("Bearer ")) {
       token = token.split(" ")[1];
     }
-
     if (!token) {
       return res
         .status(403)
@@ -40,7 +40,7 @@ const RequestHandler = (req, res, next) => {
         if (err.name === "TokenExpiredError") {
           return res.status(400).json({
             success: false,
-            message: "Session Expired, Please login Again",
+            message: "Token Expired, Please login Again",
           });
         }
         return res
@@ -49,7 +49,7 @@ const RequestHandler = (req, res, next) => {
       }
 
       req.user = decode;
-      req.sessionData = session;
+      //req.sessionData = session;
       if (ADMIN_ROUTES.includes(req.path)) {
         return RolesHandler("Admin")(req, res, next);
       } else {

@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const app = express();
@@ -24,15 +25,30 @@ app.use(cors({
   credentials: true,              // allow cookies and Authorization headers
 }));
 const maxAge = new Date(Date.now() + 30 * 60 * 1000)
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//       maxAge: 1 * 60 * 1000, // **Session timeout (30 min)**
+//       secure: false,
+//       httpOnly: true
+//   }
+// }));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false, // Better for security
+  rolling: true,            // 💡 Refresh session on each request
+  store: MongoStore.create({
+    mongoUrl: process.env.DB_URI,
+    ttl: 60, // Session TTL in seconds (optional; handled by cookie.maxAge too)
+  }),
   cookie: {
-      maxAge: 1 * 60 * 1000, // **Session timeout (30 min)**
-      expires: new Date(Date.now() + 1 * 60 * 1000),
-      secure: false,
-      httpOnly: true
+    maxAge: 1 * 60 * 1000,   // 1 minute
+    httpOnly: true,
+    secure: false,           // true in production (with HTTPS)
+    sameSite: 'lax'
   }
 }));
 app.use(RequestHandler);

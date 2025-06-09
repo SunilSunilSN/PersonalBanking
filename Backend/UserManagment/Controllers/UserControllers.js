@@ -17,6 +17,8 @@ const userLogin = async (req, res) => {
     }
     const token = generateToken(user);
     res.cookie("token", token, { httpOnly: true, secure: false, sameSite: "lax" });
+    req.session.userId = user._id;
+    req.session.loggedInAt = Date.now();
     res.success("User Logged In", user, 200);
   } catch (error) {
     res.error("User failed", 500);
