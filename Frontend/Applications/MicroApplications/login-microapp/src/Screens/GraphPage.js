@@ -1,15 +1,15 @@
 import React from "react";
 import { Graph } from "shared-services";
 const sampleData = [
-  { name: "Mon", value: 30 },
-  { name: "Tue", value: 45 },
-  { name: "Wed", value: 28 },
-  { name: "Thu", value: 60 },
-  { name: "Fri", value: 50 },
-  { name: "Sat", value: 70 },
-  { name: "Sun", value: 55 },
+  { name: "Mon", value: 30, valueName: "testValue" },
+  { name: "Tue", value: 45,valueName: "testValue" },
+  { name: "Wed", value: 28, valueName: "testValue" },
+  { name: "Thu", value: 60, valueName: "testValue" },
+  { name: "Fri", value: 50, valueName: "testValue" },
+  { name: "Sat", value: 70, valueName: "testValue" },
+  { name: "Sun", value: 55, valueName: "testValue" },
 ];
-const data = [
+const data2 = [
   {
     name: "18-24",
     uv: 31.47,
@@ -53,13 +53,13 @@ const data = [
     fill: "#ffc658",
   },
 ];
-const graphTitle = "Spend Analyzer";
+const graphTitle1 = "Spend Analyzer";
 const graphTitle2 = "Radial Grap";
-const GraphPage = () => {
+const GraphPage = ({data, graphTitle}) => {
   return (
-    <div className="h-full flex">
-      <Graph data={data} title={graphTitle2} type={"Radial"}></Graph>
-      <Graph data={sampleData} title={graphTitle} type={"Line"}></Graph>
+    <div className="h-full flex gap-4 p-4">
+      <Graph className="md:w-1/2" data={data2} title={graphTitle2} type={"Radial"}></Graph>
+      <Graph className="md:w-1/2" data={sampleData} title={graphTitle1} type={"Line"}></Graph>
     </div>
   );
 };

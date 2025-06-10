@@ -11,7 +11,9 @@
   "ToBankIFSC": "HDFC0001234",
   "TransactionAmount": 1500.5,
   "TransactionType": "TRANSFER",
-  "TransactionDate": "2024-12-01T10:30:00.000Z",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
   "TransactionID": "TXN001",
   "TransactionRefNo": "REF001",
   "TransactionDesc": "Rent payment",
@@ -31,7 +33,9 @@
   "ToBankIFSC": "ICIC0005678",
   "TransactionAmount": 300,
   "TransactionType": "WITHDRAWAL",
-  "TransactionDate": "2024-12-05T14:00:00.000Z",
+  "TransactionDate": {
+    "$date": "2024-12-05T14:00:00.000Z"
+  },
   "TransactionID": "TXN002",
   "TransactionRefNo": "REF002",
   "TransactionDesc": "ATM Withdrawal",
@@ -51,10 +55,276 @@
   "ToBankIFSC": "SBI0001111",
   "TransactionAmount": 5000,
   "TransactionType": "DEPOSIT",
-  "TransactionDate": "2025-01-15T09:00:00.000Z",
+  "TransactionDate": {
+    "$date": "2025-01-15T09:00:00.000Z"
+  },
   "TransactionID": "TXN003",
   "TransactionRefNo": "REF003",
   "TransactionDesc": "Business Deposit",
   "TransactionCharges": 15,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6845295ce580393660ae2ba2"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Alice Johnson",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 1500.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "SUCCESS"
+},
+{
+  "_id": {
+    "$oid": "68453f50e580393660ae2baf"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Sunil SN",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 1500.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "FAILURE"
+},
+{
+  "_id": {
+    "$oid": "68453f6de580393660ae2bb0"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Soumya S N",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6847d70be580393660ae2bbe"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Soumya S N",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6847d714e580393660ae2bbf"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Soumya S N",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6847d718e580393660ae2bc0"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Soumya S N",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6847d71be580393660ae2bc1"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Soumya S N",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6847dfbfe580393660ae2bc2"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Sunil SN",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 1500.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "FAILURE"
+},
+{
+  "_id": {
+    "$oid": "6847e523e580393660ae2bc3"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Soumya S N",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-12-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6847f85fe580393660ae2bc4"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Suresh V",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2024-11-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6847f95ce580393660ae2bc5"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Suresh V",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2025-06-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
+  "TransactionStatus": "PENDING"
+},
+{
+  "_id": {
+    "$oid": "6848003be580393660ae2bc6"
+  },
+  "CIF": "1000000001",
+  "AccountNumber": "123456789",
+  "AccountCode": "SAV",
+  "FullName": "Suresh V",
+  "ToAccountNumber": "1234567890",
+  "ToBankAccount": "1234567890",
+  "ToBankIFSC": "HDFC0001234",
+  "TransactionAmount": 200.5,
+  "TransactionType": "TRANSFER",
+  "TransactionDate": {
+    "$date": "2025-06-01T10:30:00.000Z"
+  },
+  "TransactionID": "TXN001",
+  "TransactionRefNo": "REF001",
+  "TransactionDesc": "Rent payment",
+  "TransactionCharges": 10,
   "TransactionStatus": "PENDING"
 }]

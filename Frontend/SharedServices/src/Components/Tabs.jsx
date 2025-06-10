@@ -13,7 +13,12 @@ export function Tabs({ tabs = [] }) {
           return (
             <button
               key={index}
-              onClick={() => setActiveTab(index)}
+              onClick={(e) => {
+                setActiveTab(index);
+                if (typeof tab.labelClick === "function") {
+                  tab.labelClick(e);
+                }
+              }}
               className={`relative z-10 px-4 py-2 text-sm font-medium rounded-xl  ${
                 isActive ? "text-white" : "text-gray-600 hover:text-blue-600"
               }`}
@@ -36,24 +41,26 @@ export function Tabs({ tabs = [] }) {
       </div>
 
       {/* Tab Content Area */}
-      <div className="relative overflow-hidden h-[650px] mt-4 bg-white p-4 rounded-xl shadow">
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{
-              type: "spring",
-              stiffness: 900,
-              damping: 20,
-            }}
-            className="h-full"
-          >
-            {tabs[activeTab].content}
-          </motion.div>
-        </AnimatePresence>
-      </div>
+      {tabs[activeTab]?.content && (
+        <div className="relative overflow-hidden h-full mt-4 bg-white p-4 rounded-xl shadow">
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{
+                type: "spring",
+                stiffness: 900,
+                damping: 20,
+              }}
+              className="h-full"
+            >
+              {tabs[activeTab].content}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 }
