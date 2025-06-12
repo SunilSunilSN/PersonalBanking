@@ -59,7 +59,7 @@ export function Graph({
                 <Line
                   type="monotone"
                   dataKey="value"
-                  stroke="#3b82f6"
+                  stroke={data[0].hasOwnProperty("lineColour") ? data[0].lineColour :"#3b82f6"}
                   strokeWidth={2}
                   dot={{ r: 4 }}
                   activeDot={{ r: 6 }}
@@ -67,11 +67,11 @@ export function Graph({
                   animationDuration={1500}
                   animationEasing="linear"
                 />
-                {data[0].value2 && (
+                {data[0].hasOwnProperty("value2") && (
                   <Line
                     type="monotone"
                     dataKey="value2"
-                    stroke="#82ca9d"
+                    stroke={data[0].hasOwnProperty("line2Colour") ? data[0].line2Colour :"#3b82f6"}
                     strokeWidth={2}
                     dot={{ r: 4 }}
                     activeDot={{ r: 6 }}

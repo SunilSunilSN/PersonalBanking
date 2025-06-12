@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 
 export function Table({
@@ -8,6 +8,7 @@ export function Table({
   rowsPerPage = 10,
 }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const scrollRef = useRef(null);
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
   const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
@@ -19,9 +20,21 @@ export function Table({
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data, loading]);
+useEffect(() => {
+  if (scrollRef.current) {
+    const container = scrollRef.current;
+    const activeButton = container.querySelector(".bg-blue-500");
 
+    if (activeButton) {
+      activeButton.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  }
+}, [currentPage]);
   return (
-    <div  className="rounded-2xl border border-gray-200 shadow-sm bg-white ">
+    <div className="rounded-2xl border border-gray-200 shadow-sm bg-white ">
       <div className="overflow-x-auto max-h-[400px] rounded-[1rem] flex justify-center">
         <table className="min-w-full text-sm table-fixed">
           <thead className="bg-gray-50 sticky top-0 z-10 whitespace-nowrap text-center">
@@ -37,7 +50,10 @@ export function Table({
             </tr>
           </thead>
 
-          <tbody key={currentPage} className="divide-y divide-gray-100 animate-fade-slide animate-slide-in-right">
+          <tbody
+            key={currentPage}
+            className="divide-y divide-gray-100 animate-fade-slide animate-slide-in-right"
+          >
             {loading ? (
               <tr>
                 <td
@@ -90,33 +106,45 @@ export function Table({
 
       {/* Pagination */}
       {!loading && totalPages > 1 && (
-        <div className="flex justify-between items-center p-4 border-t border-gray-200">
+        <div className="flex justify-between items-center p-4 border-t border-gray-200 gap-4 flex-wrap sm:flex-nowrap">
           <button
             onClick={handlePrev}
             disabled={currentPage === 1}
-            className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50"
+            className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.2] "
           >
             Previous
           </button>
-          <div className="space-x-2">
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i + 1}
-                onClick={() => handlePageClick(i + 1)}
-                className={`px-3 py-1 text-sm rounded ${
-                  currentPage === i + 1
-                    ? "bg-blue-500 text-white"
-                    : "border border-gray-300 text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                {i + 1}
-              </button>
-            ))}
+
+          {/* Scrollable page buttons container */}
+          <div
+           ref={scrollRef}
+            className={`${
+              totalPages <= 10 ? "justify-items-center" : ""
+            }flex-1 sm:max-w-[300px] md:max-w-[400px] overflow-x-auto`}
+          >
+            <div
+              className={`flex gap-2 px-2 py-1 w-fit min-w-full sm:min-w-0 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100`}
+            >
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => handlePageClick(i + 1)}
+                  className={`px-3 py-1 text-sm rounded whitespace-nowrap transition-transform duration-500 ease-in-out transform hover:scale-[1.2] ${
+                    currentPage === i + 1
+                      ? "bg-blue-500 text-white"
+                      : "border border-gray-300 text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
           </div>
+
           <button
             onClick={handleNext}
             disabled={currentPage === totalPages}
-            className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50"
+            className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.2]"
           >
             Next
           </button>

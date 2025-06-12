@@ -24,4 +24,14 @@ export const ErrorMessageConfig = {
     ErrorMessage: "Invalid Mobile Number",
     NullMessage: "Please Enter Mobile Number",
   },
+  recentFrom : {
+        Regex: "^.+$",
+    ErrorMessage: "Invalid From Date",
+    NullMessage: "Please Enter From Date",
+  },
+    recentTO : {
+        Regex: "^.+$",
+    ErrorMessage: "Invalid To Date",
+    NullMessage: "Please Enter To Date",
+  }
 };

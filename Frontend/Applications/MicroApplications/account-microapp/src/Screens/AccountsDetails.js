@@ -1,111 +1,158 @@
-import React, { useEffect, useState } from "react";
-import { Table, Graph, Label, Input, Tabs } from "shared-services";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  Table,
+  Graph,
+  Label,
+  Input,
+  Tabs,
+  Button,
+  ErrorMessage,
+} from "shared-services";
 function AccountDetails(AccountDtls) {
   const [loading, setLoading] = useState(false);
-  const graphTitle = "Recent Transaction Statistics";
-  const sampleData = [
-    { name: "Mon", value: 30, valueName: "Testing" },
-    { name: "Tue", value: 45, valueName: "Testing" },
-    { name: "Wed", value: 28, valueName: "Testing" },
-    { name: "Thu", value: 60, valueName: "Testing" },
-    { name: "Fri", value: 50, valueName: "Testing" },
-    { name: "Sat", value: 70, valueName: "Testing" },
-    { name: "Sun", value: 55, valueName: "Testing" },
-  ];
-  const tabs = [
-    {
-      label: "Last Month",
-    },
-    {
-      label: "Last 1 Month",
-    },
-    {
-      label: "Last 2 Month",
-    },
-  ];
+  const [errors, setErrors] = useState({});
+  const Refs = {
+    recentTransFrom: { ref: useRef(null), field: "recentFrom" },
+    recentTransTo: { ref: useRef(null), field: "recentTo" },
+  };
   const [RecentTran, setRecentTran] = useState({
     RecTranList: [],
     RecentTranGraph: [],
     RecentTranGraphTile: "Recent Transaction Statistics",
-    RecentTranTabs: tabs,
+    RecentTranTabs: [],
     RecentTranTile: "",
   });
-  const [activeTab, setActiveTab] = useState(0);
   function AccountClick(row) {
     window.setModalData({
       isOpen: true,
       ModalTitle: "Account Details",
-      ModalChildren: <AccountDetails rowdetails={row} />,
+      ModalChildren: <EachAccountDetails rowdetails={row} />,
       closeBtn: true,
       Btns: [
-        {
-          Name: "Ok",
-          function: () => "",
-        },
-        {
-          Name: "Close",
-          function: () => "",
-        },
+        // {
+        //   Name: "Ok",
+        //   function: () => "",
+        // },
+        // {
+        //   Name: "Close",
+        //   function: () => "",
+        // },
       ],
     });
   }
-  const AccountDetails = (rowdetails) => {
-    return (        <Table
-          data={[rowdetails]}
-          loading={loading}
-          rowsPerPage={15}
-          onClick={AccountClick}
-        />)
+  const EachAccountDetails = (rowdetails) => {
+    const AccDtls = rowdetails.rowdetails;
+    return (
+      <Table
+        data={Object.entries(AccDtls).map(([key, value]) => ({
+          Title: key,
+          Desc: value,
+        }))}
+        columns={[
+          { key: "Title", label: "Account Title" },
+          { key: "Desc", label: "Account Desc" },
+        ]}
+        loading={loading}
+        rowsPerPage={20}
+        onClick={AccountClick}
+      />
+    );
   };
   const getRecentTran = async (req) => {
     setLoading(true);
     const data = await window.ServerCall("recentTransAPI", req);
+    let RecentGraphData = [];
+    let DateDiff = "";
     if (data.success) {
-      const RecentData = data.data.RecentTransaction;
-      let RecentGraphData = [];
-      // RecentData.forEach((elm) =>
-      //   RecentGraphData.push({
-      //     name: new Date(elm.TransactionDate).toLocaleDateString("en-US", {
-      //       month: "short",
-      //       day: "2-digit",
-      //     }),
-      //     value: elm.TransactionAmount,
-      //     value2: elm.TransactionType === "TRANSFERelm.TransactionAmount
-      //   })
-      // );
-      RecentGraphData = Object.values(
-        RecentData.reduce((acc, txn) => {
-          const date = new Date(txn.TransactionDate).toLocaleDateString(
-            "en-US",
-            {
-              month: "short",
-              day: "2-digit",
-            }
-          );
-          if (!acc[date]) {
-            acc[date] = {
-              name: date,
-              value: 0,
-              value2: 0,
-              valueName: "Debit",
-              value2Name: "Credit",
-            };
-          }
-          if (txn.TransactionType === "TRANSFER") {
-            acc[date].value += txn.TransactionAmount;
-          } else if (txn.TransactionType === "WITHDRAWAL") {
-            acc[date].value2 += txn.TransactionAmount;
-          }
-          return acc;
-        }, {})
+      const RecentData = data.data.RecentTransaction.sort(
+        (a, b) => new Date(a.TransactionDate) - new Date(b.TransactionDate)
       );
-      console.log(RecentGraphData);
+      if (RecentData.length > 1) {
+        DateDiff =
+          (new Date(RecentData[RecentData.length - 1].TransactionDate) -
+            new Date(RecentData[0].TransactionDate)) /
+          (1000 * 60 * 60 * 24);
+        if (DateDiff > 7) {
+          RecentGraphData = Object.values(
+            RecentData.reduce((acc, txn) => {
+              const date = new Date(txn.TransactionDate);
+              const startOfWeek = new Date(date);
+              startOfWeek.setDate(date.getDate() - date.getDay());
+              startOfWeek.setHours(0, 0, 0, 0);
+              const endOfWeek = new Date(startOfWeek);
+              endOfWeek.setDate(startOfWeek.getDate() + 6);
+              const weekKey = startOfWeek.toISOString();
+              const formatDate = (d) =>
+                d.toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "2-digit",
+                });
+              if (!acc[weekKey]) {
+                acc[weekKey] = {
+                  date: startOfWeek,
+                  name: `${formatDate(startOfWeek)}-${formatDate(endOfWeek)}`,
+                  value: 0,
+                  value2: 0,
+                  valueName: "Debit",
+                  value2Name: "Credit",
+                  lineColour: "#C62828",
+                  line2Colour: "#82ca9d",
+                };
+              }
+              if (txn.TransactionType === "TRANSFER") {
+                acc[weekKey].value += parseInt(txn.TransactionAmount);
+              } else if (txn.TransactionType === "WITHDRAWAL") {
+                acc[weekKey].value2 += parseInt(txn.TransactionAmount);
+              }
+              return acc;
+            }, {})
+          ).sort((a, b) => a.date - b.date);
+        } else if (DateDiff < 10) {
+          RecentGraphData = Object.values(
+            RecentData.reduce((acc, txn) => {
+              const formDate = new Date(txn.TransactionDate).toLocaleString(
+                "en-IN",
+                {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                }
+              );
+              if (!acc[formDate]) {
+                acc[formDate] = {
+                  date: formDate,
+                  name: formDate,
+                  value: 0,
+                  value2: 0,
+                  valueName: "Debit",
+                  value2Name: "Credit",
+                  lineColour: "#C62828",
+                  line2Colour: "#82ca9d",
+                };
+              }
+              if (txn.TransactionType === "TRANSFER") {
+                acc[formDate].value += parseInt(txn.TransactionAmount);
+              } else if (txn.TransactionType === "WITHDRAWAL") {
+                acc[formDate].value2 += parseInt(txn.TransactionAmount);
+              }
+              return acc;
+            }, {})
+          );
+        }
+      }
       setRecentTran((prev) => ({
-        ...prev,
+        // ...prev,
         RecTranList: RecentData,
         RecentTranGraph: RecentGraphData,
       }));
+      setLoading(false);
+    } else {
+      setRecentTran((prev) => ({
+        // ...prev,
+        RecTranList: [],
+        RecentTranGraph: [],
+      }));
+      setLoading(false);
     }
     // } else {
     //   window.showAlert({
@@ -121,19 +168,20 @@ function AccountDetails(AccountDtls) {
     //     ],
     //   });
     // }
-    setLoading(false);
   };
   useEffect(() => {
     if (AccountDtls?.AccountNumber && AccountDtls?.CIF) {
       getRecentTran({
         CIF: AccountDtls.CIF,
         AccountNumber: AccountDtls.AccountNumber,
+        FromDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+        ToDate: new Date(),
       });
     }
     console.log(AccountDtls);
   }, [AccountDtls.AccountNumber]);
   const columns = [
-    { key: "FullName", label: "Full Number", onClick: AccountClick },
+    { key: "FullName", label: "Full Name", onClick: AccountClick },
     {
       key: "TransactionDate",
       label: "Date",
@@ -155,7 +203,7 @@ function AccountDetails(AccountDtls) {
       onClick: AccountClick,
       render: (row) => {
         const stat = row.TransactionType;
-        if (stat === "TRANSFER")
+        if (stat === "TRANSFER" || stat === "DEPOSIT")
           return <div className="text-green-500"> {row.TransactionAmount}</div>;
         if (stat === "WITHDRAWAL")
           return <div className="text-red-500"> {row.TransactionAmount}</div>;
@@ -184,18 +232,39 @@ function AccountDetails(AccountDtls) {
       getRecentTran({
         CIF: AccountDtls.CIF,
         AccountNumber: AccountDtls.AccountNumber,
+        FromDate: new Date(new Date().setMonth(new Date().getMonth() - 2)),
+        ToDate: new Date(),
       });
-    } else if (trandate === "Last month") {
+    } else if (trandate === "Last Month") {
       getRecentTran({
         CIF: AccountDtls.CIF,
         AccountNumber: AccountDtls.AccountNumber,
+        FromDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+        ToDate: new Date(),
       });
+    } else if (trandate === "Last 3 Month") {
+      getRecentTran({
+        CIF: AccountDtls.CIF,
+        AccountNumber: AccountDtls.AccountNumber,
+        FromDate: new Date(new Date().setMonth(new Date().getMonth() - 3)),
+        ToDate: new Date(),
+      });
+    } else if (trandate === "Submit") {
+      if (!window.errorDisplayAll(Refs, setErrors)) {
+        const RecentReq = {
+          CIF: AccountDtls.CIF,
+          AccountNumber: AccountDtls.AccountNumber,
+          FromDate: new Date(Refs["recentTransFrom"].ref.current.value),
+          ToDate: new Date(Refs["recentTransTo"].ref.current.value),
+        };
+        getRecentTran(RecentReq);
+      }
     }
   };
   return (
     <div className="flex space-x-4 h-full bg-white p-4 rounded-xl shadow">
       <div className="bg-white h-full flex-1">
-        <div className="text-sm font-medium text-gray-500 mt-4 mb-2">
+        <div className="text-sm font-medium text-gray-500 mb-2">
           {"Account Details"}
         </div>
         <div className="gap-[30px] h-44 ">
@@ -227,14 +296,14 @@ function AccountDetails(AccountDtls) {
         </div>
       </div>
       <div className="flex-1">
-        <div className="text-sm font-medium text-gray-500 mt-4 mb-2">
+        <div className="text-sm font-medium text-gray-500 mb-2">
           {"Recent Transactions"}
         </div>
         <div className="pb-4">
           <Tabs
             tabs={[
               {
-                label: "Last month",
+                label: "Last Month",
                 labelClick: OnClickFetchTrans,
               },
               {
@@ -242,33 +311,62 @@ function AccountDetails(AccountDtls) {
                 labelClick: OnClickFetchTrans,
               },
               {
+                label: "Last 3 Month",
+                labelClick: OnClickFetchTrans,
+              },
+              {
                 label: "Custom",
+                labelClick: OnClickFetchTrans,
                 content: (
-                  <div className="flex p-4">
-                    <div className="flex gap-2 pr-4">
+                  <div className="flex">
+                    <div className="gap-2 pr-4">
                       <Label>From Transaction</Label>
                       <Input
-                        // ref={Refs.userNameRefId.ref}
-                        id="LoginPage_userName"
-                        data-type="userName"
-                        placeholder="Please type here&hellip;"
-                        // onChange={(e) => window.errorDisplay(setErrors, e, "userName")}
-                        // onClick={(e) => window.errorOnClick(setErrors, e, "userName")}
+                        ref={Refs.recentTransFrom.ref}
+                        id="RecentTrans_FromDate"
+                        data-type="recentFrom"
+                        type="Date"
+                        placeholder="Please Select From Date&hellip;"
+                        onChange={(e) =>
+                          window.errorDisplay(setErrors, e, "recentFrom")
+                        }
+                        onClick={(e) =>
+                          window.errorOnClick(setErrors, e, "recentFrom")
+                        }
                         name="userName"
                       />
+                      {errors.recentFrom && (
+                        <ErrorMessage>{errors.recentFrom}</ErrorMessage>
+                      )}
                     </div>
-                    <div className="flex gap-2 pr-4">
+                    <div className="gap-2 pr-4">
                       <Label>To Transaction</Label>
                       <Input
-                        // ref={Refs.userNameRefId.ref}
-                        id="LoginPage_userName"
-                        data-type="userName"
-                        placeholder="Please type here&hellip;"
-                        // onChange={(e) => window.errorDisplay(setErrors, e, "userName")}
-                        // onClick={(e) => window.errorOnClick(setErrors, e, "userName")}
+                        ref={Refs.recentTransTo.ref}
+                        id="RecentTrans_ToDate"
+                        data-type="recentTO"
+                        type="Date"
+                        placeholder="Please Select To Date&hellip;"
+                        onChange={(e) =>
+                          window.errorDisplay(setErrors, e, "recentTo")
+                        }
+                        onClick={(e) =>
+                          window.errorOnClick(setErrors, e, "recentTo")
+                        }
                         name="userName"
                       />
+                      {errors.recentTo && (
+                        <ErrorMessage>{errors.recentTo}</ErrorMessage>
+                      )}
                     </div>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="gap-2 w-full"
+                      onClick={(e) => OnClickFetchTrans(e)}
+                    >
+                      Submit
+                    </Button>
                   </div>
                 ),
               },
@@ -284,7 +382,7 @@ function AccountDetails(AccountDtls) {
           columns={columns}
           data={RecentTran.RecTranList}
           loading={loading}
-          rowsPerPage={15}
+          rowsPerPage={10}
           onClick={AccountClick}
         />
       </div>
