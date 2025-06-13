@@ -508,11 +508,6 @@ express@^4.21.2:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-faker@^5.5.3:
-  version "5.5.3"
-  resolved "https://registry.npmjs.org/faker/-/faker-5.5.3.tgz"
-  integrity sha512-wLTv2a28wjUyWkbnX7u/ABZBkUkIF2fCd73V6P2oFqEGEktDfzWx4UxrSqtPRw0xPRAcjeAOIiJWqZm3pP4u3g==
-
 fill-range@^7.1.1:
   version "7.1.1"
   resolved "https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz"

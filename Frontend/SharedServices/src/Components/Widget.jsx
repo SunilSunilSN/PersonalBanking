@@ -41,7 +41,9 @@ export function Widget({
 
   if (children) {
     return (
-      <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48 transition-transform duration-500 ease-in-out transform hover:scale-[1.02]">
+      <div className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48 transition-transform duration-500 ease-in-out transform hover:scale-[1.02]
+      dark:hover:bg-blue-600/10 dark:border-blue-700 
+      ">
         {children}
       </div>
     );
@@ -50,7 +52,9 @@ export function Widget({
 
 
   return (
-    <div id = {id} className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48 transition-transform duration-500 ease-in-out transform hover:scale-[1.02]">
+    <div id = {id} className="bg-white overflow-y-auto rounded-2xl shadow-sm border border-gray-200 w-full hover:bg-gray-200 h-48 transition-transform duration-500 ease-in-out transform hover:scale-[1.02]
+    dark:bg-blue-600/10
+    ">
       <div  className="p-4">
       <div className="flex items-center justify-between p-4">
         <div>

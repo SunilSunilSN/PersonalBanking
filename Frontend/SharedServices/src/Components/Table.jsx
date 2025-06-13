@@ -37,7 +37,7 @@ useEffect(() => {
     <div className="rounded-2xl border border-gray-200 shadow-sm bg-white dark:text-gray-100 dark:bg-gray-900">
       <div className="overflow-x-auto  rounded-[1rem] flex justify-center">
         <table className="min-w-full text-sm table-fixed">
-          <thead className="bg-gray-50 sticky top-0 z-10 whitespace-nowrap text-center">
+          <thead className="bg-gray-50 sticky top-0 z-10 whitespace-nowrap text-center dark:bg-slate-800">
             <tr>
               {columns.map((col) => (
                 <th
@@ -52,7 +52,7 @@ useEffect(() => {
 
           <tbody
             key={currentPage}
-            className="divide-y divide-gray-100 animate-fade-slide animate-slide-in-right"
+            className="divide-y divide-gray-100 animate-fade-slide animate-slide-in-right dark:bg-slate-800"
           >
             {loading ? (
               <tr>

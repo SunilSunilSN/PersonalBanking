@@ -262,13 +262,13 @@ function AccountDetails(AccountDtls) {
     }
   };
   return (
-    <div className="flex space-x-4 h-full bg-white p-4 rounded-xl shadow">
-      <div className="bg-white h-full flex-1">
+    <div className="flex space-x-4 h-full bg-white p-4 rounded-xl shadow dark:bg-slate-800">
+      <div className="bg-white h-full flex-1 dark:bg-slate-800">
         <div className="text-sm font-medium text-gray-500 mb-2">
           {"Account Details"}
         </div>
         <div className="gap-[30px] h-44 ">
-          <div className="bg-gray-200  p-4 rounded-2xl  shadow hover:shadow-lg transition duration-300 ">
+          <div className="bg-gray-200  p-4 rounded-2xl  shadow hover:shadow-lg transition duration-300 dark:bg-slate-800">
             <div className="flex items-center justify-between mb-2">
               <div className="text-sm font-medium text-gray-500">
                 {AccountDtls.Type}

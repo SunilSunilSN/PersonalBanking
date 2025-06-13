@@ -9,7 +9,6 @@ const AlertMsg = window.AlertMsg;
 function BaseScreen() {
   const [showHeader, setShowHeader] = useState(true);
   const [showSideBar, setShowSideBar] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const timeout = 6000; // 1 minute
   const lastActivityTime = useRef(Date.now());
   const intervalRef = useRef(null);
@@ -45,14 +44,6 @@ function BaseScreen() {
     console.log("BaseScreen script loaded and function executed!");
     window.launchMicroApp("login", "LoginPage", "BaseScreenID");
   }, []);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDark]);
 
   // useEffect(() => {
   //   const updateActivity = () => {
@@ -108,7 +99,7 @@ function BaseScreen() {
 
         <div
           id="BaseScreenID"
-          className="flex-1 overflow-x-hidden overflow-y-auto dark:bg-white p-4"
+          className="flex-1 overflow-x-hidden overflow-y-auto p-4 shadow dark:bg-neutral-800  dark:shadow-[0_2px_8px_rgba(255,255,255,0.05)] transition-all duration-300"
         ></div>
       </div>
       <div id="AuthModalId"></div>
@@ -128,9 +119,6 @@ function BaseScreen() {
         {ModalData.ModalChildren}
       </Modal>
       <PopoverUI />
-          <button onClick={() => setIsDark(!isDark)}>
-      Toggle {isDark ? 'Light' : 'Dark'} Mode
-    </button>
     </div>
   );
 }

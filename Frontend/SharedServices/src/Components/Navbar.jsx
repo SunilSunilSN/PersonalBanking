@@ -1,14 +1,14 @@
 import React from "react";
 const cn = (...classes) => classes.filter(Boolean).join(' ');
 export function Navbar({ children }) {
-  return <nav className="flex items-center gap-4 bg-white p-5 shadow">{children}</nav>;
+  return <nav className="flex items-center gap-4 bg-white p-4 shadow transition-all duration-300 dark:bg-neutral-900 dark:shadow-[0_2px_10px_rgba(255,255,255,0.05)]">{children}</nav>;
 }
 
 export function NavbarItem({ children, href, onClick, current }) {
-  const baseStyles = 'text-sm font-medium cursor-pointer px-3 py-2 rounded-md transition-colors';
+  const baseStyles = 'text-sm font-medium cursor-pointer px-3 py-2 rounded-md transition-colors dark:text-white';
   const stateStyles = current
     ? 'text-blue-600 font-semibold'
-    : 'text-gray-900 hover:text-blue-600';
+    : 'text-gray-900 hover:text-blue-600 dark:hover:text-blue-600';
 
   const className = `${baseStyles} ${stateStyles}`;
 

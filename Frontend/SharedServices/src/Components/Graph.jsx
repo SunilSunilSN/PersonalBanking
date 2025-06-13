@@ -27,12 +27,12 @@ export function Graph({
     return (
       <div className={`w-full h-96 ${className}`}>
         {loading? (
-          <div className="bg-white rounded-2xl shadow border dark:bg-slate-800border-gray-200 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full">
+          <div className="bg-white rounded-2xl shadow border dark:bg-slate-800border-gray-200 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full dark:bg-slate-800">
             {" "}
             Loading{" "}
           </div>
         ) : data.length === 0? (
-          <div className="bg-white rounded-2xl shadow border dark:bg-slate-800 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full">
+          <div className="bg-white rounded-2xl shadow border dark:bg-slate-800 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full dark:bg-slate-800">
             {" "}
             NO Data Available{" "}
           </div>
