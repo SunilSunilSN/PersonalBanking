@@ -1,11 +1,11 @@
 import React from "react";
 
 export function Sidebar({ children }) {
-  return <aside className="w-52 h-screen bg-gray-50 p-4 shadow-inner">{children}</aside>;
+  return <aside className="w-52 h-screen bg-gray-50 dark:bg-slate-800 p-4 shadow-inner">{children}</aside>;
 }
 
 export function SidebarHeader({ children }) {
-  return <div className="mb-4 text-lg font-bold">{children}</div>;
+  return <div className="mb-4 text-lg dark:text-gray-100 font-bold">{children}</div>;
 }
 
 export function SidebarSection({ children }) {
@@ -14,7 +14,7 @@ export function SidebarSection({ children }) {
 
 export function SidebarItem({ children, onClick }) {
   return (
-    <div onClick={onClick} className="cursor-pointer flex rounded px-2 py-1 hover:bg-gray-200 hover:text-blue-600 text-sm font-medium items-center">
+    <div onClick={onClick} className="cursor-pointer flex rounded px-2 py-1 hover:bg-gray-200 hover:text-blue-600 dark:text-gray-100 text-sm font-medium items-center">
       {children}
     </div>
   );

@@ -9,9 +9,23 @@ import {
   SidebarLabel,
   Avatar,
 } from "shared-services";
-import { InboxIcon, MagnifyingGlassIcon, BellAlertIcon  } from "@heroicons/react/20/solid";
+import {
+  InboxIcon,
+  MagnifyingGlassIcon,
+  BellAlertIcon,
+} from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 function Header() {
+    const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const classList = document.documentElement.classList;
+    if (isDark) {
+      classList.add("dark");
+    } else {
+      classList.remove("dark");
+    }
+  }, [isDark]);
   const [headerItems, setHeaderItems] = useState({
     List: [],
     IsLoggedIn: false,
@@ -157,6 +171,21 @@ function Header() {
               </span>
             </span>
           </NavbarItem>
+          <label className="inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              checked={isDark}
+              onChange={() => setIsDark(!isDark)}
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-gray-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all relative">
+            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+              Dark Mode
+            </span>
+
+            </div>
+
+          </label>
         </NavbarSection>
       )}
     </Navbar>

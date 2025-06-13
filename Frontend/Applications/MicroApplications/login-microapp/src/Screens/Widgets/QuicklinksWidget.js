@@ -29,7 +29,7 @@ const QuickLinksWidget = () => {
           <li key={idx}>
             <button
               onClick={() => handleClick(item)}
-              className="flex items-center gap-2 w-full px-3 py-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-lg transition"
+              className="flex items-center gap-2 w-full px-3 py-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-lg transition duration-500 ease-in-out transform hover:scale-[1.02]"
             >
               {item.icon || <LinkIcon className="w-4 h-4" />}
               {item.name}

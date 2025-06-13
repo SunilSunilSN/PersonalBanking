@@ -34,15 +34,15 @@ useEffect(() => {
   }
 }, [currentPage]);
   return (
-    <div className="rounded-2xl border border-gray-200 shadow-sm bg-white ">
-      <div className="overflow-x-auto max-h-[400px] rounded-[1rem] flex justify-center">
+    <div className="rounded-2xl border border-gray-200 shadow-sm bg-white dark:text-gray-100 dark:bg-gray-900">
+      <div className="overflow-x-auto  rounded-[1rem] flex justify-center">
         <table className="min-w-full text-sm table-fixed">
           <thead className="bg-gray-50 sticky top-0 z-10 whitespace-nowrap text-center">
             <tr>
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className="px-4 py-3 font-semibold text-gray-600 border-b border-gray-200"
+                  className="px-4 py-3 font-semibold text-gray-600 border-b border-gray-200 dark:text-gray-100 dark:bg-gray-900"
                 >
                   {col.label}
                 </th>
@@ -76,13 +76,13 @@ useEffect(() => {
               paginatedData.map((row, idx) => (
                 <tr
                   key={idx}
-                  className={`cursor-pointer hover:bg-gray-200 animate-slide-in-right`}
+                  className={`cursor-pointer hover:bg-gray-200 animate-slide-in-right dark:bg-slate-800 dark:hover:bg-red-900`}
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
                   {columns.map((col) => (
                     <td
                       key={col.key}
-                      className={`px-4 py-3 text-gray-700 text-center ${
+                      className={`px-4 py-3 text-gray-700 dark:text-gray-100 text-center ${
                         row.isPrimary && col.key === "Acc"
                           ? " justify-center flex gap-2 items-center"
                           : ""
