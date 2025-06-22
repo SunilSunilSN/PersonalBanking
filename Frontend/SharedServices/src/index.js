@@ -17,3 +17,4 @@ export * from './Components/Announcement';
 export * from './Components/Graph';
 export * from './Components/Tabs';
 export * from './Components/Modal';
+export * from './Components/Slider'

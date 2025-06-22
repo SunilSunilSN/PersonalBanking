@@ -1,5 +1,6 @@
 import React from "react";
-import PreLoginPage from "../Screens/PreLoginPage"
+import PreLoginPage from "../Screens/PreLoginPage";
+import  Calculator  from "../Screens/Calculator";
 
 const MicroAppMapper = ({ location }) => {
   const searchParams = new URLSearchParams(location?.search);
@@ -10,6 +11,8 @@ const MicroAppMapper = ({ location }) => {
   switch (screen) {
     case "PreLoginPage":
       return <PreLoginPage {...props} />;
+    case "Calculator":
+      return <Calculator {...props} />;
     default:
       return <div>Screen not found</div>;
   }
