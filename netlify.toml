@@ -1,5 +1,5 @@
 [build]
   base = "Frontend"
-  command = "yarn run build"
+  command = "yarn build:all"
   publish = "Applications/base-application/build"
 
