@@ -15,8 +15,8 @@ module.exports = {
         new ModuleFederationPlugin({
           name: "base_app",
           remotes: {
-            // login_app: "login_app@http://localhost:3000/login-app/remoteEntry.js",
-            // preLogin_app: "preLogin_app@http://localhost:3000/preLogin_app/remoteEntry.js",
+            login_app: "login_app@http://localhost:3000/login-app/remoteEntry.js",
+            preLogin_app: "preLogin_app@http://localhost:3000/preLogin_app/remoteEntry.js",
             // preLogin_app: `preLogin_app@${process.env.REACT_APP_PRELOGIN_REMOTE_ENTRY}`
             // Adjust if your login app runs on a different port
           },
