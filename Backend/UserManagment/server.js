@@ -21,7 +21,7 @@ app.use(cookieParser());
 const cors = require('cors');
 
 app.use(cors({
-  origin: "http://localhost:3005", // your frontend URL
+  origin: process.env.FRONTEND_HOST, // your frontend URL
   credentials: true,              // allow cookies and Authorization headers
 }));
 app.use(session({

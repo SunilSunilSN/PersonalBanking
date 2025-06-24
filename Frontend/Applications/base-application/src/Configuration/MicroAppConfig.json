@@ -1,25 +1,25 @@
 {
   "login": {
     "route": "/login",
-    "remoteUrl": "http://localhost:3001/remoteEntry.js",
+    "remoteUrl": "http://localhost:3000/login-app/remoteEntry.js",
     "scope": "login_app",
     "module": "./MicroAppMapper"
   },
   "pre-login": {
     "route": "/pre-login",
-    "remoteUrl": "http://localhost:3002/remoteEntry.js",
+    "remoteUrl": "http://localhost:3000/preLogin-app/remoteEntry.js",
     "scope": "preLogin_app",
     "module": "./MicroAppMapper"
   },
   "account": {
     "route": "/account",
-    "remoteUrl": "http://localhost:3003/remoteEntry.js",
+    "remoteUrl": "http://localhost:3000/account-app/remoteEntry.js",
     "scope": "account_app",
     "module": "./MicroAppMapper"
   },
     "auth": {
-    "route": "/aurg",
-    "remoteUrl": "http://localhost:3004/remoteEntry.js",
+    "route": "/auth",
+    "remoteUrl": "http://localhost:3000/auth-app/remoteEntry.js",
     "scope": "auth_app",
     "module": "./MicroAppMapper"
   }

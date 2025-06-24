@@ -55,6 +55,15 @@
       },
       "enpointurl": "/user/resendOTP",
       "credentials": "include"
+    },
+    "recentTransAPI": {
+      "method": "POST",
+      "service": "REACT_APP_TRANSACTION_MICROSERVICE",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "enpointurl": "/transaction/getRecentTransaction",
+      "credentials": "include"
     }
   }
 },

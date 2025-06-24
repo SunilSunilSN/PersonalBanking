@@ -16,9 +16,9 @@ module.exports = {
           name: "base_app",
           remotes: {
             login_app: "login_app@http://localhost:3000/login-app/remoteEntry.js",
-            preLogin_app: "preLogin_app@http://localhost:3000/preLogin_app/remoteEntry.js",
-            // preLogin_app: `preLogin_app@${process.env.REACT_APP_PRELOGIN_REMOTE_ENTRY}`
-            // Adjust if your login app runs on a different port
+            preLogin_app: "preLogin_app@http://localhost:3000/preLogin-app/remoteEntry.js",
+            account_app: "account_app@http://localhost:3000/account-app/remoteEntry.js",
+            auth_app: "auth_app@http://localhost:3000/auth-app/remoteEntry.js",
           },
           shared: {
             react: { singleton: true, eager: true },
