@@ -56,7 +56,7 @@ const getAllUser = async (req, res) => {
 
 const getDashboard = async (req, res) => {
   try {
-    return res.success("User Fetched Successfully", "Sunil", 200);
+    return res.success("User Fetched Successfully", res, 200);
   } catch (error) {
     return res.error("User Fetched Successfully", 500);
   }
