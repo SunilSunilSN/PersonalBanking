@@ -16,7 +16,7 @@ const userLogin = async (req, res) => {
       return res.error("Invalid Credentials", 401);
     }
     const token = generateToken(user);
-    res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "none" });
+    res.cookie("token", token, { httpOnly: true, secure: false, sameSite: "Lax" });
     req.session.userId = user._id;
     req.session.loggedInAt = Date.now();
     res.success("User Logged In", user, 200);
