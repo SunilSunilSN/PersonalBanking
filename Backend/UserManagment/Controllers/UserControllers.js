@@ -50,15 +50,15 @@ const getAllUser = async (req, res) => {
     }
     return res.success("User Fetched Successfully", users, 201);
   } catch (error) {
-    return res.error("User Fetched Successfully", 500);
+    return res.error("User Fetch Failed", 500);
   }
 };
 
 const getDashboard = async (req, res) => {
   try {
-    return res.success("User Fetched Successfully", res, 200);
+    return res.success("User Fetched Successfully", "Sunil", 200);
   } catch (error) {
-    return res.error("User Fetched Successfully", 500);
+    return res.error("User Fetch Failed", 500);
   }
 };
 

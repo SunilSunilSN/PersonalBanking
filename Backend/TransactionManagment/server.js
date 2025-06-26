@@ -31,7 +31,7 @@ app.use(session({
     maxAge: 1 * 60 * 1000,   // 1 minute
     httpOnly: true,
     secure: false,           // true in production (with HTTPS)
-    sameSite: 'Lax'
+    sameSite: 'lax'
   }
 }));
 app.use(RequestHandler);
