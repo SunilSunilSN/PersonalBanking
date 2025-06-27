@@ -10,7 +10,8 @@
       "Navigate": {
         "MicroApp": "login",
         "Screen": "RegistrationPage"
-      }
+      },
+      "Type": "Navigate"
     },
     {
       "Name": "Contact Us",
@@ -50,9 +51,10 @@
       "Name": "Calculator",
       "Visible": "Both",
       "Navigate": {
-        "MicroApp": "login",
-        "Screen": "LoginPage"
-      }
+        "MicroApp": "pre-login",
+        "Screen": "Calculator"
+      },
+      "Type": "Navigate"
     },
     {
       "Name": "Help",
@@ -60,7 +62,8 @@
       "Navigate": {
         "MicroApp": "login",
         "Screen": "Calculator"
-      }
+      },
+      "Type": "Navigate"
     },
     {
       "Name": "More",
@@ -68,7 +71,8 @@
       "Navigate": {
         "MicroApp": "login",
         "Screen": "UseFull Links"
-      }
+      },
+      "Type": "Navigate"
     }
   ]
 },
@@ -391,8 +395,8 @@
       "Name": "Calculator",
       "Visible": "Both",
       "Navigate": {
-        "MicroApp": "login",
-        "Screen": "LoginPage"
+        "MicroApp": "prelogin",
+        "Screen": "Calculator"
       }
     },
     {
@@ -643,9 +647,9 @@
   "Key": "SecurityParameters",
   "Value": [
     {
-      "OTPLength": 4,
+      "OTPLength": 8,
       "OTPRegencount": 3,
-      "OTPTimer": 30
+      "OTPTimer": 10
     }
   ]
 }]

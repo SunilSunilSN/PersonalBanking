@@ -15,6 +15,9 @@ const ADMIN_ROUTES = [];
 const jwt = require("jsonwebtoken");
 const RolesHandler = require("./RolesHandlers");
 const RequestHandler = (req, res, next) => {
+  console.log("Req:--" + req);
+  console.log("Cookies:--" + req.cookies);
+  console.log("Session:--" + req.session);
   try {
     if (PUBLIC_ROUTES.includes(req.path)) {
     if (req.session || req.cookies?.["connect.sid"]) {
