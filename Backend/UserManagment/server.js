@@ -24,6 +24,7 @@ app.use(cors({
   origin: process.env.FRONTEND_HOST, // your frontend URL
   credentials: true,              // allow cookies and Authorization headers
 }));
+app.set('trust proxy', 1);
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
