@@ -25,6 +25,9 @@ app.use(
         proxyReq.setHeader("cookie", req.headers.cookie);
       }
     },
+    cookieDomainRewrite: {
+      "*": "", // Remove domain so browser accepts the cookie from proxy
+    }
   })
 );
 
