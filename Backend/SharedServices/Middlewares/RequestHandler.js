@@ -15,9 +15,6 @@ const ADMIN_ROUTES = [];
 const jwt = require("jsonwebtoken");
 const RolesHandler = require("./RolesHandlers");
 const RequestHandler = (req, res, next) => {
-  console.log("Req:--" + req);
-  console.log("Cookies:--" + req.cookies);
-  console.log("Session:--" + req.session);
   try {
     if (PUBLIC_ROUTES.includes(req.path)) {
     if (req.session || req.cookies?.["connect.sid"]) {
@@ -33,6 +30,10 @@ const RequestHandler = (req, res, next) => {
     } else {
       req.session.touch();
     }
+    console.log("Request Object:");
+    console.dir(req, { depth: 1 }); // Limit depth for brevity
+    console.log("Cookies- Sunil:", req.cookies); // Will show actual cookies if cookie-parser is used
+    console.log("Session-Sunil:", req.session); // Will show session info if express-session is set up
     const token = req.cookies?.token || req.headers["authorization"];
     if (token && token.startsWith("Bearer ")) {
       token = token.split(" ")[1];
