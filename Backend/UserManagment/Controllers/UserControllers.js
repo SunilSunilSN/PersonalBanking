@@ -16,13 +16,22 @@ const userLogin = async (req, res) => {
       return res.error("Invalid Credentials", 401);
     }
     const token = generateToken(user);
-    res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "none" });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
     req.session.userId = user._id;
     req.session.loggedInAt = Date.now();
-    res.success("User Logged In", user, 200);
+    req.session.save((err) => {
+      if (err) {
+        return res.error("Failed to save session", 500);
+      }
+
+      res.success("User Logged In", user, 200);
+    });
   } catch (error) {
     res.error("User failed", 500);
-
   }
 };
 const createUser = async (req, res) => {
@@ -32,10 +41,15 @@ const createUser = async (req, res) => {
       return res.error("Missing required fields", 400);
     }
     const user = await UserModel.findOne({ UserName });
-    if(user){
-      return res.error(`User With UserName: ${UserName} Already Exists!`, 400)
+    if (user) {
+      return res.error(`User With UserName: ${UserName} Already Exists!`, 400);
     }
-    const newUser = await UserModel.create({ UserName, Password, UserRole, ProfilePic });
+    const newUser = await UserModel.create({
+      UserName,
+      Password,
+      UserRole,
+      ProfilePic,
+    });
     return res.success("User Created Succesfully", newUser, 201);
   } catch (error) {
     return res.error("User Created Failed", 500);
@@ -81,4 +95,10 @@ const userLogout = async (req, res) => {
     res.status(500).json({ message: "Logout failed", error: error.message });
   }
 };
-module.exports = { createUser, getAllUser, userLogin, getDashboard, userLogout };
+module.exports = {
+  createUser,
+  getAllUser,
+  userLogin,
+  getDashboard,
+  userLogout,
+};
