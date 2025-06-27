@@ -25,6 +25,17 @@ app.use(
         proxyReq.setHeader("cookie", req.headers.cookie);
       }
     },
+        onProxyRes: (proxyRes, req, res) => {
+      const cookies = proxyRes.headers["set-cookie"];
+      if (cookies) {
+        proxyRes.headers["set-cookie"] = cookies.map((cookie) => {
+          return cookie
+            .replace(/;(\s*)SameSite=Lax/gi, "; SameSite=None")
+            .replace(/;(\s*)secure/gi, "; Secure")
+            .replace(/Domain=[^;]+;?/gi, ""); // Strip domain so browser accepts it
+        });
+      }
+    },
     cookieDomainRewrite: {
       "*": "", // Remove domain so browser accepts the cookie from proxy
     }
