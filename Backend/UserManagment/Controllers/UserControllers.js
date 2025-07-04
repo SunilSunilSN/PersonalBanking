@@ -18,8 +18,8 @@ const userLogin = async (req, res) => {
     const token = generateToken(user);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+    secure: process.env.ENV === "prod" ? true : false,           // true in production (with HTTPS)
+    sameSite: process.env.ENV === "prod" ? 'none' : 'lax'
     });
     req.session.userId = user._id;
     req.session.loggedInAt = Date.now();
@@ -36,7 +36,7 @@ const userLogin = async (req, res) => {
 };
 const createUser = async (req, res) => {
   try {
-    const { UserName, Password, UserRole, ProfilePic } = req.body;
+    const { UserName, Password, UserRole, ProfilePic, CIF } = req.body;
     if (!UserName || !Password || !UserRole) {
       return res.error("Missing required fields", 400);
     }
@@ -49,10 +49,11 @@ const createUser = async (req, res) => {
       Password,
       UserRole,
       ProfilePic,
+      CIF
     });
     return res.success("User Created Succesfully", newUser, 201);
   } catch (error) {
-    return res.error("User Created Failed", 500);
+    return res.error(error.message, 500);
   }
 };
 

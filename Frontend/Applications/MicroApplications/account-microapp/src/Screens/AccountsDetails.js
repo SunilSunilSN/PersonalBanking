@@ -179,7 +179,7 @@ function AccountDetails(AccountDtls) {
       });
     }
     console.log(AccountDtls);
-  }, [AccountDtls.AccountNumber]);
+  }, [AccountDtls]);
   const columns = [
     { key: "FullName", label: "Full Name", onClick: AccountClick },
     {

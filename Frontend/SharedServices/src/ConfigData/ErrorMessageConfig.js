@@ -24,14 +24,24 @@ export const ErrorMessageConfig = {
     ErrorMessage: "Invalid Mobile Number",
     NullMessage: "Please Enter Mobile Number",
   },
-  recentFrom : {
-        Regex: "^.+$",
+  CIFNumber: {
+    Regex: "^.+$",
+    ErrorMessage: "Invalid CIF Number",
+    NullMessage: "Please Enter 10 Digit CIF Number",
+  },
+  profilePIC: {
+    Regex: "^.+$",
+    ErrorMessage: "Invalid PIC Format/Size",
+    NullMessage: "Please Select Profile Pic",
+  },
+  recentFrom: {
+    Regex: "^.+$",
     ErrorMessage: "Invalid From Date",
     NullMessage: "Please Enter From Date",
   },
-    recentTO : {
-        Regex: "^.+$",
+  recentTO: {
+    Regex: "^.+$",
     ErrorMessage: "Invalid To Date",
     NullMessage: "Please Enter To Date",
-  }
+  },
 };

@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import OTPModal from "./OTPModal";
 function OTPAuthPage(params) {
-  const fetchSecuParam = async () => {
+   window.setLoader(false);
+  const fetchSecuParam = useCallback(async () => {
     console.log(params)
     try {
       const secParam = await window.getCommonData(["SecurityParameters"]);
@@ -32,10 +33,10 @@ function OTPAuthPage(params) {
         ],
       });
     }
-  };
+  }, [params]) ;
   useEffect(() => {
     fetchSecuParam();
-  }, []);
+  }, [fetchSecuParam]);
   return null;
 }
 

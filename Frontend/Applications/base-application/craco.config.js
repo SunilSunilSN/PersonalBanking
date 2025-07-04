@@ -1,12 +1,12 @@
 const { ModuleFederationPlugin } = require("webpack").container;
 const path = require("path");
-require("dotenv").config({
-  path: "D:/My Applications/Personal Banking Application/Frontend/SharedServices/Environments/.env.dev",
-});
-const fs = require("fs");
+const dotenv = require("dotenv");
+const APP_ENV = process.env.APP_ENV || "development";
+const envPath = path.resolve(__dirname, `../../SharedServices/Environments/.env.${APP_ENV}`);
+dotenv.config({ path: envPath });
 
-const microapps = Object.entries(process.env);
-console.log("sUNIL" + microapps.PORT);
+console.log(`[INFO] Loaded env: ${envPath}`);
+console.log(`[INFO] Backend URL: ${process.env.REACT_APP_BACKEND_URL}`);
 
 module.exports = {
   webpack: {
@@ -15,10 +15,10 @@ module.exports = {
         new ModuleFederationPlugin({
           name: "base_app",
           remotes: {
-            login_app: "login_app@http://localhost:3000/login-app/remoteEntry.js",
-            preLogin_app: "preLogin_app@http://localhost:3000/preLogin-app/remoteEntry.js",
-            account_app: "account_app@http://localhost:3000/account-app/remoteEntry.js",
-            auth_app: "auth_app@http://localhost:3000/auth-app/remoteEntry.js",
+            login_app: `${process.env.REACT_APP_LOGIN_REMOTE_URL}`,
+            preLogin_app: `${process.env.REACT_APP_PRELOGIN_REMOTE_URL}`,
+            account_app: `${process.env.REACT_APP_ACCOUNT_REMOTE_URL}`,
+            auth_app: `${process.env.REACT_APP_AUTH_REMOTE_URL}`,
           },
           shared: {
             react: { singleton: true, eager: true },
@@ -40,7 +40,6 @@ module.exports = {
       return config;
     },
   },
-
   style: {
     postcssOptions: {
       plugins: [require("tailwindcss"), require("autoprefixer")],

@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
-import {
-  Table,
-  Tabs,
-  Graph,
-} from "shared-services";
-import {
-  PencilIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { Table, Tabs, Graph } from "shared-services";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+
 const AccountsPage = () => {
   const hasFetched = useRef(false);
   const [AccountsData, setAccountsData] = useState([]);
   const [AllAccounts, setAllAcconuts] = useState([]);
-    const columns = [
+
+  const AccountClick = useCallback((row) => {
+    window.launchMicroApp("account", "AccountDetails", "BaseScreenID", row);
+  }, []);
+
+  const columns = [
     { key: "AccountNumber", label: "Account Number", onClick: AccountClick },
     { key: "Type", label: "Type", onClick: AccountClick },
     { key: "AvailableBalance", label: "Balance/Amount", onClick: AccountClick },
@@ -33,81 +32,80 @@ const AccountsPage = () => {
         </div>
       ),
     },
-];
-  const grouped = {};
-  async function fetchAllAccounts() {
-    const userDateils = JSON.parse(localStorage.getItem("userDetails")).data;
-    const data = await window.ServerCall("AllAccountsAPI", {
-      CIF: userDateils.CIF,
-    });
-    if (data.success) {
-      console.log(data);
-      let AllAcc = [];
-      AllAcc = data.data;
-      AllAcc.forEach((account) => {
-        if (!grouped[account.Type]) {
-          grouped[account.Type] = [];
-        }
-        account.isPrimary = false;
-        if (account.Acc === "456789" || account.Acc === "34534345") {
-          account.isPrimary = true;
-        }
-        grouped[account.Type].push(account);
+  ];
+
+  const AccountMapper = useCallback(
+    async (grouped) => {
+      const AccountMapperData = await window.getCommonData([
+        "AccountsData-Mapper",
+      ]);
+      const mapperValue = AccountMapperData[0]?.Value || [];
+
+      const groupedData = Object.entries(grouped).map(([type, accounts]) => {
+        const AccCode = accounts[0].AccountCode;
+        const mapping = mapperValue.find((el) => el.AccountCode === AccCode);
+
+        const mappedColumns =
+          mapping?.Mappers.map((mapper) => ({
+            key: mapper.Key,
+            label: mapper.Label,
+            onClick: AccountClick,
+          })) || [];
+
+        const totalBalance =
+          accounts
+            .reduce(
+              (acc, curr) => acc + parseFloat(curr.AvailableBalance || 0),
+              0
+            )
+            .toFixed(2) + " INR";
+
+        return {
+          type,
+          columns: mappedColumns,
+          data: accounts,
+          TotalBalance: totalBalance,
+        };
       });
-      setAllAcconuts(AllAcc);
-      AccountMapper();
-    } else {
-      window.showAlert({
+
+      setAccountsData(groupedData);
+    },
+    [AccountClick]
+  );
+
+  const fetchAllAccounts = useCallback(async () => {
+    const userDetails = JSON.parse(localStorage.getItem("userDetails")).data;
+    const data = await window.ServerCall("AllAccountsAPI", {
+      CIF: userDetails.CIF,
+    });
+
+    if (!data.success) {
+      return window.showAlert({
         AlertType: "E",
         AlertDesc: data.message,
-        Btns: [
-          {
-            Name: "Ok",
-            function: () => "",
-          },
-        ],
+        Btns: [{ Name: "Ok", function: () => "" }],
       });
     }
-  }
-  async function AccountMapper() {
-    const AccountMapperData = await window.getCommonData([
-      "AccountsData-Mapper",
-    ]);
-    const mapperValue = AccountMapperData[0]?.Value || [];
 
-    const groupedData = Object.entries(grouped).map(([type, accounts]) => {
-      const AccCode = accounts[0].AccountCode;
-      const mapping = mapperValue.find((el) => el.AccountCode === AccCode);
-      const columns =
-        mapping?.Mappers.map((mapper) => ({
-          key: mapper.Key,
-          label: mapper.Label,
-          onClick: AccountClick,
-        })) || [];
-      const totalBalance =
-        accounts
-          .reduce(
-            (acc, curr) => acc + parseFloat(curr.AvailableBalance || 0),
-            0
-          )
-          .toFixed(2) +
-        " " +
-        "INR";
-      return {
-        type,
-        columns,
-        data: accounts,
-        TotalBalance: totalBalance,
-      };
+    const allAcc = data.data || [];
+    const grouped = {};
+
+    allAcc.forEach((account) => {
+      if (!grouped[account.Type]) grouped[account.Type] = [];
+      account.isPrimary = ["456789", "34534345"].includes(account.Acc);
+      grouped[account.Type].push(account);
     });
-    setAccountsData(groupedData);
-  }
+
+    setAllAcconuts(allAcc);
+    AccountMapper(grouped);
+  }, [AccountMapper]);
+
   useEffect(() => {
     if (!hasFetched.current) {
       fetchAllAccounts();
       hasFetched.current = true;
     }
-  }, []);
+  }, [fetchAllAccounts]);
 
   function handleEdit(row) {
     console.log("Edit clicked", row);
@@ -117,58 +115,11 @@ const AccountsPage = () => {
     console.log("Delete clicked", row);
   }
 
-  function AccountClick(row) {
-    window.launchMicroApp("account", "AccountDetails", "BaseScreenID", row);
-  }
-  const Bardatas = [
-    {
-      name: "Page A",
-      uv: 4000,
-      Balance: 2400,
-      TotalBalance: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      Balance: 1398,
-      TotalBalance: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      Balance: 9800,
-      TotalBalance: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      Balance: 3908,
-      TotalBalance: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      Balance: 4800,
-      TotalBalance: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      Balance: 3800,
-      TotalBalance: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      Balance: 4300,
-      TotalBalance: 2100,
-    },
-  ];
   function AccountDetails({ Type, Balance, BarData }) {
     return (
       <div className="bg-white overflow-y-hidden h-full">
         <div className="flex gap-[30px] pb-4 h-44">
-          <div className="min-w-[100%] bg-gray-200  p-4 rounded-2xl  shadow hover:shadow-lg transition duration-300 ">
+          <div className="min-w-[100%] bg-gray-200 p-4 rounded-2xl shadow hover:shadow-lg transition duration-300">
             <div className="flex items-center justify-between mb-2">
               <div className="text-sm font-medium text-gray-500">{Type}</div>
             </div>
@@ -177,7 +128,7 @@ const AccountsPage = () => {
             </div>
             <div className="text-sm text-gray-400 mt-1">
               {BarData && (
-                <Graph data={BarData} title={"graphTitle"} type={"Bar"}></Graph>
+                <Graph data={BarData} title="graphTitle" type="Bar" />
               )}
             </div>
           </div>
@@ -185,9 +136,9 @@ const AccountsPage = () => {
       </div>
     );
   }
+
   return (
     <div>
-      {/* <Tabs tabs={tabs}></Tabs> */}
       <Tabs
         tabs={
           AccountsData.length > 0
@@ -223,16 +174,16 @@ const AccountsPage = () => {
                   label: entry.type,
                   content: (
                     <div>
-                      {/* <AccountDetails
+                      <AccountDetails
                         Type={entry.type}
                         Balance={entry.TotalBalance}
-                      /> */}
+                      />
                       <Table
                         columns={entry.columns}
                         data={entry.data}
                         loading={false}
                         rowsPerPage={5}
-                        onClick={entry.onClick}
+                        onClick={AccountClick}
                       />
                     </div>
                   ),
@@ -258,4 +209,5 @@ const AccountsPage = () => {
     </div>
   );
 };
+
 export default AccountsPage;

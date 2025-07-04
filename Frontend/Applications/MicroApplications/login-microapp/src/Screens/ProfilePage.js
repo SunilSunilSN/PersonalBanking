@@ -12,7 +12,7 @@ export default function ProfilePage() {
   const [editMode, setEditMode] = useState(false);
   const [newName, setNewName] = useState(user.name);
   const [newEmail, setNewEmail] = useState(user.email);
-  const [newProfilePic, setNewProfilePic] = useState(null);
+  const [setNewProfilePic] = useState(null);
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 

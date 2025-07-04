@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Avatar } from "shared-services";
-import {
-  Dropdown,
-  DropdownButton,
-  DropdownDivider,
-  DropdownItem,
-  DropdownLabel,
-  DropdownMenu,
-} from "shared-services";
 import {
   Sidebar,
   SidebarBody,
-  SidebarFooter,
-  SidebarHeader,
   SidebarItem,
   SidebarLabel,
   SidebarSection,
   SidebarSpacer,
 } from "shared-services";
 import * as IconsMap from "@heroicons/react/20/solid";
-import ArrowLongLeftIcon from "@heroicons/react/20/solid";
 const Logout = IconsMap["ArrowLongLeftIcon"];
 
 const SidebarComp = () => {

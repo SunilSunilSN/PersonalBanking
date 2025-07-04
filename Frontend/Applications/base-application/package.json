@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "cross-env APP=base node ../../SharedServices/Environments/EnvironmentLoader.js",
-    "build": "craco build",
+    "build": "cross-env APP_ENV=development craco build",
+    "build:prod": "cross-env APP_ENV=production craco build",
     "test": "craco test"
   },
   "eslintConfig": {

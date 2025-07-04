@@ -8,11 +8,13 @@
     "TransactionManagment"
   ],
   "scripts": {
-    "start:acct_microservice": "cross-env NODE_ENV=dev npm run start --workspace=AccountManagment",
-    "start:API_microservice": "cross-env NODE_ENV=dev npm run start --workspace=API-Gateway",
-    "start:user_microservice": "cross-env NODE_ENV=dev npm run start --workspace=UserManagment",
-    "start:transaction_microservice": "cross-env NODE_ENV=dev npm run start --workspace=TransactionManagment",
-    "start:all": "concurrently -n \"AccountManagment,API-Gateway,UserManagment,TransactionManagment\" -c \"blue,green,magenta,yellow\" \"npm run start:acct_microservice\" \"npm run start:API_microservice\" \"npm run start:user_microservice\" \"npm run start:transaction_microservice\""
+    "start:acct_microservice": "cross-env NODE_ENV=$ENV npm run start --workspace=AccountManagment",
+    "start:API_microservice": "cross-env NODE_ENV=$ENV npm run start --workspace=API-Gateway",
+    "start:user_microservice": "cross-env NODE_ENV=$ENV npm run start --workspace=UserManagment",
+    "start:transaction_microservice": "cross-env NODE_ENV=$ENV npm run start --workspace=TransactionManagment",
+    "start:all": "concurrently -n \"AccountManagment,API-Gateway,UserManagment,TransactionManagment\" -c \"blue,green,magenta,yellow\" \"npm run start:acct_microservice\" \"npm run start:API_microservice\" \"npm run start:user_microservice\" \"npm run start:transaction_microservice\"",
+    "start:all:dev": "cross-env ENV=dev npm run start:all",
+    "start:all:prod": "cross-env ENV=prod npm run start:all"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

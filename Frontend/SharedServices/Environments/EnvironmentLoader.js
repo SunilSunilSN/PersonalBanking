@@ -4,7 +4,7 @@ const path = require("path");
 const { spawn } = require("child_process");
 
 // ENV_FILE=dev
-const envFile = process.env.ENV_FILE || "dev";
+const envFile = process.env.APP_ENV || "development";
 
 // Load the correct .env file
 dotenv.config({

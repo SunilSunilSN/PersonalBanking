@@ -11,12 +11,15 @@
   ],
   "scripts": {
     "start:all": "concurrently --kill-others --prefix \"[{name}]\" --prefix-colors \"bgBlue.bold,bgRed.bold,bgGreen.bold,bgYellow.bold,bgMagenta.bold\" -n \"BASE,LOGIN,PRELOGIN,ACCOUNT,AUTH\" \"yarn workspace base-application start\" \"yarn workspace login-microapp start\" \"yarn workspace preLogin-microapp start\" \"yarn workspace account-microapp start\" \"yarn workspace auth-microapp start\"",
-    "start:dev": "cross-env ENV_FILE=dev yarn start:all",
-    "start:sit": "cross-env ENV_FILE=sit yarn start:all",
+    "start:dev": "cross-env APP_ENV=development yarn start:all",
+    "start:prod": "cross-env APP_ENV=production yarn start:all",
     "build:all": "yarn workspace base-application build && yarn workspace login-microapp build && yarn workspace preLogin-microapp build && yarn workspace account-microapp build && yarn workspace auth-microapp build",
+    "build:all:prod": "yarn workspace base-application build:prod && yarn workspace login-microapp build && yarn workspace preLogin-microapp build && yarn workspace account-microapp build && yarn workspace auth-microapp build",
     "start": "node server.js",
     "build:base": "yarn workspace base-application build",
-    "build:login": "yarn workspace login-microapp build"
+    "build:login": "yarn workspace APP_ENV=development login-microapp build",
+    "build:prod" : "cross-env APP_ENV=production yarn workspace base-application build:prod",
+    "build:dev" : "cross-env APP_ENV=development yarn workspace base-application build"
   },
   "dependencies": {
     "@babel/preset-env": "^7.27.2",

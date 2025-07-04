@@ -1,13 +1,12 @@
 import React from "react";
 import { useState, useRef } from "react";
-import { Input, Slider } from "shared-services";
+import { Input, Slider, ErrorMessage } from "shared-services";
 const Calculator = (Type) => {
   const Refs = {
     userNameRefId: { ref: useRef(null), field: "userName" },
     passwordRef: { ref: useRef(null), field: "password" },
   };
   const [errors, setErrors] = useState({});
-  const btnRef = useRef(null);
   const slideData = [
   { image: 'https://via.placeholder.com/600x300?text=Slide+1' },
   { image: 'https://via.placeholder.com/600x300?text=Slide+2' },
@@ -30,6 +29,7 @@ const Calculator = (Type) => {
         onClick={(e) => window.errorOnClick(setErrors, e, "userName")}
         name="userName"
       />
+      {errors.userName && <ErrorMessage>{errors.userName}</ErrorMessage>}
       <input
         type="number"
         id="interest"
@@ -59,12 +59,12 @@ const Calculator = (Type) => {
 const formatINR = (num) => {
   return "₹" + new Intl.NumberFormat("en-IN").format(Math.round(num));
 };
-const LoanCalculator = () => {
-  return;
-};
+// const LoanCalculator = () => {
+//   return;
+// };
 
 const LoanCalculate = () => {
-  {
+  
     const principal = parseFloat(document.getElementById("principal").value);
     const annualRate = parseFloat(document.getElementById("interest").value);
     const totalMonths = parseInt(document.getElementById("months").value);
@@ -277,7 +277,6 @@ const LoanCalculate = () => {
     //     },
     //   },
     // });
-  }
 };
 
 export default Calculator;

@@ -11,7 +11,6 @@ import {
 } from "shared-services";
 import {
   InboxIcon,
-  MagnifyingGlassIcon,
   BellAlertIcon,
 } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";

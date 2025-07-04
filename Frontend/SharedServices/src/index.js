@@ -1,3 +1,5 @@
+import { ScreenLoader } from './Components/ScreenLoader';
+
 // packages/ui-components/src/index.js
 export * from './Components/Navbar';
 export * from './Components/Sidebar';
@@ -17,4 +19,6 @@ export * from './Components/Announcement';
 export * from './Components/Graph';
 export * from './Components/Tabs';
 export * from './Components/Modal';
-export * from './Components/Slider'
+export * from './Components/Slider';
+export { default as LoginBackground } from './Images/LoginBackground.jpg';
+export * from './Components/ScreenLoader';

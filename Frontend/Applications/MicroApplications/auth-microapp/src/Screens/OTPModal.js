@@ -18,7 +18,7 @@ function OTPModal({ Request, SecurityParams }) {
   }, []);
   useEffect(() => {
     setDummyOTP(Request.otp); // Set once on mount
-  }, []);
+  }, [Request.otp]);
   useEffect(() => {
     if (seconds <= 0) {
       // setRegenCount((prev) => {
@@ -51,7 +51,7 @@ function OTPModal({ Request, SecurityParams }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [seconds, OTPData.OTPRegencount]);
+  }, [seconds, regenCount, OTPData.OTPRegencount]);
 
   const handleChange = (e, index) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -68,14 +68,15 @@ function OTPModal({ Request, SecurityParams }) {
     }
     if (
       newOtp[OTPData.OTPLength - 1] !== "" &&
-      index == OTPData.OTPLength - 1
+      index === OTPData.OTPLength - 1
     ) {
       ValidateOTP(newOtp);
     }
   };
 
   const ValidateOTP = (newOtp) => {
-    const Req = { ...Request, NewOTP: newOtp.join("") };
+    window.setLoader(true);
+    const Req = { ...Request, NewOTP: newOtp.join(""), otp: newOtp.join("") };
     window.WorkFlowCall("OTPAUTHANDLOGIN", "VALIDATEOTP", Req, ValidateOTPCB);
     console.log(newOtp);
   };
@@ -97,6 +98,7 @@ function OTPModal({ Request, SecurityParams }) {
   };
 
   const ValidateOTPCB = (res) => {
+    window.setLoader(false);
     if (res.success) {
       onSuccess(res);
     } else {
@@ -108,7 +110,7 @@ function OTPModal({ Request, SecurityParams }) {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       setTimeout(() => {
         inputsRef.current[index - 1]?.focus();
-        if (inputsRef.current[index].value == "") {
+        if (inputsRef.current[index].value === "") {
           inputsRef.current[index - 1].value = "";
           otp[index - 1] = "";
         }

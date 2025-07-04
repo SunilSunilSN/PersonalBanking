@@ -4,7 +4,7 @@ const path = require('path');
 
 const app = express();
 const PORT = 3000;
-
+console.log("APP_ENV:", process.env.APP_ENV);
 // Serve base application
 app.use('/', express.static(path.join(__dirname, 'Applications/base-application/build')));
 

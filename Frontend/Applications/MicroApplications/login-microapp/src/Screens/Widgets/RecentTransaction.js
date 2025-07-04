@@ -56,14 +56,6 @@ function RecentTransaction() {
       NoOfTran: 15,
     });
   }, []);
-  const data = [
-    { Date: "25-May", Amount: "123.00", Remarks: "Payment Received" },
-    { Date: "24-Jun", Amount: "123567.00", Remarks: "Payment Sent" },
-    { Date: "24-Jun", Amount: "123567.00", Remarks: "Payment Sent" },
-    { Date: "24-Jun", Amount: "123567.00", Remarks: "Payment Sent" },
-    { Date: "24-Jun", Amount: "123567.00", Remarks: "Payment Sent" },
-    { Date: "24-Jun", Amount: "123567.00", Remarks: "Payment Sent" },
-  ];
   return (
     <Table
       columns={columns}

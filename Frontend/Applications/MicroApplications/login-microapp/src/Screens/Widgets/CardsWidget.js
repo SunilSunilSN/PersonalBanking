@@ -39,11 +39,9 @@ const CardsWidget = () => {
   // Autoscroll logic with pause
   useEffect(() => {
     if (paused || cardWidth === 0) return;
-
     const interval = setInterval(() => {
       const nextIndex = (cardIndex + 1) % cards.length;
       const scrollLeft = nextIndex * cardWidth;
-
       if (scrollRef.current) {
         scrollRef.current.scrollTo({
           left: scrollLeft,
@@ -55,7 +53,7 @@ const CardsWidget = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [cardIndex, cardWidth, paused]);
+  }, [cardIndex, cardWidth, paused, cards.length]);
 
   return (
     <div className="bg-white overflow-y-hidden h-full">

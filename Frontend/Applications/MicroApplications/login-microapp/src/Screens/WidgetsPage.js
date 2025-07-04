@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Widget } from "shared-services";
 import AccountsWidget from "../Screens/Widgets/AccountsWidget";
 import RecentTransaction from "../Screens/Widgets/RecentTransaction";
@@ -13,7 +13,7 @@ const WidgetComponent = {
 function WidgetsPage({start, end}) {
   const [widgets, setWidgets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const fetchwidgets = async () => {
+  const fetchwidgets = useCallback(async () => {
     setLoading(true);
     const data = await window.getCommonData(["Widgets"]);
       const WidgetsList = data.find((item) => item.Key === "Widgets");
@@ -27,10 +27,10 @@ function WidgetsPage({start, end}) {
         if (VisibleWidgets) setWidgets(VisibleWidgets);
       }
       setLoading(false);
-  };
+  }, [start, end]);
   useEffect(() => {
     fetchwidgets(); // ✅ call inside useEffect
-  }, []);
+  }, [fetchwidgets]);
   return (
     <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {loading
