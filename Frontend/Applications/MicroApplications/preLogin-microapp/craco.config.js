@@ -1,14 +1,18 @@
 const { ModuleFederationPlugin } = require("webpack").container;
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const deps = require("./package.json").dependencies;
 const path = require("path");
+const outputPath = path.resolve(__dirname, "../../base-application/build/preLogin-app");
 module.exports = {
+  paths: function (paths, env) {
+    paths.appBuild = outputPath;
+    return paths;
+  },
   webpack: {
     configure: (config) => {
       console.log("✅ CRACO config loaded for preLogin-microapp");
       config.output.publicPath = "auto";
       config.output.library = "preLogin_app";
       config.output.libraryTarget = "var";
+      config.output.path = outputPath;
       config.plugins.push(
         new ModuleFederationPlugin({
           name: "preLogin_app",

@@ -9,10 +9,10 @@ console.log("APP_ENV:", process.env.APP_ENV);
 app.use('/', express.static(path.join(__dirname, 'Applications/base-application/build')));
 
 // Serve microapps under their paths
-app.use('/login-app', express.static(path.join(__dirname, 'Applications/MicroApplications/login-microapp/build')));
-app.use('/preLogin-app', express.static(path.join(__dirname, 'Applications/MicroApplications/preLogin-microapp/build')));
-app.use('/account-app', express.static(path.join(__dirname, 'Applications/MicroApplications/account-microapp/build')));
-app.use('/auth-app', express.static(path.join(__dirname, 'Applications/MicroApplications/auth-microapp/build')));
+app.use('/login-app', express.static(path.join(__dirname, 'Applications/base-application/build/login-app')));
+app.use('/preLogin-app', express.static(path.join(__dirname, 'Applications/base-application/build/preLogin-app')));
+app.use('/account-app', express.static(path.join(__dirname, 'Applications/base-application/build/account-app')));
+app.use('/auth-app', express.static(path.join(__dirname, 'Applications/base-application/build/auth-app')));
 
 // Fallback to base app for client-side routing
 app.get('*', (req, res) => {
