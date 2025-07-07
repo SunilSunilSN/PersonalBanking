@@ -15,10 +15,10 @@ module.exports = {
         new ModuleFederationPlugin({
           name: "base_app",
           remotes: {
-            login_app: `${process.env.REACT_APP_LOGIN_REMOTE_URL}`,
-            preLogin_app: `${process.env.REACT_APP_PRELOGIN_REMOTE_URL}`,
-            account_app: `${process.env.REACT_APP_ACCOUNT_REMOTE_URL}`,
-            auth_app: `${process.env.REACT_APP_AUTH_REMOTE_URL}`,
+            login_app: `login_app@${process.env.REACT_APP_LOGIN_REMOTE_URL}`,
+            preLogin_app: `preLogin_app${process.env.REACT_APP_PRELOGIN_REMOTE_URL}`,
+            account_app: `account_app${process.env.REACT_APP_ACCOUNT_REMOTE_URL}`,
+            auth_app: `auth_app${process.env.REACT_APP_AUTH_REMOTE_URL}`,
           },
           shared: {
             react: { singleton: true, eager: true },
