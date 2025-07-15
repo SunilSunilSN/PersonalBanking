@@ -8,14 +8,20 @@ import {
   SidebarItem,
   SidebarLabel,
   Avatar,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  DropdownLabel,
+  DropdownButton,
 } from "shared-services";
 import {
   InboxIcon,
   BellAlertIcon,
+  Cog8ToothIcon,
 } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 function Header() {
-    const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const classList = document.documentElement.classList;
@@ -69,7 +75,7 @@ function Header() {
                 }}
               >
                 {/* <IconComponent className="w-5 h-5" /> */}
-                <SidebarLabel>{item.PopName}</SidebarLabel>
+                <SidebarLabel>{item.Name}</SidebarLabel>
               </SidebarItem>
             );
           })}
@@ -77,7 +83,7 @@ function Header() {
       );
     }
   };
-  const Clickfunc = (target, item, index) => {
+  const Clickfunc = (target, item, allign) => {
     if (item.Type === "Navigate") {
       return window.launchMicroApp(
         item.Navigate.MicroApp,
@@ -85,7 +91,11 @@ function Header() {
         "BaseScreenID"
       );
     } else if (item.Type === "Popover") {
-      return window.showPopover(target, HeaderPopup(item.PopItems), "bottom");
+      return window.showPopover(
+        target,
+        HeaderPopup(item.PopItems),
+        allign ? allign : "bottom"
+      );
     }
   };
   useEffect(() => {
@@ -97,46 +107,43 @@ function Header() {
   return (
     <Navbar>
       <NavbarLabel>Personal Banking Application</NavbarLabel>
-      {/* <Dropdown>
-        <DropdownButton as={NavbarItem}>
-          <Avatar src="/tailwind-logo.svg" />
-          <ChevronDownIcon />
-        </DropdownButton>
-        <DropdownMenu className="min-w-64" anchor="bottom start">
-          <DropdownItem href="/teams/1/settings">
-            <Cog8ToothIcon className='w-5 h-5'/>
-            <DropdownLabel>Settings</DropdownLabel>
-          </DropdownItem>
-          <DropdownDivider />
-          <DropdownItem href="/teams/1">
-            <Avatar slot="icon" src="/tailwind-logo.svg" />
-            <DropdownLabel>Tailwind Labs</DropdownLabel>
-          </DropdownItem>
-          <DropdownItem href="/teams/2">
-            <Avatar slot="icon" initials="WC" className="bg-purple-500 text-white" />
-            <DropdownLabel>Workcation</DropdownLabel>
-          </DropdownItem>
-          <DropdownDivider />
-          <DropdownItem href="/teams/create">
-            <PlusIcon />
-            <DropdownLabel>New team&hellip;</DropdownLabel>
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown> */}
-      <NavbarDivider className="max-lg:hidden" />
-      <NavbarSection className="max-lg:hidden">
+      <NavbarDivider className="lg:hidden" />
+      <NavbarSection className="hidden lg:flex">
         {headerItems.List.map((item, index) => (
-          <NavbarItem
-            key={index}
-            id="HeaderId"
-            // className="text-gray-600 hover:text-black cursor-pointer"
-            onClick={(e) => {
-              Clickfunc(e, item, index);
-            }}
-          >
+          <NavbarItem key={index} onClick={(e) => Clickfunc(e, item, index)}>
             {item.Name}
           </NavbarItem>
         ))}
+      </NavbarSection>
+      <NavbarSection className="w-full flex items-center justify-end lg:hidden">
+        <div className="">
+          <Dropdown>
+            {({ setOpen }) => (
+              <>
+                {/* <DropdownMenu className="min-w-64" anchor="bottom start"> */}
+                  {headerItems.List.map((item, index) => {
+                    //const IconComponent = IconsMap[item.Icon];
+                    return (
+                      <DropdownItem
+                        key={index}
+                        onClick={(e) => {
+                          Clickfunc(e, item, "left");
+                          item.Type === "Popover"
+                            ? setOpen(true)
+                            : setOpen(false);
+                        }}
+                      >
+                        <Cog8ToothIcon className="w-5 h-5" />
+                        <DropdownLabel>{item.Name}</DropdownLabel>
+                        {/* {item.Name} */}
+                      </DropdownItem>
+                    );
+                  })}
+                {/* </DropdownMenu> */}
+              </>
+            )}
+          </Dropdown>
+        </div>
       </NavbarSection>
       <NavbarSpacer />
       {headerItems.IsLoggedIn && (
@@ -178,12 +185,10 @@ function Header() {
               className="sr-only peer"
             />
             <div className="w-11 h-6 bg-gray-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all relative">
-            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-              Dark Mode
-            </span>
-
+              <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+                Dark Mode
+              </span>
             </div>
-
           </label>
         </NavbarSection>
       )}

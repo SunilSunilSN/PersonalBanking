@@ -7,11 +7,17 @@ import {
   SidebarSection,
   SidebarSpacer,
 } from "shared-services";
+import {
+  Cog8ToothIcon,
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+} from "@heroicons/react/20/solid";
 import * as IconsMap from "@heroicons/react/20/solid";
 const Logout = IconsMap["ArrowLongLeftIcon"];
 
 const SidebarComp = () => {
   const [sideBarItems, setSideBarItems] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
   const fetchSidebarData = async () => {
     const data = await window.getCommonData(["Post-Login-SideBar"]);
     const SideBarData = data.find((item) => item.Key === "Post-Login-SideBar");
@@ -27,7 +33,7 @@ const SidebarComp = () => {
     const data = await window.ServerCall("logoutAPI", "");
     if (data.success) {
       //window.launchMicroApp("login", "LoginPage", "BaseScreenID");
-      window.location.reload()
+      window.location.reload();
     }
   };
   const SideParPopup = (PopoItems) => {
@@ -75,8 +81,31 @@ const SidebarComp = () => {
     fetchSidebarData(); // ✅ call inside useEffect
   }, []);
   return (
-    <Sidebar>
+    <Sidebar
+      className={`${
+        isExpanded ? "w-64 z-[9999] " : "w-16 z-[9999]"
+      } transition-all duration-300 overflow-hidden`}
+    >
       <SidebarBody>
+        <SidebarSection>
+          <SidebarItem onClick={() => setIsExpanded((prev) => !prev)}>
+            {isExpanded ? (
+              <ChevronDoubleLeftIcon className="w-5 h-5 flex-shrink-0" />
+            ) : (
+              <ChevronDoubleRightIcon className="w-5 h-5 flex-shrink-0" />
+            )}
+            <SidebarLabel
+              className={`relative ml-2 whitespace-nowrap transition-all duration-300 ease-in-out transform ${
+                isExpanded
+                  ? "opacity-100 scale-100 pointer-events-auto"
+                  : "opacity-0 scale-95 pointer-events-none"
+              }`}
+            >
+              Nav Bar
+            </SidebarLabel>
+          </SidebarItem>
+        </SidebarSection>
+        <SidebarSpacer />
         <SidebarSection>
           {sideBarItems.map((item, index) => {
             const IconComponent = IconsMap[item.Icon];
@@ -87,8 +116,16 @@ const SidebarComp = () => {
                   Clickfunc(e, item, index);
                 }}
               >
-                <IconComponent className="w-5 h-5" />
-                <SidebarLabel>{item.Name}</SidebarLabel>
+                <IconComponent className="w-5 h-5 flex-shrink-0" />
+                <SidebarLabel
+                  className={`ml-2 whitespace-nowrap transition-all duration-300 ease-in-out transform ${
+                    isExpanded
+                      ? "opacity-100 scale-100 pointer-events-auto"
+                      : "opacity-0 scale-95 pointer-events-none"
+                  }`}
+                >
+                  {item.Name}
+                </SidebarLabel>
               </SidebarItem>
             );
           })}
@@ -109,8 +146,16 @@ const SidebarComp = () => {
               })
             }
           >
-            <Logout className="w-5 h-5" />
-            <SidebarLabel>Logout</SidebarLabel>
+            <Logout className="w-5 h-5 flex-shrink-0" />
+            <SidebarLabel
+              className={`ml-2 whitespace-nowrap transition-all duration-300 ease-in-out transform ${
+                isExpanded
+                  ? "opacity-100 scale-100 pointer-events-auto"
+                  : "opacity-0 scale-95 pointer-events-none"
+              }`}
+            >
+              Logout
+            </SidebarLabel>
           </SidebarItem>
         </SidebarSection>
       </SidebarBody>

@@ -55,7 +55,7 @@ const RegistrationPage = () => {
   return (
     <div
       id="RegistrationID"
-      className=" border mr-[25%] mb-[0%] mt-[5%] ml-[25%]  rounded-md shadow bg-white"
+      className=" border lg:mr-[35%] lg:mb-[0%] lg:mt-[5%] lg:ml-[35%]  rounded-md shadow bg-white"
     >
       <div className="flex justify-center p-4">
         {" "}
@@ -64,7 +64,7 @@ const RegistrationPage = () => {
         </span>
       </div>
       <div className="flex justify-center p-4 gap-4">
-        <div className="w-[50%] p-4">
+        <div className="w-[50%]">
           <Field>
             <Label>User Name</Label>
             <Input
@@ -113,7 +113,7 @@ const RegistrationPage = () => {
           </Field>
           {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
         </div>
-        <div className="w-[50%] p-4">
+        <div className="w-[50%]">
           <Field>
             <Label>Profile Pic</Label>
             <Input

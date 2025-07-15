@@ -57,9 +57,9 @@ const graphTitle1 = "Spend Analyzer";
 const graphTitle2 = "Radial Grap";
 const GraphPage = ({data, graphTitle}) => {
   return (
-    <div className="h-full flex gap-4 p-4">
-      <Graph className="md:w-1/2" data={data2} title={graphTitle2} type={"Radial"}></Graph>
-      <Graph className="md:w-1/2" data={sampleData} title={graphTitle1} type={"Line"} loading={false}></Graph>
+    <div className="h-full flex gap-4 p-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+      <Graph data={data2} title={graphTitle2} type={"Radial"}></Graph>
+      <Graph  data={sampleData} title={graphTitle1} type={"Line"} loading={false}></Graph>
     </div>
   );
 };

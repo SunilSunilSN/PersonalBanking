@@ -100,8 +100,8 @@ function BaseScreen() {
             <div id="BaseHeaderElm" className="flex-none">
               {showHeader === true && <Header />}
             </div>
-            <div className="flex flex-1 overflow-hidden">
-              <div id="SideBarEmlId" className="overflow-y-auto scrollbar-thin">
+            <div className="flex flex-1 min-h-0 overflow-hidden">
+              <div id="SideBarEmlId" className="flex-shrink-0">
                 {showSideBar === true && <SidebarComp />}
               </div>
 

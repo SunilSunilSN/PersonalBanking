@@ -27,12 +27,12 @@ export function Graph({
     return (
       <div className={`w-full h-96 ${className}`}>
         {loading? (
-          <div className="bg-white rounded-2xl shadow border dark:bg-slate-800border-gray-200 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full dark:bg-slate-800">
+          <div className="bg-white rounded-2xl shadow border dark:bg-slate-800 border-gray-200 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full dark:bg-slate-800">
             {" "}
             Loading{" "}
           </div>
         ) : data.length === 0? (
-          <div className="bg-white rounded-2xl shadow border dark:bg-slate-800 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full dark:bg-slate-800">
+          <div className="bg-white rounded-2xl shadow border text-gray-400 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full dark:bg-slate-800">
             {" "}
             NO Data Available{" "}
           </div>
@@ -89,7 +89,7 @@ export function Graph({
   } else if (type === "Radial") {
     return (
       <div className={`w-full h-96 ${className}`}>
-        <div className="bg-white dark:bg-gray-900 text-black dark:text-gray-100 rounded-2xl shadow border border-gray-200 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full">
+        <div className="bg-white text-gray-400 dark:bg-gray-900 text-black dark:text-gray-100 rounded-2xl shadow border border-gray-200 hover:bg-gray-50 transition-transform duration-500 ease-in-out transform hover:scale-[1.02] p-4 h-full">
           <h2 className="text-lg font-semibold mb-4">{title}</h2>
           <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">

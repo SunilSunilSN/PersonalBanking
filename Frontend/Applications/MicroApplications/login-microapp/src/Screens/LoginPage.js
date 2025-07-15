@@ -38,10 +38,7 @@ const LoginPage = () => {
           onFailureFn: onLoginAuthFailure,
           action: "SET",
         });
-        setTimeout(() => {
-window.launchMicroApp("auth", "OTPAuthPage", "AuthModalId", data.data);
-    }, 1000);
-        
+        window.launchMicroApp("auth", "OTPAuthPage", "AuthModalId", data.data);
       }
     } else {
       window.showAlert({
@@ -99,20 +96,20 @@ window.launchMicroApp("auth", "OTPAuthPage", "AuthModalId", data.data);
     }
   };
   const LoginSubmit = (e) => {
-    if (!window.errorDisplayAll(Refs, setErrors)) {
-      const LoginReq = {
-        UserName: Refs["userNameRefId"].ref.current.value,
-        Password: Refs["passwordRef"].ref.current.value,
-      };
-      LoginCall(LoginReq);
-      //LoginCall("LoginReq");
-    }
-    //window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
+    // if (!window.errorDisplayAll(Refs, setErrors)) {
+    //   const LoginReq = {
+    //     UserName: Refs["userNameRefId"].ref.current.value,
+    //     Password: Refs["passwordRef"].ref.current.value,
+    //   };
+    //   LoginCall(LoginReq);
+    //   //LoginCall("LoginReq");
+    // }
+    window.launchMicroApp("login", "DashboardPage", "BaseScreenID");
   };
   return (
     <div
       id="LoginId"
-      className=" border mr-[35%] mb-[0%] mt-[5%] ml-[35%] rounded-md shadow bg-white"
+      className=" border lg:mr-[35%] lg:mb-[0%] lg:mt-[5%] lg:ml-[35%] rounded-md shadow bg-white"
     >
       <div className="flex justify-center p-4">
         {" "}

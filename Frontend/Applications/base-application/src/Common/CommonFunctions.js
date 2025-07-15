@@ -12,6 +12,7 @@ import {
   AlertTitle,
 } from "shared-services";
 const rootCache = new Map();
+let CommonDataCache = [];
 const launchMicroApp = async (appId, screenId, targetElementId, extraParams = {}) => {
   window.hidePopover();
   let app = {}; 
@@ -49,6 +50,12 @@ const launchMicroApp = async (appId, screenId, targetElementId, extraParams = {}
 };
 const getCommonData = async (AllKeys) => {
   try {
+    // let CachedData = CommonDataCache.filter(elm => AllKeys.includes(elm.Key));
+    // let MissedData = CommonDataCache.filter(elm => !AllKeys.includes(elm.Key));
+    // if(CachedData.length !== 0){
+    //     return CachedData;
+    // }
+    window.setLoader(true);
     const url = `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USERMANGMENT_MICROSERICE}/user/getCommonData`;
     const response = await fetch(url, {
       method: "POST",
@@ -64,10 +71,13 @@ const getCommonData = async (AllKeys) => {
       throw new Error("Network response was not ok" + response.statusText);
     }
     const data = await response.json();
+    // AllKeys.forEach((elm) => CommonDataCache.push({"Key": elm, "Value" : data.data.find(elms => elms.Key === elms)}));
     return data.data;
   } catch (error) {
     console.error("❌ Error in getCommonData:", error);
     throw error;
+  } finally {
+      window.setLoader(false);
   }
 };
 const getAPIConfig = async () => {

@@ -25,7 +25,9 @@ export function Dropdown({ label, children }) {
       </button>
       {open && (
         <div className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg">
-          <div className="py-1">{children}</div>
+          <div className="py-1">
+            {typeof children === "function" ? children({ setOpen }) : children}
+          </div>
         </div>
       )}
     </div>
@@ -36,7 +38,7 @@ export function DropdownItem({ children, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
+      className="flex w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
     >
       {children}
     </button>
@@ -44,18 +46,20 @@ export function DropdownItem({ children, onClick }) {
 }
 
 export function DropdownLabel({ children }) {
-  return <div className="px-4 py-2 text-xs text-gray-400 uppercase">{children}</div>;
+  return (
+    <div className="px-4 py-2 text-xs text-gray-400 uppercase">{children}</div>
+  );
 }
 
 export function DropdownDivider() {
   return <div className="my-1 h-px bg-gray-200" />;
 }
 
-export function DropdownButton({ children, onClick, className = '' }) {
+export function DropdownButton({ children, onClick, className = "" }) {
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center gap-1 rounded-md bg-gray-100 px-4 py-2 text-sm font-medium hover:bg-gray-200 ${className}`}
+      className={`inline-flex items-center gap-1 rounded-md bg-gray-100 text-sm font-medium hover:bg-gray-200 ${className}`}
     >
       {children}
     </button>

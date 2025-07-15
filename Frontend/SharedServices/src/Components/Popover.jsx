@@ -14,6 +14,10 @@ export function Popover() {
     } else {
       rect = target.getBoundingClientRect();
     }
+    setContent(message);
+    setIsOpen(true);
+    setTimeout(() => {
+    const popoverWidth = popoverRef.current?.offsetWidth || 0; 
     const positionsMap = {
       bottom: {
         top: rect.bottom + window.scrollY + 8,
@@ -25,19 +29,21 @@ export function Popover() {
       },
       left: {
         top: rect.top + window.scrollY,
-        left: rect.left + window.scrollX - 8, // to the left of the element
+        left: rect.left + window.scrollX - popoverWidth - 8, // to the left of the element
       },
       right: {
         top: rect.top + window.scrollY,
         left: rect.right + window.scrollX + 8, // to the right of the element
       },
+      
     };
 
     if (positionsMap[posit]) {
       setPosition(positionsMap[posit]);
     }
-    setContent(message);
-    setIsOpen(true);
+    //   setContent(message);
+    // setIsOpen(true);  
+  }, 0);
   };
 
   const hidePopover = () => setIsOpen(false);
@@ -57,7 +63,7 @@ export function Popover() {
       <div
         ref={popoverRef}
         className="absolute bg-white border border-gray-300 shadow-lg rounded p-3 text-sm z-50"
-        style={{ top: position.top, left: position.left }}
+        style={{ top: position.top, left: position.left, position: "absolute" }}
       >
         {content}
       </div>
