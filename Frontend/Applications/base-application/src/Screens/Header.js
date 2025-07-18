@@ -19,6 +19,7 @@ import {
   BellAlertIcon,
   Cog8ToothIcon,
 } from "@heroicons/react/20/solid";
+import { AlignRight, User, SunMoon, BellRing, Moon, Sun } from "lucide-react";
 import React, { useEffect, useState } from "react";
 function Header() {
   const [isDark, setIsDark] = useState(false);
@@ -115,30 +116,30 @@ function Header() {
           </NavbarItem>
         ))}
       </NavbarSection>
-      <NavbarSection className="w-full flex items-center justify-end lg:hidden">
+      <NavbarSection className="flex items-center justify-start lg:hidden">
         <div className="">
           <Dropdown>
             {({ setOpen }) => (
               <>
                 {/* <DropdownMenu className="min-w-64" anchor="bottom start"> */}
-                  {headerItems.List.map((item, index) => {
-                    //const IconComponent = IconsMap[item.Icon];
-                    return (
-                      <DropdownItem
-                        key={index}
-                        onClick={(e) => {
-                          Clickfunc(e, item, "left");
-                          item.Type === "Popover"
-                            ? setOpen(true)
-                            : setOpen(false);
-                        }}
-                      >
-                        <Cog8ToothIcon className="w-5 h-5" />
-                        <DropdownLabel>{item.Name}</DropdownLabel>
-                        {/* {item.Name} */}
-                      </DropdownItem>
-                    );
-                  })}
+                {headerItems.List.map((item, index) => {
+                  //const IconComponent = IconsMap[item.Icon];
+                  return (
+                    <DropdownItem
+                      key={index}
+                      onClick={(e) => {
+                        Clickfunc(e, item, "left");
+                        item.Type === "Popover"
+                          ? setOpen(true)
+                          : setOpen(false);
+                      }}
+                    >
+                      <Cog8ToothIcon className="w-5 h-5" />
+                      <DropdownLabel>{item.Name}</DropdownLabel>
+                      {/* {item.Name} */}
+                    </DropdownItem>
+                  );
+                })}
                 {/* </DropdownMenu> */}
               </>
             )}
@@ -147,50 +148,105 @@ function Header() {
       </NavbarSection>
       <NavbarSpacer />
       {headerItems.IsLoggedIn && (
-        <NavbarSection>
-          <NavbarItem href="/search" aria-label="Search">
-            <BellAlertIcon className="w-5 h-5" />
-          </NavbarItem>
-          <NavbarItem href="/inbox" aria-label="Inbox">
-            <InboxIcon className="w-5 h-5" />
-          </NavbarItem>
-          <NavbarItem
-            onClick={() =>
-              window.launchMicroApp("login", "ProfilePage", "BaseScreenID")
-            }
-            aria-label="Search"
-          >
-            <span className="flex min-w-0 items-center gap-3">
-              <Avatar
-                src={headerItems.userData["ProfilePic"]}
-                className="size-10"
-                square
-                alt=""
-              />
-              <span className="min-w-0">
-                <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
-                  {headerItems.userData["Name"]}
-                </span>
-                <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                  {headerItems.userData["LastLogin"]}
+        <>
+          <NavbarSection className="hidden lg:flex">
+            <NavbarItem href="/search" aria-label="Search">
+              <BellRing className="w-5 h-5 flex-shrink-0" />
+            </NavbarItem>
+            <NavbarItem
+              onClick={() =>
+                window.launchMicroApp("login", "ProfilePage", "BaseScreenID")
+              }
+              aria-label="Search"
+            >
+              <span className="flex min-w-0 items-center gap-3">
+                <Avatar
+                  src={headerItems.userData["ProfilePic"]}
+                  className="size-8"
+                  square
+                  size="sm"
+                  alt=""
+                />
+                <span className="min-w-0">
+                  <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
+                    {headerItems.userData["Name"]}
+                  </span>
+                  <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
+                    {headerItems.userData["LastLogin"]}
+                  </span>
                 </span>
               </span>
-            </span>
-          </NavbarItem>
-          <label className="inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={isDark}
-              onChange={() => setIsDark(!isDark)}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all relative">
-              <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                Dark Mode
-              </span>
+            </NavbarItem>
+                <label className="px-4 py-2 inline-flex items-center cursor-pointer w-[100px]">
+                  <input
+                    type="checkbox"
+                    checked={isDark}
+                    onChange={() => setIsDark(!isDark)}
+                    className="sr-only peer"
+                  />
+                  {/* <div className="flex items-center justify-center w-full h-8 bg-gray-300  peer dark:bg-gray-700 peer-checked:after:translate-x-[100px] 
+              after:content-[''] after:absolute after:top-1.5 after:left-[4px] after:bg-white after:border after:h-5 after:w-5 after:transition-all relative"> */}
+
+                  <div className="relative flex w-full h-8 bg-gray-300 dark:bg-gray-700 rounded-full transition-colors items-center justify-center duration-300">
+                    <div
+                      className={`absolute top-0.5 left-0.5 h-7 w-7 bg-white border transition-all duration-300 flex items-center justify-center rounded-full ${
+                        isDark ? "translate-x-[35px]" : "translate-x-0"
+                      }`}
+                    >
+                      {isDark ? (
+                        <Moon className="h-4 w-4 text-gray-700" />
+                      ) : (
+                        <Sun className="h-4 w-4 text-yellow-500" />
+                      )}
+                    </div>
+                  </div>
+                </label>
+          </NavbarSection>
+          <NavbarSection className="w-full flex items-center justify-end lg:hidden">
+            <div className="">
+              <Dropdown icon={AlignRight}>
+                <DropdownItem onClick={(e) => {}}>
+                  <BellRing className="w-5 h-5 flex-shrink-0" />
+                  <DropdownLabel>{"Notifications"}</DropdownLabel>
+                </DropdownItem>
+                <DropdownItem onClick={(e) => {}}>
+                  <User className="w-5 h-5 flex-shrink-0" />
+                  <DropdownLabel>{"Profile"}</DropdownLabel>
+                </DropdownItem>
+                {/* <DropdownItem className="flex w-full px-4 py-2 text-left text-sm hover:bg-gray-100 gap-4" onClick={(e) => {}}> */}
+                {/* <SunMoon className="w-5 h-5 flex-shrink-0" /> */}
+                <label className="w-full px-4 py-2 inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={isDark}
+                    onChange={() => setIsDark(!isDark)}
+                    className="sr-only peer"
+                  />
+                  {/* <div className="flex items-center justify-center w-full h-8 bg-gray-300  peer dark:bg-gray-700 peer-checked:after:translate-x-[100px] 
+              after:content-[''] after:absolute after:top-1.5 after:left-[4px] after:bg-white after:border after:h-5 after:w-5 after:transition-all relative"> */}
+
+                  <div className="relative flex w-full h-8 bg-gray-300 dark:bg-gray-700 rounded-full transition-colors items-center justify-center duration-300">
+                    <div
+                      className={`absolute top-0.5 left-0.5 h-7 w-7 bg-white border transition-all duration-300 flex items-center justify-center rounded-full ${
+                        isDark ? "translate-x-[100px]" : "translate-x-0"
+                      }`}
+                    >
+                      {isDark ? (
+                        <Moon className="h-4 w-4 text-gray-700" />
+                      ) : (
+                        <Sun className="h-4 w-4 text-yellow-500" />
+                      )}
+                    </div>
+                    <span className="text-s font-medium text-gray-900 dark:text-gray-100">
+                      {!isDark ? "Dark-->" : "<--Light"}
+                    </span>
+                  </div>
+                </label>
+                {/* </DropdownItem> */}
+              </Dropdown>
             </div>
-          </label>
-        </NavbarSection>
+          </NavbarSection>
+        </>
       )}
     </Navbar>
   );

@@ -7,14 +7,15 @@ import {
   SidebarSection,
   SidebarSpacer,
 } from "shared-services";
-import {
-  Cog8ToothIcon,
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-} from "@heroicons/react/20/solid";
-import * as IconsMap from "@heroicons/react/20/solid";
-const Logout = IconsMap["ArrowLongLeftIcon"];
-
+import * as IconsMap from "lucide-react";
+const Logout = IconsMap["LogOut"];
+const NavLeftIcon = IconsMap["ChevronsLeft"];
+const NavRightIcon = IconsMap["ChevronsRight"];
+const getLucideIcon = (iconName) => {
+  if (!iconName) return IconsMap["HelpCircle"];
+  const name = iconName.replace(/Icon$/, "");
+  return IconsMap[name] || IconsMap["HelpCircle"]; 
+};
 const SidebarComp = () => {
   const [sideBarItems, setSideBarItems] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -45,7 +46,7 @@ const SidebarComp = () => {
       return (
         <div>
           {PItems.map((item, index) => {
-            const IconComponent = IconsMap[item.Icon];
+            const IconComponent = getLucideIcon(item.Icon);;
             return (
               <SidebarItem
                 key={index}
@@ -83,16 +84,16 @@ const SidebarComp = () => {
   return (
     <Sidebar
       className={`${
-        isExpanded ? "w-64 z-[9999] " : "w-16 z-[9999]"
+        isExpanded ? "w-screen lg:w-64 z-[9999] " : "w-16 z-[9999]"
       } transition-all duration-300 overflow-hidden`}
     >
       <SidebarBody>
         <SidebarSection>
           <SidebarItem onClick={() => setIsExpanded((prev) => !prev)}>
             {isExpanded ? (
-              <ChevronDoubleLeftIcon className="w-5 h-5 flex-shrink-0" />
+              <NavLeftIcon className="w-5 h-5 flex-shrink-0" />
             ) : (
-              <ChevronDoubleRightIcon className="w-5 h-5 flex-shrink-0" />
+              <NavRightIcon className="w-5 h-5 flex-shrink-0" />
             )}
             <SidebarLabel
               className={`relative ml-2 whitespace-nowrap transition-all duration-300 ease-in-out transform ${
@@ -108,15 +109,16 @@ const SidebarComp = () => {
         <SidebarSpacer />
         <SidebarSection>
           {sideBarItems.map((item, index) => {
-            const IconComponent = IconsMap[item.Icon];
+            const IconComponent = getLucideIcon(item.Icon);;
             return (
               <SidebarItem
                 key={index}
                 onClick={(e) => {
                   Clickfunc(e, item, index);
                 }}
+                className={`${isExpanded ? "hover:bg-gray-200" : "hover:none"}`}
               >
-                <IconComponent className="w-5 h-5 flex-shrink-0" />
+                <IconComponent className={`w-5 h-5 flex-shrink-0 `} />
                 <SidebarLabel
                   className={`ml-2 whitespace-nowrap transition-all duration-300 ease-in-out transform ${
                     isExpanded

@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Announcement } from "shared-services";
 function AnnouncementPage() {
   const [announcements, setAnnouncements] = useState([]);
   const [paused, setPaused] = useState(false);
+  const marqueeRef = useRef(null);
+  const [scrollWidth, setScrollWidth] = useState(0);
   const fetchAnnouncements = async () => {
     const data = await window.getCommonData(["Post-Login-Announcement"]);
     const announcementsList = data.find(
@@ -20,12 +22,18 @@ function AnnouncementPage() {
   useEffect(() => {
     fetchAnnouncements(); // ✅ call inside useEffect
   }, []);
+
+  useEffect(() => {
+    if (marqueeRef.current) {
+      setScrollWidth(marqueeRef.current.scrollWidth);
+    }
+  }, [announcements]);
   return (
     <>
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
+          100% { transform: translateX(calc(-1 * var(--scroll-width, 100%))); }
         }
 
         .marquee {
@@ -38,24 +46,31 @@ function AnnouncementPage() {
         }
       `}</style>
       <div
-        className={`marquee relative w-full overflow-hidden flex items-center h-48 ${
-          paused ? "paused" : ""
-        }`}
+        className={` overflow-hidden w-full `}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onTouchStart={() => setPaused(true)}
         onTouchEnd={() => setPaused(false)}
       >
-        {announcements.map((announ, index) => {
-          return (
-            <Announcement
-              title={announ.Title}
-              description={announ.Description}
-              date={announ.Date}
-              onDismiss={() => setAnnouncements([])}
-            />
-          );
-        })}
+        <div
+          ref={marqueeRef}
+          className={`marquee ${paused ? "paused" : ""}`}
+          style={{ "--scroll-width": `${scrollWidth}px` }}
+        >
+          {announcements.map((announ, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 px-2 min-w-[100px] max-w-full"
+            >
+              <Announcement
+                title={announ.Title}
+                description={announ.Description}
+                date={announ.Date}
+                onDismiss={() => setAnnouncements([])}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

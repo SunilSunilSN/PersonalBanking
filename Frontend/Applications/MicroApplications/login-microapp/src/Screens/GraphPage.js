@@ -58,7 +58,7 @@ const graphTitle2 = "Radial Grap";
 const GraphPage = ({data, graphTitle}) => {
   return (
     <div className="h-full flex gap-4 p-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-      <Graph data={data2} title={graphTitle2} type={"Radial"}></Graph>
+      <Graph data={data2} title={graphTitle2} type={"Radial"} loading={false}></Graph>
       <Graph  data={sampleData} title={graphTitle1} type={"Line"} loading={false}></Graph>
     </div>
   );

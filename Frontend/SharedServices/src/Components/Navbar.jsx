@@ -4,14 +4,14 @@ const cn = (...classes) => classes.filter(Boolean).join(' ');
 
 export function Navbar({ children }) {
   return (
-    <nav className="flex items-center gap-2 sm:gap-4 bg-white p-3 sm:p-4 shadow transition-all duration-300 dark:bg-neutral-900 dark:shadow-[0_2px_10px_rgba(255,255,255,0.05)]">
+    <nav className="flex items-center gap-2 sm:gap-4 bg-white p-3 shadow transition-all duration-300 dark:bg-neutral-900 dark:shadow-[0_2px_10px_rgba(255,255,255,0.05)]">
       {children}
     </nav>
   );
 }
 
 export function NavbarItem({ children, href, onClick, current, className }) {
-  const baseStyles = 'text-sm font-medium cursor-pointer px-2 py-1 sm:px-3 sm:py-2 rounded-md transition-colors dark:text-white whitespace-nowrap ';
+  const baseStyles = 'text-sm font-medium cursor-pointer px-2 py-1 rounded-md transition-colors dark:text-white whitespace-nowrap ';
   const stateStyles = current
     ? 'text-blue-600 font-semibold'
     : 'text-gray-900 hover:text-blue-600 dark:hover:text-blue-600';

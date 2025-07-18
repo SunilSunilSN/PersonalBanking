@@ -18,14 +18,14 @@ export function SidebarHeader({ children }) {
 }
 
 export function SidebarSection({ children }) {
-  return <div className="my-2 space-y-2">{children}</div>;
+  return <div className="my-2 space-y-2  ">{children}</div>;
 }
 
-export function SidebarItem({ children, onClick }) {
+export function SidebarItem({ children, onClick, className }) {
   return (
 <div
   onClick={onClick}
-  className="cursor-pointer flex items-center gap-2 min-w-0 px-2 py-1 rounded hover:bg-gray-200 hover:text-blue-600 text-sm font-medium dark:text-white dark:hover:text-blue-600 dark:hover:bg-blue-600/10"
+  className={cn("py-2 cursor-pointer flex items-center gap-2 min-w-0 px-2 py-1 rounded hover:text-blue-600 text-sm font-medium dark:text-white dark:hover:text-blue-600 dark:hover:bg-blue-600/10", className)}
 >
   {children}
 </div>
@@ -36,7 +36,7 @@ export function SidebarLabel({ children, className }) {
   return (
     <div
       className={cn(
-        "text-sm text-gray-500 dark:text-gray-500 uppercase transition-all duration-300 ease-in-out leading-[2.5rem]",
+        "text-sm text-gray-500 dark:text-gray-500 uppercase transition-all duration-300 ease-in-out",
         className
       )}
     >

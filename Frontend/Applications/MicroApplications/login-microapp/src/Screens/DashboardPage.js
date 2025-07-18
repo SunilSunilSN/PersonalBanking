@@ -61,14 +61,14 @@ const DashboardPage = () => {
       <GraphPage></GraphPage>
       <WidgetsPage start={0} end={4} />
       <AnnouncementPage />
-      <div className="flex justify-end gap-2">
+      {/* <div className="flex justify-end gap-2">
         <button
           onClick={() =>window.launchMicroApp("auth", "OTPAuthPage", "AuthModalId")}
           className="px-4 py-2 rounded"
         >
           Cancel
         </button>
-      </div>
+      </div> */}
       <WidgetsPage start={4} end={8} />
     </div>
   );

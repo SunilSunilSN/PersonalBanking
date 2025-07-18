@@ -1,7 +1,7 @@
 import React from "react";
 function AccountsWidget() {
   return (
-    <div  className="p-12">
+    <div  className="p-8">
       <div className="flex items-center justify-between  w-full">
         <div>
           <p className="text-sm text-gray-500">Accounts</p>

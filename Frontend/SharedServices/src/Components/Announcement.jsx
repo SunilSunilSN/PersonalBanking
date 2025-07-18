@@ -11,9 +11,9 @@ export function Announcement({ title, description, date, loading, onDismiss }) {
 
   return (
     <>
-      <div className={`whitespace-nowrap text-white text-sm px-4 w-full`}>
+      <div className={`min-w-[300px] max-w-sm flex-shrink-0 px-2`}>
         <div
-          className="relative w-full max-w-3xl mx-auto p-4 rounded-xl shadow-md flex items-center gap-3 text-white bg-blue-600 hover:bg-gray-200 hover:text-blue-600 h-36 transition-transform duration-500 ease-in-out transform hover:scale-[1.02]"
+          className="relative mx-auto p-4 rounded-xl shadow-md flex items-center gap-3 text-white bg-blue-600 hover:bg-gray-200 hover:text-blue-600 h-36 transition-transform duration-200 ease-in-out transform hover:scale-[1.02]"
           role="alert"
         >
           {/* <svg
