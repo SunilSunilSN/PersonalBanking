@@ -92,7 +92,7 @@ function BaseScreen() {
   // }, []);
   return (
         <div
-          className="min-h-screen bg-cover bg-center bg-no-repeat"
+          className="min-h-[100dvh] md:min-h-screen bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${LoginBackground})` }} // Replace with actual image path
         >
           <div className="flex flex-col h-screen">
