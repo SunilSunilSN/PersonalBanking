@@ -60,7 +60,7 @@ function AnnouncementPage() {
           {announcements.map((announ, index) => (
             <div
               key={index}
-              className="flex-shrink-0 px-2 min-w-[100px] max-w-full"
+              className="flex-shrink-0 px-2 min-w-[300px] max-w-full"
             >
               <Announcement
                 title={announ.Title}

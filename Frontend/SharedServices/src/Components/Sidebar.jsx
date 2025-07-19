@@ -25,7 +25,7 @@ export function SidebarItem({ children, onClick, className }) {
   return (
 <div
   onClick={onClick}
-  className={cn("py-2 cursor-pointer flex items-center gap-2 min-w-0 px-2 py-1 rounded hover:text-blue-600 text-sm font-medium dark:text-white dark:hover:text-blue-600 dark:hover:bg-blue-600/10", className)}
+  className={cn("py-2 cursor-pointer flex gap-2 min-w-0 px-2 py-1 rounded  text-sm font-medium dark:text-white  dark:hover:text-blue-600 hover:text-blue-600 dark:hover:bg-blue-600/10", className)}
 >
   {children}
 </div>

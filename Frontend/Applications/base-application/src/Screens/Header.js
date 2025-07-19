@@ -19,8 +19,14 @@ import {
   BellAlertIcon,
   Cog8ToothIcon,
 } from "@heroicons/react/20/solid";
+import * as IconsMap from "lucide-react";
 import { AlignRight, User, SunMoon, BellRing, Moon, Sun } from "lucide-react";
 import React, { useEffect, useState } from "react";
+const getLucideIcon = (iconName) => {
+  if (!iconName) return IconsMap["HelpCircle"];
+  const name = iconName.replace(/Icon$/, "");
+  return IconsMap[name] || IconsMap["HelpCircle"];
+};
 function Header() {
   const [isDark, setIsDark] = useState(false);
 
@@ -61,23 +67,41 @@ function Header() {
     );
     if (PItems) {
       return (
-        <div>
+        <div className="">
           {PItems.map((item, index) => {
-            //const IconComponent = IconsMap[item.Icon];
+            const IconComponent = getLucideIcon(item.Icon);
             return (
-              <SidebarItem
-                key={index}
-                onClick={(e) => {
-                  window.launchMicroApp(
-                    item.Navigate.MicroApp,
-                    item.Navigate.Screen,
-                    "BaseScreenID"
-                  );
-                }}
+              <button
+              key={index}
+                onClick={(e) => {window.launchMicroApp(
+                  item.Navigate.MicroApp,
+                  item.Navigate.Screen,
+                  "BaseScreenID"
+                )}}
+                className="flex w-full text-left text-sm hover:bg-gray-100 dark:bg-slate-800 dark:text-gray-100 items-center"
               >
-                {/* <IconComponent className="w-5 h-5" /> */}
-                <SidebarLabel>{item.Name}</SidebarLabel>
-              </SidebarItem>
+                <IconComponent className="w-5 h-5 flex-shrink-0" />
+                <div
+                  className={
+                    "px-4 py-2 text-xs text-gray-400 uppercase"
+                  }
+                >
+                  {item.Name}
+                </div>
+              </button>
+              // <SidebarItem
+              //   key={index}
+              //   onClick={(e) => {
+              //     window.launchMicroApp(
+              //       item.Navigate.MicroApp,
+              //       item.Navigate.Screen,
+              //       "BaseScreenID"
+              //     );
+              //   }}
+              // >
+              //   <IconComponent className="w-5 h-5 flex-shrink-0" />
+              //   <SidebarLabel>{item.Name}</SidebarLabel>
+              // </SidebarItem>
             );
           })}
         </div>
@@ -123,18 +147,19 @@ function Header() {
               <>
                 {/* <DropdownMenu className="min-w-64" anchor="bottom start"> */}
                 {headerItems.List.map((item, index) => {
-                  //const IconComponent = IconsMap[item.Icon];
+                  const IconComponent = getLucideIcon(item.Icon);
                   return (
                     <DropdownItem
+                      className={"items-center"}
                       key={index}
                       onClick={(e) => {
-                        Clickfunc(e, item, "left");
+                        Clickfunc(e, item, "right");
                         item.Type === "Popover"
                           ? setOpen(true)
                           : setOpen(false);
                       }}
                     >
-                      <Cog8ToothIcon className="w-5 h-5" />
+                      <IconComponent className="w-5 h-5 flex-shrink-0" />
                       <DropdownLabel>{item.Name}</DropdownLabel>
                       {/* {item.Name} */}
                     </DropdownItem>
@@ -177,30 +202,30 @@ function Header() {
                 </span>
               </span>
             </NavbarItem>
-                <label className="px-4 py-2 inline-flex items-center cursor-pointer w-[100px]">
-                  <input
-                    type="checkbox"
-                    checked={isDark}
-                    onChange={() => setIsDark(!isDark)}
-                    className="sr-only peer"
-                  />
-                  {/* <div className="flex items-center justify-center w-full h-8 bg-gray-300  peer dark:bg-gray-700 peer-checked:after:translate-x-[100px] 
+            <label className="px-4 py-2 inline-flex items-center cursor-pointer w-[100px]">
+              <input
+                type="checkbox"
+                checked={isDark}
+                onChange={() => setIsDark(!isDark)}
+                className="sr-only peer"
+              />
+              {/* <div className="flex items-center justify-center w-full h-8 bg-gray-300  peer dark:bg-gray-700 peer-checked:after:translate-x-[100px] 
               after:content-[''] after:absolute after:top-1.5 after:left-[4px] after:bg-white after:border after:h-5 after:w-5 after:transition-all relative"> */}
 
-                  <div className="relative flex w-full h-8 bg-gray-300 dark:bg-gray-700 rounded-full transition-colors items-center justify-center duration-300">
-                    <div
-                      className={`absolute top-0.5 left-0.5 h-7 w-7 bg-white border transition-all duration-300 flex items-center justify-center rounded-full ${
-                        isDark ? "translate-x-[35px]" : "translate-x-0"
-                      }`}
-                    >
-                      {isDark ? (
-                        <Moon className="h-4 w-4 text-gray-700" />
-                      ) : (
-                        <Sun className="h-4 w-4 text-yellow-500" />
-                      )}
-                    </div>
-                  </div>
-                </label>
+              <div className="relative flex w-full h-8 bg-gray-300 dark:bg-gray-700 rounded-full transition-colors items-center justify-center duration-300">
+                <div
+                  className={`absolute top-0.5 left-0.5 h-7 w-7 bg-white border transition-all duration-300 flex items-center justify-center rounded-full ${
+                    isDark ? "translate-x-[35px]" : "translate-x-0"
+                  }`}
+                >
+                  {isDark ? (
+                    <Moon className="h-4 w-4 text-gray-700" />
+                  ) : (
+                    <Sun className="h-4 w-4 text-yellow-500" />
+                  )}
+                </div>
+              </div>
+            </label>
           </NavbarSection>
           <NavbarSection className="w-full flex items-center justify-end lg:hidden">
             <div className="">

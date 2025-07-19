@@ -13,40 +13,53 @@ import {
 } from "shared-services";
 const rootCache = new Map();
 let CommonDataCache = [];
-const launchMicroApp = async (appId, screenId, targetElementId, extraParams = {}) => {
-  window.hidePopover();
-  let app = {}; 
-  const data = await getCommonData("MicroAppConfigs");
-  const env = process.env.REACT_APP_ENV;
-  const config = data?.[0]?.Value?.find(elm => elm?.[env])?.[env];
+const launchMicroApp = async (
+  appId,
+  screenId,
+  targetElementId,
+  extraParams = {}
+) => {
+  try {
+    window.setLoader(true);
+    window.hidePopover();
+    let app = {};
+    const data = await getCommonData("MicroAppConfigs");
+    const env = process.env.REACT_APP_ENV;
+    const config = data?.[0]?.Value?.find((elm) => elm?.[env])?.[env];
     app = config[appId];
     if (!app) {
-    console.error(`❌ No microapp found with appId: ${appId}`);
-    return;
-  }
-  // const app = config[appId];
-  const container = document.getElementById(targetElementId);
-  if (!container) {
-    console.error(`❌ No DOM element found with ID: ${targetElementId}`);
-    return;
-  }
+      console.error(`❌ No microapp found with appId: ${appId}`);
+      return;
+    }
+    // const app = config[appId];
+    const container = document.getElementById(targetElementId);
+    if (!container) {
+      console.error(`❌ No DOM element found with ID: ${targetElementId}`);
+      return;
+    }
 
-  let root = rootCache.get(container);
-  if (!root) {
-  root = createRoot(container);
-    rootCache.set(container, root);
+    let root = rootCache.get(container);
+    if (!root) {
+      root = createRoot(container);
+      rootCache.set(container, root);
+    }
+    root.render(
+      <React.StrictMode>
+        <MicroFrontendWrapper
+          remoteUrl={app.remoteUrl}
+          scope={app.scope}
+          module={app.module}
+          screen={screenId}
+          extraParams={extraParams}
+        />
+      </React.StrictMode>
+    );
+  } catch (error) {
+    console.error("❌ Error in Loading MicroApp:", error);
+    throw error;
+  } finally {
+    window.setLoader(false);
   }
-  root.render(
-    <React.StrictMode>
-      <MicroFrontendWrapper
-        remoteUrl={app.remoteUrl}
-        scope={app.scope}
-        module={app.module}
-        screen={screenId}
-        extraParams={extraParams}
-      />
-    </React.StrictMode>
-  );
 };
 const getCommonData = async (AllKeys) => {
   try {
@@ -65,7 +78,7 @@ const getCommonData = async (AllKeys) => {
       credentials: "include",
       body: JSON.stringify({
         Key: AllKeys,
-      })
+      }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok" + response.statusText);
@@ -77,7 +90,7 @@ const getCommonData = async (AllKeys) => {
     console.error("❌ Error in getCommonData:", error);
     throw error;
   } finally {
-      window.setLoader(false);
+    window.setLoader(false);
   }
 };
 const getAPIConfig = async () => {
@@ -88,7 +101,7 @@ const getAPIConfig = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include"
+      credentials: "include",
     });
     if (!response.ok) {
       throw new Error("Network response was not ok" + response.statusText);
@@ -183,49 +196,63 @@ const errorOnClick = (setErrors, e, fieldName) => {
   }));
 };
 const ServerCall = async (ApiName, body) => {
-  const APIConfig = await getAPIConfig();
-  const APIDetails = APIConfig.find((el) => el["APIConfigurations"])
-    .APIConfigurations[ApiName];
-  if (!APIDetails) throw new Error(`API config for ${ApiName} not found`);
-  const options = {
-    method: APIDetails.method,
-    headers: APIDetails.headers,
-  };
-  if (body) {
-    options.body = JSON.stringify(body);
+  try {
+    window.setLoader(true);
+    const APIConfig = await getAPIConfig();
+    const APIDetails = APIConfig.find((el) => el["APIConfigurations"])
+      .APIConfigurations[ApiName];
+    if (!APIDetails) throw new Error(`API config for ${ApiName} not found`);
+    const options = {
+      method: APIDetails.method,
+      headers: APIDetails.headers,
+    };
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+    if (APIDetails.credentials) {
+      options.credentials = "include";
+    }
+    const baseUrl = process.env.REACT_APP_BACKEND_URL || "";
+    const service = process.env[APIDetails.service] || "";
+    const url = `${baseUrl}${service}${APIDetails.enpointurl}`;
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("❌ Error in API Call:", error);
+    throw error;
+  } finally {
+    window.setLoader(false);
   }
-  if (APIDetails.credentials) {
-    options.credentials = "include";
-  }
-  const baseUrl = process.env.REACT_APP_BACKEND_URL || "";
-  const service = process.env[APIDetails.service] || "";
-  const url = `${baseUrl}${service}${APIDetails.enpointurl}`;
-  const response = await fetch(url, options);
-  const data = await response.json();
-  return data;
 };
 const WorkFlowCall = async (WorkFlowName, Step, body, callBack) => {
-  const WorkFlowConfig = await getAPIConfig();
-  const WorkFlowDetails = WorkFlowConfig.find(
-    (el) => el["WorkFlowConfiguration"]
-  ).WorkFlowConfiguration[WorkFlowName];
-  if (!WorkFlowDetails)
-    throw new Error(`Workflow config for ${WorkFlowName} not found`);
-
-  const options = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-  };
-  body.WorkFlowId = WorkFlowName;
-  body.Step = Step;
-  if (body) {
-    options.body = JSON.stringify(body);
+  try {
+    window.setLoader(true);
+    const WorkFlowConfig = await getAPIConfig();
+    const WorkFlowDetails = WorkFlowConfig.find(
+      (el) => el["WorkFlowConfiguration"]
+    ).WorkFlowConfiguration[WorkFlowName];
+    if (!WorkFlowDetails)
+      throw new Error(`Workflow config for ${WorkFlowName} not found`);
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    body.WorkFlowId = WorkFlowName;
+    body.Step = Step;
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+    const url = `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USERMANGMENT_MICROSERICE}/user/WorkFlowCall`;
+    const response = await fetch(url, options);
+    const data = await response.json();
+    callBack(data);
+  } catch (error) {
+    console.error("❌ Error in API Call:", error);
+    throw error;
+  } finally {
+    window.setLoader(false);
   }
-
-  const url = `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USERMANGMENT_MICROSERICE}/user/WorkFlowCall`;
-  const response = await fetch(url, options);
-  const data = await response.json();
-  callBack(data);
 };
 const AlertMsg = ({ AlertType, AlertDesc, Btns = [], isOpen, setIsOpen }) => {
   const alertMap = {

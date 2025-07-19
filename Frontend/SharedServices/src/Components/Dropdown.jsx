@@ -26,7 +26,7 @@ export function Dropdown({ label, children, icon: Icon, className }) {
         
       </button>
       {open && (
-        <div className="absolute right-0 z-[99999] mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg dark:text-gray-100 dark:bg-slate-800 transition-all duration-300">
+        <div className="absolute items-center right-0 z-[99999] mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg dark:text-gray-100 dark:bg-slate-800 transition-all duration-300">
           <div className="py-1">
             {typeof children === "function" ? children({ setOpen }) : children}
           </div>
