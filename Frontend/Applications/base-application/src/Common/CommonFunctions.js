@@ -238,6 +238,7 @@ const WorkFlowCall = async (WorkFlowName, Step, body, callBack) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     };
+    options.credentials = "include";
     body.WorkFlowId = WorkFlowName;
     body.Step = Step;
     if (body) {

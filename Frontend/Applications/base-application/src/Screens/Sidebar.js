@@ -82,7 +82,7 @@ const SidebarComp = () => {
           return (
             <div
               key={index}
-              className="py-2 cursor-pointer flex gap-2 min-w-0 px-2 py-1 rounded text-sm font-medium dark:text-white dark:hover:text-blue-600 dark:hover:bg-blue-600/10 hover:bg-gray-200 "
+              className="py-2 cursor-pointer flex gap-2 min-w-0 px-2 py-1 rounded text-sm font-medium dark:text-white dark:hover:text-blue-600 hover:text-blue-600 dark:hover:bg-blue-600/10 hover:bg-gray-200 "
               onClick={(e) => {
                 window.launchMicroApp(
                   item.Navigate.MicroApp,
